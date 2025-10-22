@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "trikivals-creatures",
+	"version": "${version}",
+	"name": "TrikiVals Creatures",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Jordi"
+	],
+	"license": "CC0-1.0",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.jordi.trikivalscreatures.TrikiValsCreatures"
+		],
+		"client": [
+			"com.jordi.trikivalscreatures.TrikiValsCreaturesClient"
+		],
+		"fabric-datagen": [
+			"com.jordi.trikivalscreatures.TrikiValsCreaturesDataGenerator"
+		]
+	},
+	"mixins": [
+		"trikivals-creatures.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.17.3",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
