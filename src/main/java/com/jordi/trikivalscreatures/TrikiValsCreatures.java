@@ -3,6 +3,7 @@ package com.jordi.trikivalscreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import com.jordi.trikivalscreatures.entity.custom.PejelagartoEntity;
 import com.jordi.trikivalscreatures.items.ModItems;
+import com.jordi.trikivalscreatures.world.gen.ModEntityGeneration;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -19,6 +20,7 @@ public class TrikiValsCreatures implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 
         ModItems.registerModItems();
+        ModEntityGeneration.addSpawns();
 
         FabricDefaultAttributeRegistry.register(ModEntities.PEJELAGARTO, PejelagartoEntity.createPejelagartoAttributes());
 	}
