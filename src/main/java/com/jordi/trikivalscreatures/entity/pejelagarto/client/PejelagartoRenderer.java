@@ -1,16 +1,24 @@
-package com.jordi.trikivalscreatures.entity.client;
+package com.jordi.trikivalscreatures.entity.pejelagarto.client;
 
+import com.google.common.collect.Maps;
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
-import com.jordi.trikivalscreatures.entity.custom.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.client.ModModelLayers;
+import com.jordi.trikivalscreatures.entity.pejelagarto.custom.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.pejelagarto.custom.PejelagartoVariant;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+
+import java.util.Map;
 
 public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, PejelagartoModel<PejelagartoEntity>> {
-    private static final Identifier TEXTURE = new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto.png");
+    private static final Map<PejelagartoVariant, Identifier> TEXTURES = Util.make(Maps.newEnumMap(PejelagartoVariant.class), map -> {
+        map.put(PejelagartoVariant.GREEN, new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto.png"));
+        map.put(PejelagartoVariant.PINK, new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto_pink.png"));
+    });
 
     public PejelagartoRenderer(EntityRendererFactory.Context context) {
         super(context, new PejelagartoModel<>(context.getPart(ModModelLayers.PEJELAGARTO)), 0.4f);
@@ -18,7 +26,7 @@ public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, Pe
 
     @Override
     public Identifier getTexture(PejelagartoEntity entity) {
-        return TEXTURE;
+        return TEXTURES.get(entity.getVariant());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.jordi.trikivalscreatures.entity;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
-import com.jordi.trikivalscreatures.entity.custom.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.pejelagarto.custom.PejelagartoEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;

@@ -2,8 +2,8 @@ package com.jordi.trikivalscreatures;
 
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import com.jordi.trikivalscreatures.entity.client.ModModelLayers;
-import com.jordi.trikivalscreatures.entity.client.PejelagartoModel;
-import com.jordi.trikivalscreatures.entity.client.PejelagartoRenderer;
+import com.jordi.trikivalscreatures.entity.pejelagarto.client.PejelagartoModel;
+import com.jordi.trikivalscreatures.entity.pejelagarto.client.PejelagartoRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
