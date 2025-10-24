@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, PejelagartoModel<PejelagartoEntity>> {
     private static final Map<PejelagartoVariant, Identifier> TEXTURES = Util.make(Maps.newEnumMap(PejelagartoVariant.class), map -> {
-        map.put(PejelagartoVariant.GREEN, new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto.png"));
+        map.put(PejelagartoVariant.GREEN, new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto_green.png"));
         map.put(PejelagartoVariant.PINK, new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto_pink.png"));
     });
 
