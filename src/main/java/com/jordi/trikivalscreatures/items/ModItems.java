@@ -12,6 +12,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
+//Helper class that initializes custom Items
 public class ModItems {
 
     public static final Item PEJELAGARTO_SPAWN_EGG = registerItem("pejelagarto_spawn_egg",

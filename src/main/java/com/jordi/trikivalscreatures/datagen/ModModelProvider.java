@@ -6,11 +6,11 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Model;
-import net.minecraft.data.client.Models;
 import net.minecraft.util.Identifier;
 
 import java.util.Optional;
 
+//Helper class that generates custom mod data
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
         super(output);
