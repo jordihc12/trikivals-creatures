@@ -8,3 +8,6 @@ TODO list:
     - Attach animations to specific goals
     - Riding
     - Spawn different variant in specific biomes
+    - Make it neutral (attack player when provoked)
+    - Add venom to attack
+    - Adjust hitbox

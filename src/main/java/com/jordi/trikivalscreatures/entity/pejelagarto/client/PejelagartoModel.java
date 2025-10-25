@@ -24,12 +24,12 @@ public class PejelagartoModel<T extends PejelagartoEntity> extends SinglePartEnt
 	public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData pejelagarto = modelPartData.addChild("pejelagarto", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+        ModelPartData pejelagarto = modelPartData.addChild("pejelagarto", ModelPartBuilder.create(), ModelTransform.pivot(-0.5F, 24.0F, -0.5F));
 
-        ModelPartData body = pejelagarto.addChild("body", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData body = pejelagarto.addChild("body", ModelPartBuilder.create(), ModelTransform.pivot(0.25F, -1.8125F, 0.3175F));
 
         ModelPartData head = body.addChild("head", ModelPartBuilder.create().uv(11, 0).cuboid(-1.5F, -1.0F, -0.6667F, 1.0F, 1.0F, 2.0F, new Dilation(0.0F))
-                .uv(11, 0).mirrored().cuboid(0.5F, -1.0F, -0.6667F, 1.0F, 1.0F, 2.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.5F, -4.0F, -5.3133F));
+                .uv(11, 0).mirrored().cuboid(0.5F, -1.0F, -0.6667F, 1.0F, 1.0F, 2.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.25F, -2.1875F, -3.6308F));
 
         ModelPartData mouth = head.addChild("mouth", ModelPartBuilder.create().uv(0, 0).cuboid(-1.5F, -0.75F, 0.0F, 3.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.75F, -0.6667F));
 
@@ -37,7 +37,7 @@ public class PejelagartoModel<T extends PejelagartoEntity> extends SinglePartEnt
 
         ModelPartData jaw = mouth.addChild("jaw", ModelPartBuilder.create().uv(0, 4).cuboid(-1.5F, -0.5F, -1.0F, 3.0F, 1.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.75F, -1.0F));
 
-        ModelPartData left_legs = body.addChild("left_legs", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData left_legs = body.addChild("left_legs", ModelPartBuilder.create(), ModelTransform.pivot(-0.25F, 1.8125F, 1.6825F));
 
         ModelPartData left_first = left_legs.addChild("left_first", ModelPartBuilder.create().uv(4, 7).cuboid(-0.5F, -1.0F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(3.5F, -1.0F, -3.4577F));
 
@@ -47,7 +47,7 @@ public class PejelagartoModel<T extends PejelagartoEntity> extends SinglePartEnt
 
         ModelPartData left_fourth = left_legs.addChild("left_fourth", ModelPartBuilder.create().uv(0, 7).cuboid(0.0F, -0.9328F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(2.5F, -1.0672F, 2.5002F));
 
-        ModelPartData right_legs = body.addChild("right_legs", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData right_legs = body.addChild("right_legs", ModelPartBuilder.create(), ModelTransform.pivot(-0.25F, 1.8125F, 1.6825F));
 
         ModelPartData right_first = right_legs.addChild("right_first", ModelPartBuilder.create().uv(0, 10).cuboid(-0.5F, -1.0F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(-2.5F, -1.0F, -3.5F));
 
@@ -62,7 +62,7 @@ public class PejelagartoModel<T extends PejelagartoEntity> extends SinglePartEnt
                 .uv(1, 21).cuboid(-0.5F, -0.75F, -2.5833F, 1.0F, 1.0F, 6.0F, new Dilation(0.0F))
                 .uv(2, 24).cuboid(0.5F, -0.75F, -1.5833F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
                 .uv(2, 24).cuboid(-1.5F, -0.75F, 0.4167F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
-                .uv(2, 24).cuboid(0.5F, -0.75F, 0.4167F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(0.5F, -3.25F, -1.4167F));
+                .uv(2, 24).cuboid(0.5F, -0.75F, 0.4167F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(0.25F, -1.4375F, 0.2658F));
 
         ModelPartData tail_1 = torso.addChild("tail_1", ModelPartBuilder.create().uv(17, 14).cuboid(-1.4895F, -0.8249F, -1.7818F, 3.0F, 2.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(-0.0105F, 0.6999F, 4.8985F, 0.2182F, 0.0F, 0.0F));
 
