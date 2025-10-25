@@ -4,6 +4,7 @@
 
 package com.jordi.trikivalscreatures.entity.pejelagarto.client;
 
+import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.pejelagarto.animation.PejelagartoAnims;
 import com.jordi.trikivalscreatures.entity.pejelagarto.custom.PejelagartoEntity;
 import net.minecraft.client.model.*;
@@ -15,10 +16,12 @@ import net.minecraft.util.math.MathHelper;
 public class PejelagartoModel<T extends PejelagartoEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart pejelagarto;
     private final ModelPart head;
+    private final ModelPart saddle;
 
 	public PejelagartoModel(ModelPart root) {
 		this.pejelagarto = root.getChild("pejelagarto");
         this.head = pejelagarto.getChild("body").getChild("head");
+        this.saddle = null;
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -79,6 +82,16 @@ public class PejelagartoModel<T extends PejelagartoEntity> extends SinglePartEnt
 
         this.animateMovement(PejelagartoAnims.PEJELAGARTO_WALK, limbSwing, limbSwingAmount, 2, 2.5f);
         this.updateAnimation(entity.idleAnimationState, PejelagartoAnims.PEJELAGARTO_IDLE, ageInTicks, 1f);
+    }
+
+    private void updateVisibleParts(PejelagartoEntity pejelagarto) {
+        boolean bl = pejelagarto.isSaddled();
+        if(bl) {
+            //TODO: Show saddlePart here
+            bl = false;
+            saddle.visible = bl;
+            TrikiValsCreatures.LOGGER.info("Pejelagarto is saddled");
+        }
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {
