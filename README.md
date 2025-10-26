@@ -12,5 +12,4 @@
 - Jordi
 - TrikiVals_
 
-## TODO list:
-- Pejelagarto
+[Todo list](TODO_list.md)
