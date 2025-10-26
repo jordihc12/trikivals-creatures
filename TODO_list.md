@@ -8,6 +8,5 @@
 - Death drops
 - Custom Goal
 - Attach animations to specific goals
-- Spawn different variant in specific biomes
 - Make it neutral (attack player when provoked)
 - Add venom to attack
