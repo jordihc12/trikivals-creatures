@@ -40,14 +40,10 @@ public class ModEntityLootTableProvider extends SimpleFabricLootTableProvider {
                             .setPoolCount(0, 1)
                             .setPoolLootingModifier(0, 2)
                             .getItem()
-                    )
-                    .getPool()
+                    ).getPool()
             ).addPool(
                 tableBuilder.createPool()
-                    .addItem(
-                        tableBuilder.createItem(Items.DIAMOND_BLOCK)
-                            .getItem()
-                    )
+                    .addItem( tableBuilder.createItem(Items.DIAMOND_BLOCK).getItem() )
                     .addPoolCondition(KilledByPlayerLootCondition.builder())
                     .addPoolCondition(RandomChanceWithLootingLootCondition.builder(50.0F, 3.0F))
                     .getPool()

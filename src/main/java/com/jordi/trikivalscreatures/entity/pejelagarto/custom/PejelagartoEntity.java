@@ -11,13 +11,18 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.potion.PotionUtil;
+import net.minecraft.potion.Potions;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
@@ -27,6 +32,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
@@ -111,8 +117,35 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
 
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        boolean bl = this.isBreedingItem(player.getStackInHand(hand));
-        if (!bl && this.isSaddled() && !this.hasPassengers() && !player.shouldCancelInteraction()) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        boolean bl = this.isBreedingItem(itemStack);
+
+        if(!bl && itemStack.isOf(Items.GLASS_BOTTLE)) {
+            player.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
+
+            StatusEffectInstance customEffect;
+            if(isBaby()) {
+                customEffect = new StatusEffectInstance(
+                        StatusEffects.POISON,
+                        200,
+                        2
+                );
+            }
+            else {
+                customEffect = new StatusEffectInstance(
+                        StatusEffects.POISON,
+                        600,
+                        0
+                );
+            }
+            ItemStack poisonPotion = PotionUtil.setCustomPotionEffects(Items.POTION.getDefaultStack(), List.of(customEffect));
+
+            ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, poisonPotion);
+            player.setStackInHand(hand, itemStack2);
+
+            return ActionResult.success(this.getWorld().isClient);
+        }
+        else if (!bl && this.isSaddled() && !this.hasPassengers() && !player.shouldCancelInteraction()) {
             if (!this.getWorld().isClient) {
                 player.startRiding(this);
             }
