@@ -2,6 +2,7 @@ package com.jordi.trikivalscreatures.entity.pejelagarto.custom;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
+import com.jordi.trikivalscreatures.util.ModTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -13,11 +14,14 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -25,12 +29,20 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.*;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 public class PejelagartoEntity extends AnimalEntity implements Saddleable {
 
@@ -60,6 +72,10 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
         } else {
             return this.isSaddled() && this.getFirstPassenger() instanceof PlayerEntity playerEntity ? playerEntity : null;
         }
+    }
+
+    public static boolean canSpawn(EntityType<PejelagartoEntity> entity, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return world.getBlockState(pos.down()).isIn(ModTags.Blocks.PEJELAGARTO_SPAWNABLE_ON) && isLightLevelValidForNaturalSpawn(world, pos);
     }
 
     @Override
@@ -231,8 +247,32 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
 
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        PejelagartoVariant variant = Util.getRandom(PejelagartoVariant.values(), this.random);
-        setVariant(variant);
+        RegistryKey<Biome> biome = world.getBiome(this.getBlockPos()).getKey().orElseGet(null);
+        if(biome != null) {
+            TrikiValsCreatures.LOGGER.info("Spawning Pejelagarto at biome {}", biome);
+
+            List<PejelagartoVariant> possibleVariants = new java.util.ArrayList<>(Collections.emptyList());
+            List.of(PejelagartoVariant.values()).forEach(variant -> {
+                RegistryKey<Biome>[] biomeKeys = variant.getSpawnBiomes();
+                if(biomeKeys.length == 0) {
+                    possibleVariants.add(variant);
+                    return;
+                }
+
+                if(Arrays.stream(biomeKeys).anyMatch(biomeRegistryKey -> biomeRegistryKey == biome)) {
+                    possibleVariants.add(variant);
+                }
+            });
+
+            PejelagartoVariant variant = Util.getRandom(possibleVariants, this.random);
+            setVariant(variant);
+        }
+        else {
+            TrikiValsCreatures.LOGGER.info("No biome detected. Spawning random variant");
+
+            PejelagartoVariant variant = Util.getRandom(PejelagartoVariant.values(), this.random);
+            setVariant(variant);
+        }
 
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
