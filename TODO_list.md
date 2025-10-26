@@ -1,2 +1,6 @@
 # TODO list
-- Pejelagarto
+## Pejelagarto
+- Add venom to attack
+- Death drops
+- xp drops
+- Make it neutral (attack player when provoked)
