@@ -82,6 +82,7 @@ public class PejelagartoModel<T extends PejelagartoEntity> extends SinglePartEnt
 
         this.animateMovement(PejelagartoAnims.PEJELAGARTO_WALK, limbSwing, limbSwingAmount, 2, 2.5f);
         this.updateAnimation(entity.idleAnimationState, PejelagartoAnims.PEJELAGARTO_IDLE, ageInTicks, 1f);
+        this.updateAnimation(entity.attackAnimationState, PejelagartoAnims.PEJELAGARTO_ATTACK, ageInTicks, 1f);
     }
 
     private void updateVisibleParts(PejelagartoEntity pejelagarto) {

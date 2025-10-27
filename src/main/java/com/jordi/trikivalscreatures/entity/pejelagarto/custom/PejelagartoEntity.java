@@ -2,6 +2,8 @@ package com.jordi.trikivalscreatures.entity.pejelagarto.custom;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
+import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoAttackGoal;
+import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoTargetGoal;
 import com.jordi.trikivalscreatures.util.ModTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -22,7 +24,6 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.potion.PotionUtil;
-import net.minecraft.potion.Potions;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
@@ -32,7 +33,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
@@ -48,14 +48,22 @@ import java.util.List;
 
 public class PejelagartoEntity extends AnimalEntity implements Saddleable {
 
+    //Animation data
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationCooldown = 0;
+
+    public final AnimationState attackAnimationState = new AnimationState();
+    public int attackAnimationCooldown = 0;
 
     private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
             DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> BOOST_TIME = DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> SADDLED = DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private final SaddledComponent saddledComponent = new SaddledComponent(this.dataTracker, BOOST_TIME, SADDLED);
+
+    //Attack data
+    private static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private final int POISON_ATTACK_DURATION = 100; // 100 / 20 = 5 sec
 
     private final int MIN_LAY_TIME = 300; //15 sec -> 15sec * 20 ticks
     private int layItemTime = this.random.nextInt(MIN_LAY_TIME) + MIN_LAY_TIME; //random between 300 and 600 (15-30sec)
@@ -161,6 +169,7 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
         }
     }
 
+    //Animation Logic
     private void setupAnimationStates() {
         if (this.idleAnimationCooldown <= 0) {
             this.idleAnimationCooldown = this.random.nextInt(40) + 80;
@@ -168,6 +177,16 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
         } else {
             this.idleAnimationCooldown--;
         }
+
+        if(this.isAttacking() && this.attackAnimationCooldown <= 0) {
+            this.attackAnimationCooldown = this.random.nextInt(40) + 80;
+            this.attackAnimationState.start(this.age);
+        }
+        else {
+            this.attackAnimationCooldown--;
+        }
+
+        if(!this.isAttacking()) this.attackAnimationState.stop();
     }
 
     @Override
@@ -194,13 +213,17 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new AnimalMateGoal(this, 1.15));
-        this.goalSelector.add(2, new TemptGoal(this, 1.15,
+        this.goalSelector.add(1, new PejelagartoAttackGoal(this,1, true ));
+        this.goalSelector.add(2, new AnimalMateGoal(this, 1.15));
+        this.goalSelector.add(3, new TemptGoal(this, 1.15,
                 Ingredient.ofItems(Items.IRON_INGOT), false));
-        this.goalSelector.add(3, new FollowParentGoal(this, 1.0f));
-        this.goalSelector.add(4, new WanderAroundGoal(this, 1.0f));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 1.0f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
+        this.goalSelector.add(4, new FollowParentGoal(this, 1.0f));
+        this.goalSelector.add(5, new WanderAroundGoal(this, 1.0f));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 1.0f));
+        this.goalSelector.add(7, new LookAroundGoal(this));
+
+        this.targetSelector.add(1, new RevengeGoal(this));
+        this.targetSelector.add(2, new PejelagartoTargetGoal<>(this,  PlayerEntity.class));
     }
 
     public static DefaultAttributeContainer.Builder createPejelagartoAttributes() {
@@ -261,6 +284,7 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
         this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
         this.dataTracker.startTracking(BOOST_TIME, 0);
         this.dataTracker.startTracking(SADDLED, false);
+        this.dataTracker.startTracking(ATTACKING, false);
     }
 
     public PejelagartoVariant getVariant() {
@@ -297,8 +321,6 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         RegistryKey<Biome> biome = world.getBiome(this.getBlockPos()).getKey().orElseGet(null);
         if(biome != null) {
-            TrikiValsCreatures.LOGGER.info("Spawning Pejelagarto at biome {}", biome);
-
             List<PejelagartoVariant> possibleVariants = new java.util.ArrayList<>(Collections.emptyList());
             List.of(PejelagartoVariant.values()).forEach(variant -> {
                 RegistryKey<Biome>[] biomeKeys = variant.getSpawnBiomes();
@@ -341,5 +363,27 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
     @Override
     public boolean isSaddled() {
         return this.saddledComponent.isSaddled();
+    }
+
+    //Attack Logic
+    public void setAttacking(boolean attacking) {
+        this.dataTracker.set(ATTACKING, attacking);
+    }
+
+    public boolean isAttacking() {
+        return this.dataTracker.get(ATTACKING);
+    }
+
+    @Override
+    public boolean tryAttack(Entity target) {
+        if(!super.tryAttack(target)) {
+            return false;
+        }
+        else {
+            if(target instanceof LivingEntity) {
+                ((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, POISON_ATTACK_DURATION), this);
+            }
+            return true;
+        }
     }
 }
