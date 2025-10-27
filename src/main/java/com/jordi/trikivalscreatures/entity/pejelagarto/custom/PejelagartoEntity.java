@@ -39,6 +39,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -55,6 +56,9 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
     private static final TrackedData<Integer> BOOST_TIME = DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> SADDLED = DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private final SaddledComponent saddledComponent = new SaddledComponent(this.dataTracker, BOOST_TIME, SADDLED);
+
+    private final int MIN_LAY_TIME = 300; //15 sec -> 15sec * 20 ticks
+    private int layItemTime = this.random.nextInt(MIN_LAY_TIME) + MIN_LAY_TIME; //random between 300 and 600 (15-30sec)
 
     public PejelagartoEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -176,6 +180,18 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
     }
 
     @Override
+    public void tickMovement() {
+        super.tickMovement();
+
+        if(--this.layItemTime <= 0) {
+            this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.dropItem(Items.EMERALD);
+            this.emitGameEvent(GameEvent.ENTITY_PLACE);
+            this.layItemTime = this.random.nextInt(MIN_LAY_TIME) + MIN_LAY_TIME;
+        }
+    }
+
+    @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new AnimalMateGoal(this, 1.15));
@@ -264,6 +280,7 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
         super.writeCustomDataToNbt(nbt);
         nbt.putInt("Variant", this.getTypeVariant());
         this.saddledComponent.writeNbt(nbt);
+        nbt.putInt("ItemLayTime", this.layItemTime);
     }
 
     @Override
@@ -271,6 +288,9 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
         super.readCustomDataFromNbt(nbt);
         this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
         this.saddledComponent.readNbt(nbt);
+        if (nbt.contains("ItemLayTime")) {
+            this.layItemTime = nbt.getInt("ItemLayTime");
+        }
     }
 
     @Override
