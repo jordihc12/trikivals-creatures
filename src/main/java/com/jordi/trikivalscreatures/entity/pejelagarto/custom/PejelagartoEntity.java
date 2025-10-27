@@ -344,6 +344,8 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
             setVariant(variant);
         }
 
+        this.saddledComponent.setSaddled(false);
+
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
@@ -362,6 +364,7 @@ public class PejelagartoEntity extends AnimalEntity implements Saddleable {
 
     @Override
     public boolean isSaddled() {
+        TrikiValsCreatures.LOGGER.warn("IsSaddled value is: {}", this.saddledComponent.isSaddled());
         return this.saddledComponent.isSaddled();
     }
 

@@ -21,7 +21,7 @@ public class PejelagartoModel<T extends PejelagartoEntity> extends SinglePartEnt
 	public PejelagartoModel(ModelPart root) {
 		this.pejelagarto = root.getChild("pejelagarto");
         this.head = pejelagarto.getChild("body").getChild("head");
-        this.saddle = null;
+        this.saddle = pejelagarto.getChild("body").getChild("torso").getChild("Saddle");
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -72,27 +72,24 @@ public class PejelagartoModel<T extends PejelagartoEntity> extends SinglePartEnt
         ModelPartData tail_2 = tail_1.addChild("tail_2", ModelPartBuilder.create().uv(8, 15).cuboid(-0.5F, -1.0F, -1.5F, 1.0F, 2.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0105F, -0.1341F, 3.4619F, 0.2182F, 0.0F, 0.0F));
 
         ModelPartData tail_3 = tail_2.addChild("tail_3", ModelPartBuilder.create().uv(0, 15).cuboid(-0.5F, -1.0F, -1.5F, 1.0F, 2.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -0.2971F, 2.7661F, 0.2182F, 0.0F, 0.0F));
+
+        ModelPartData Saddle = torso.addChild("Saddle", ModelPartBuilder.create().uv(12, 21).cuboid(-0.5F, 0.5F, -3.5F, 5.0F, 1.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(-2.0F, -2.25F, 1.9167F));
         return TexturedModelData.of(modelData, 32, 32);
     }
 
 	@Override
-	public void setAngles(PejelagartoEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 	    this.getPart().traverse().forEach(ModelPart::resetTransform);
         this.setHeadAngles(netHeadYaw, headPitch);
+        this.updateVisibleParts(entity);
 
         this.animateMovement(PejelagartoAnims.PEJELAGARTO_WALK, limbSwing, limbSwingAmount, 2, 2.5f);
         this.updateAnimation(entity.idleAnimationState, PejelagartoAnims.PEJELAGARTO_IDLE, ageInTicks, 1f);
         this.updateAnimation(entity.attackAnimationState, PejelagartoAnims.PEJELAGARTO_ATTACK, ageInTicks, 1f);
     }
 
-    private void updateVisibleParts(PejelagartoEntity pejelagarto) {
-        boolean bl = pejelagarto.isSaddled();
-        if(bl) {
-            //TODO: Show saddlePart here
-            bl = false;
-            saddle.visible = bl;
-            TrikiValsCreatures.LOGGER.info("Pejelagarto is saddled");
-        }
+    private void updateVisibleParts(T pejelagarto) {
+        saddle.visible = pejelagarto.isSaddled();
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {
