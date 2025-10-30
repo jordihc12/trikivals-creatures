@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "variant=pink": {
+      "model": "trikivals-creatures:block/pejelagarto_egg_pink"
+    },
+    "variant=green": {
+      "model": "trikivals-creatures:block/pejelagarto_egg_green"
+    }
+  }
+}

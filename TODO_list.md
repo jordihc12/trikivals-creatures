@@ -25,3 +25,15 @@
   - <span style="color:lightblue">Applies venom to its attacks
 - ~~**Adjust hitbox**~~
   - <span style="color:lightblue">Made hitbox be the same height as body :white_check_mark:
+- **Taming**
+  - Normal taming with item (for example Wolf)
+  - Complex taming
+    - Wild pack members are untableable
+    - Nests with eggs can spawn with the pack <-- Use finalize spawn to throw the dice (check if needs to spawn) and also check if no other egg is near. If both are successful, spawn egg behind entity.
+      - Wild 3D model with nest in it
+      - Domesticated model without the nest
+    - Wild egg can be mined with silk touch
+    - Mine the egg block to steal it
+    - Stealing the egg will make the near pack aggressive to the entity that stole it
+    - Placing the egg block on top of specific blocks starts the egg incubation <-- Check SnifferEggBlock::scheduledTick as example of block incubation
+    - Creature born though the egg is tamed <-- Check FoxEntity::onPlayerSpawnedChild as an example

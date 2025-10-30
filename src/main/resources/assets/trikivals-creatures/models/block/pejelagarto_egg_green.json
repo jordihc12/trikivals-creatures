@@ -1,0 +1,11 @@
+{
+  "parent": "trikivals-creatures:block/pejelagarto_egg",
+  "textures": {
+    "bottom": "trikivals-creatures:block/pejelagarto_green_egg_not_cracked_bottom",
+    "east": "trikivals-creatures:block/pejelagarto_green_egg_not_cracked_east",
+    "north": "trikivals-creatures:block/pejelagarto_green_egg_not_cracked_north",
+    "south": "trikivals-creatures:block/pejelagarto_green_egg_not_cracked_south",
+    "top": "trikivals-creatures:block/pejelagarto_green_egg_not_cracked_top",
+    "west": "trikivals-creatures:block/pejelagarto_green_egg_not_cracked_west"
+  }
+}

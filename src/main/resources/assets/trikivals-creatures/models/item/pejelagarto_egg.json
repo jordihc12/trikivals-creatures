@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/sniffer_egg"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "trikivals-creatures:variant": 0
+      },
+      "model": "trikivals-creatures:item/pejelagarto_egg_green"
+    },
+    {
+      "predicate": {
+        "trikivals-creatures:variant": 1
+      },
+      "model": "trikivals-creatures:item/pejelagarto_egg_pink"
+    }
+  ]
+}

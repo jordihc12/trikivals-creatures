@@ -1,10 +1,13 @@
 package com.jordi.trikivalscreatures.items;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
+import com.jordi.trikivalscreatures.block.ModBlocks;
+import com.jordi.trikivalscreatures.block.PejelagartoEggBlockItem;
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
@@ -17,6 +20,9 @@ public class ModItems {
 
     public static final Item PEJELAGARTO_SPAWN_EGG = registerItem("pejelagarto_spawn_egg",
             new SpawnEggItem(ModEntities.PEJELAGARTO, 0x42523e, 0xe4ed9d,new FabricItemSettings()));
+
+    public static final Item PEJELAGARTO_EGG_ITEM = registerItem("pejelagarto_egg",
+            new PejelagartoEggBlockItem(ModBlocks.PEJELAGARTO_EGG_BLOCK, new FabricItemSettings()));
 
     private static void addItemsToSpawnEggsItemGroup(FabricItemGroupEntries entries) {
         entries.add(PEJELAGARTO_SPAWN_EGG);
