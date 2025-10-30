@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "block": "trikivals-creatures:pejelagarto_egg",
+              "function": "minecraft:copy_state",
+              "properties": [
+                "variant"
+              ]
+            }
+          ],
+          "name": "trikivals-creatures:pejelagarto_egg"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
