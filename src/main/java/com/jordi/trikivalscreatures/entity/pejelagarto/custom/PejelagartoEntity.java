@@ -35,12 +35,61 @@ public class PejelagartoEntity extends AnimalEntity {
     private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
             DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
-
-
+    //region INITIALIZATION
     public PejelagartoEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }
 
+    public static DefaultAttributeContainer.Builder createPejelagartoAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
+                .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2f);
+    }
+
+    @Override
+    protected void initGoals() {
+        this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(1, new AnimalMateGoal(this, 1.15));
+        this.goalSelector.add(2, new TemptGoal(this, 1.15,
+                Ingredient.ofItems(Items.IRON_INGOT), false));
+        this.goalSelector.add(3, new FollowParentGoal(this, 1.0f));
+        this.goalSelector.add(4, new WanderAroundGoal(this, 1.0f));
+        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 1.0f));
+        this.goalSelector.add(6, new LookAroundGoal(this));
+    }
+
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+        PejelagartoVariant variant = Util.getRandom(PejelagartoVariant.values(), this.random);
+        setVariant(variant);
+
+        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+    }
+    //endregion
+
+    //region DataTracker
+    @Override
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putInt("Variant", this.getTypeVariant());
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
+    }
+    //endregion
+
+    //region Animations
     @Override
     protected void updateLimbs(float posDelta) {
         float f = (this.getPose() == EntityPose.STANDING) ? Math.min(posDelta * 6.0F, 1.0F) : 0;
@@ -64,27 +113,9 @@ public class PejelagartoEntity extends AnimalEntity {
             setupAnimationStates();
         }
     }
+    //endregion
 
-    @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new AnimalMateGoal(this, 1.15));
-        this.goalSelector.add(2, new TemptGoal(this, 1.15,
-                Ingredient.ofItems(Items.IRON_INGOT), false));
-        this.goalSelector.add(3, new FollowParentGoal(this, 1.0f));
-        this.goalSelector.add(4, new WanderAroundGoal(this, 1.0f));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 1.0f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
-    }
-
-    public static DefaultAttributeContainer.Builder createPejelagartoAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
-                .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2f);
-    }
-
+    //region Breeding
     @Override
     public boolean isBreedingItem(ItemStack stack) {
         return stack.isOf(Items.IRON_INGOT);
@@ -112,7 +143,9 @@ public class PejelagartoEntity extends AnimalEntity {
         }
         return baby;
     }
+    //endregion
 
+    //region Sounds
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_GHAST_AMBIENT;
@@ -127,14 +160,9 @@ public class PejelagartoEntity extends AnimalEntity {
     protected @Nullable SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_DOLPHIN_DEATH;
     }
+    //endregion
 
-    //Variant
-    @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
-    }
-
+    //region Variant
     public PejelagartoVariant getVariant() {
         return PejelagartoVariant.byId(this.getTypeVariant() & 255);
     }
@@ -146,24 +174,5 @@ public class PejelagartoEntity extends AnimalEntity {
     private void setVariant(PejelagartoVariant variant) {
         this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
     }
-
-    @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putInt("Variant", this.getTypeVariant());
-    }
-
-    @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
-    }
-
-    @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        PejelagartoVariant variant = Util.getRandom(PejelagartoVariant.values(), this.random);
-        setVariant(variant);
-
-        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
-    }
+    //endregion
 }
