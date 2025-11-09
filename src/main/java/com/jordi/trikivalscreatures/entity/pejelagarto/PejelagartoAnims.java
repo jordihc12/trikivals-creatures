@@ -1,4 +1,4 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.animation;
+package com.jordi.trikivalscreatures.entity.pejelagarto;
 
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.animation.AnimationHelper;

@@ -1,6 +1,41 @@
 # TODO list
 ## Pejelagarto
-- Add venom to attack
-- Death drops
-- xp drops
-- Make it neutral (attack player when provoked)
+- Variants:
+  - Meadow
+    - Spawn: Plains
+  - Jungle:
+    - Spawn: Jungle
+    - Increased speed (x1.1f)
+  - Pink:
+    - Spawn: Mushroom Islands
+    - Venom +1
+    - x0.8 size
+  - Sandy:
+    - Spawn: Desert
+    - Increased attack (x1.1f)
+    - Increased Health (x1.1f)
+    - x2 size
+  - Albino:
+    - Can only be obtained by breeding. Small percentage of getting it (1/1200)
+    - Range attack
+- Taming:
+  - Give "Rabbit Meat" until tamed (i.e. Wolves/Cats)
+- Breeding:
+  - Lays eggs (i.e. turtles)
+    - Check if possible to use different textures for the different eggs
+  - 1/1200 chance of getting Albino variant on egg hatching
+  - The hatchling has no owner and needs to be tamed again with "Rabbit Meat"
+- Animations (Priority):
+  - Walk (1)
+  - Idle (-)
+  - Attack (6)
+  - Swim (5)
+  - Fall (2): If it's been falling for more than 2 blocks until it reaches the floor
+  - Jump (3): Ends if it's falling for more than 2 blocks
+  - Sprint (4)
+- Tool Usage:
+  - Using a "Glass Bottle" gives a splash venom potion:
+    - Adult: 15s venom 2 (Pink: 15s venom 3)
+    - Baby: 5s venom 1 (Pink: 5s venom 2)
+- Pejelagarto Egg Block State:
+  - Check BlockStateModelGenerator::getTurtleEggModel and BlockStateModelGenerator::registerTurtleEgg

@@ -2,10 +2,8 @@
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
 
-package com.jordi.trikivalscreatures.entity.pejelagarto.client;
+package com.jordi.trikivalscreatures.entity.pejelagarto;
 
-import com.jordi.trikivalscreatures.entity.pejelagarto.animation.PejelagartoAnims;
-import com.jordi.trikivalscreatures.entity.pejelagarto.custom.PejelagartoEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;

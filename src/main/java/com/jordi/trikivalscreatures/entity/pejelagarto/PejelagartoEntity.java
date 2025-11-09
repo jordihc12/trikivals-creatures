@@ -1,5 +1,6 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.custom;
+package com.jordi.trikivalscreatures.entity.pejelagarto;
 
+import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -11,13 +12,13 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.DonkeyEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -25,7 +26,12 @@ import net.minecraft.util.Util;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class PejelagartoEntity extends AnimalEntity {
 
@@ -42,10 +48,9 @@ public class PejelagartoEntity extends AnimalEntity {
 
     public static DefaultAttributeContainer.Builder createPejelagartoAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0F)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
-                .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2f);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3f);
     }
 
     @Override
@@ -53,7 +58,7 @@ public class PejelagartoEntity extends AnimalEntity {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new AnimalMateGoal(this, 1.15));
         this.goalSelector.add(2, new TemptGoal(this, 1.15,
-                Ingredient.ofItems(Items.IRON_INGOT), false));
+                Ingredient.ofItems(Items.RABBIT), false));
         this.goalSelector.add(3, new FollowParentGoal(this, 1.0f));
         this.goalSelector.add(4, new WanderAroundGoal(this, 1.0f));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 1.0f));
@@ -62,8 +67,38 @@ public class PejelagartoEntity extends AnimalEntity {
 
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        PejelagartoVariant variant = Util.getRandom(PejelagartoVariant.values(), this.random);
-        setVariant(variant);
+        RegistryKey<Biome> biome = world.getBiome(this.getBlockPos()).getKey().orElseGet(null);
+        if(biome != null) {
+            List<PejelagartoVariant> possibleVariants = new java.util.ArrayList<>(Collections.emptyList());
+            List.of(PejelagartoVariant.values()).forEach(variant -> {
+                RegistryKey<Biome>[] biomeKeys = variant.getSpawnBiomes();
+
+                //Variant cannot spawn in any biome. Returning!!
+                if(biomeKeys == null) {
+                    return;
+                }
+
+                //Variant can spawn in any biome. Adding as possible variant and returning
+                if(biomeKeys.length == 0) {
+                    possibleVariants.add(variant);
+                    return;
+                }
+
+                // Variant spawn in specific biomes. Check if current biome is one of those specific biomes.
+                if(Arrays.stream(biomeKeys).anyMatch(biomeRegistryKey -> biomeRegistryKey == biome)) {
+                    possibleVariants.add(variant);
+                }
+            });
+
+            PejelagartoVariant variant = Util.getRandom(possibleVariants, this.random);
+            setVariant(variant);
+        }
+        else {
+            TrikiValsCreatures.LOGGER.info("No biome detected. Spawning random variant");
+
+            PejelagartoVariant variant = Util.getRandom(PejelagartoVariant.values(), this.random);
+            setVariant(variant);
+        }
 
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
@@ -118,29 +153,14 @@ public class PejelagartoEntity extends AnimalEntity {
     //region Breeding
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isOf(Items.IRON_INGOT);
+        return stack.isOf(Items.RABBIT);
     }
 
     @Override
     public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         //Create baby entity
         PejelagartoEntity baby = ModEntities.PEJELAGARTO.create(world);
-
-        //If other entity is a pejelagarto -- must always be but need to check
-        if (entity instanceof PejelagartoEntity pejelagarto) {
-            //50-50 variant of parents
-            int rand = this.random.nextInt(1);
-            if(rand == 0) {
-                baby.setVariant(this.getVariant());
-            }
-            else {
-                baby.setVariant(pejelagarto.getVariant());
-            }
-        }
-        else {
-            PejelagartoVariant variant = Util.getRandom(PejelagartoVariant.values(), this.random);
-            baby.setVariant(variant);
-        }
+        baby.setVariant(Util.getRandom(PejelagartoVariant.values(), this.random));
         return baby;
     }
     //endregion

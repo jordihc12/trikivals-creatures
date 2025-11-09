@@ -1,10 +1,8 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.client;
+package com.jordi.trikivalscreatures.entity.pejelagarto;
 
 import com.google.common.collect.Maps;
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.client.ModModelLayers;
-import com.jordi.trikivalscreatures.entity.pejelagarto.custom.PejelagartoEntity;
-import com.jordi.trikivalscreatures.entity.pejelagarto.custom.PejelagartoVariant;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
