@@ -2,6 +2,8 @@ package com.jordi.trikivalscreatures.entity.pejelagarto;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
+import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoAttackGoal;
+import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoTargetGoal;
 import com.jordi.trikivalscreatures.utils.ModTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -39,13 +41,22 @@ import java.util.List;
 
 public class PejelagartoEntity extends AnimalEntity {
 
+//region ANIMATION VARIABLES
+    //Idle Animation
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationCooldown = 0;
 
+    //Attack Animation
+    public final AnimationState attackAnimationState = new AnimationState();
+    private int attackAnimationCooldown = 0;
+//endregion
+
+//region DATA TRACKER VARIABLES
     private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
             DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
+//endregion
 
-    //region INITIALIZATION
+//region INITIALIZATION
     public PejelagartoEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -55,18 +66,6 @@ public class PejelagartoEntity extends AnimalEntity {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0F)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3f);
-    }
-
-    @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new AnimalMateGoal(this, 1.15));
-        this.goalSelector.add(2, new TemptGoal(this, 1.15,
-                Ingredient.ofItems(Items.RABBIT), false));
-        this.goalSelector.add(3, new FollowParentGoal(this, 1.0f));
-        this.goalSelector.add(4, new WanderAroundGoal(this, 1.0f));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 1.0f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
     }
 
     private void setCustomEntityAttributes() {
@@ -128,9 +127,9 @@ public class PejelagartoEntity extends AnimalEntity {
     public static boolean canSpawn(EntityType<PejelagartoEntity> entity, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
         return world.getBlockState(pos.down()).isIn(ModTags.Blocks.PEJELAGARTO_SPAWNABLE_ON) && isLightLevelValidForNaturalSpawn(world, pos);
     }
-    //endregion
+//endregion
 
-    //region DataTracker
+//region DATA TRACKER
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
@@ -148,22 +147,38 @@ public class PejelagartoEntity extends AnimalEntity {
         super.readCustomDataFromNbt(nbt);
         this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
     }
-    //endregion
+//endregion
 
-    //region Animations
+//region ANIMATIONS
     @Override
     protected void updateLimbs(float posDelta) {
         float f = (this.getPose() == EntityPose.STANDING) ? Math.min(posDelta * 6.0F, 1.0F) : 0;
         this.limbAnimator.updateLimbs(f, 0.2F);
     }
 
+    public void resetAttackAnimationCooldown() {
+        this.attackAnimationCooldown = 0;
+    }
+
     private void setupAnimationStates() {
+        //Idle Animation
         if (this.idleAnimationCooldown <= 0) {
             this.idleAnimationCooldown = this.random.nextInt(40) + 80;
             this.idleAnimationState.start(this.age);
         } else {
             this.idleAnimationCooldown--;
         }
+
+        //Attack Animation
+        if(this.isAttacking() && this.attackAnimationCooldown <= 0) {
+            this.attackAnimationCooldown = this.random.nextInt(40) + 80;
+            this.attackAnimationState.start(this.age);
+        }
+        else {
+            this.attackAnimationCooldown--;
+        }
+
+        if(!this.isAttacking()) this.attackAnimationState.stop();
     }
 
     @Override
@@ -174,9 +189,9 @@ public class PejelagartoEntity extends AnimalEntity {
             setupAnimationStates();
         }
     }
-    //endregion
+//endregion
 
-    //region Breeding
+//region BREEDING
     @Override
     public boolean isBreedingItem(ItemStack stack) {
         return stack.isOf(Items.RABBIT);
@@ -190,9 +205,9 @@ public class PejelagartoEntity extends AnimalEntity {
         baby.setCustomEntityAttributes();
         return baby;
     }
-    //endregion
+//endregion
 
-    //region Sounds
+//region SOUNDS
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_GHAST_AMBIENT;
@@ -207,9 +222,9 @@ public class PejelagartoEntity extends AnimalEntity {
     protected @Nullable SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_DOLPHIN_DEATH;
     }
-    //endregion
+//endregion
 
-    //region Variant
+//region VARIANT
     public PejelagartoVariant getVariant() {
         return PejelagartoVariant.byId(this.getTypeVariant() & 255);
     }
@@ -221,5 +236,23 @@ public class PejelagartoEntity extends AnimalEntity {
     private void setVariant(PejelagartoVariant variant) {
         this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
     }
-    //endregion
+//endregion
+
+//region INTELLIGENCE
+    @Override
+    protected void initGoals() {
+        this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(1, new PejelagartoAttackGoal(this,1, true ));
+        this.goalSelector.add(2, new AnimalMateGoal(this, 1.15));
+        this.goalSelector.add(3, new TemptGoal(this, 1.15,
+                Ingredient.ofItems(Items.RABBIT), false));
+        this.goalSelector.add(4, new FollowParentGoal(this, 1.0f));
+        this.goalSelector.add(5, new WanderAroundGoal(this, 1.0f));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 1.0f));
+        this.goalSelector.add(7, new LookAroundGoal(this));
+
+        this.targetSelector.add(1, new RevengeGoal(this));
+        this.targetSelector.add(2, new PejelagartoTargetGoal<>(this,  PlayerEntity.class));
+    }
+//endregion
 }
