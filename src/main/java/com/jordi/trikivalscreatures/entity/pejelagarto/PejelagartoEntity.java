@@ -43,7 +43,7 @@ import java.util.List;
 
 public class PejelagartoEntity extends AnimalEntity {
 
-//region ANIMATION VARIABLES
+// ANIMATION VARIABLES
     //Idle Animation
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationCooldown = 0;
@@ -51,16 +51,14 @@ public class PejelagartoEntity extends AnimalEntity {
     //Attack Animation
     public final AnimationState attackAnimationState = new AnimationState();
     private int attackAnimationCooldown = 0;
-//endregion
 
-//region DATA TRACKER VARIABLES
+// DATA TRACKER VARIABLES
     private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
             DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> ATTACKING =
             DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-//endregion
 
-    private final int POISON_ATTACK_DURATION = 100; // 100 / 2 = 5 sec
+    private final int POISON_ATTACK_DURATION = 100; // 100 / 20 = 5 sec
 
 //region INITIALIZATION
     public PejelagartoEntity(EntityType<? extends AnimalEntity> entityType, World world) {
@@ -259,7 +257,7 @@ public class PejelagartoEntity extends AnimalEntity {
         this.goalSelector.add(7, new LookAroundGoal(this));
 
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new PejelagartoTargetGoal<>(this,  PlayerEntity.class));
+        this.targetSelector.add(2, new PejelagartoTargetGoal<>(this,  LivingEntity.class));
     }
 
     //Attack Logic
