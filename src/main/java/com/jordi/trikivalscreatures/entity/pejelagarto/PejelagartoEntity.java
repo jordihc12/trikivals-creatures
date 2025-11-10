@@ -13,6 +13,8 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -54,7 +56,11 @@ public class PejelagartoEntity extends AnimalEntity {
 //region DATA TRACKER VARIABLES
     private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
             DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Boolean> ATTACKING =
+            DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 //endregion
+
+    private final int POISON_ATTACK_DURATION = 100; // 100 / 2 = 5 sec
 
 //region INITIALIZATION
     public PejelagartoEntity(EntityType<? extends AnimalEntity> entityType, World world) {
@@ -134,6 +140,7 @@ public class PejelagartoEntity extends AnimalEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+        this.dataTracker.startTracking(ATTACKING, false);
     }
 
     @Override
@@ -253,6 +260,34 @@ public class PejelagartoEntity extends AnimalEntity {
 
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new PejelagartoTargetGoal<>(this,  PlayerEntity.class));
+    }
+
+    //Attack Logic
+    public void setAttacking(boolean attacking) {
+        this.dataTracker.set(ATTACKING, attacking);
+    }
+
+    public boolean isAttacking() {
+        return this.dataTracker.get(ATTACKING);
+    }
+
+    @Override
+    public boolean tryAttack(Entity target) {
+        if(!super.tryAttack(target)) {
+            return false;
+        }
+        else {
+            if(target instanceof LivingEntity) {
+                StatusEffectInstance customEffect = new StatusEffectInstance(
+                        StatusEffects.POISON,
+                        POISON_ATTACK_DURATION,
+                        (getVariant() == PejelagartoVariant.PINK) ? 1 : 0
+                        //If variant is pink: poison 2. If other variants poison 1
+                );
+                ((LivingEntity)target).addStatusEffect(customEffect, this);
+            }
+            return true;
+        }
     }
 //endregion
 }
