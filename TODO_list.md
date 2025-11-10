@@ -1,8 +1,6 @@
 # TODO list
 ## Pejelagarto
 - Variants:
-  - Pink:
-    - Venom +1
   - Albino:
     - Can only be obtained by breeding. Small percentage of getting it (1/1200)
     - Range attack
@@ -13,6 +11,8 @@
     - Check if possible to use different textures for the different eggs
   - 1/1200 chance of getting Albino variant on egg hatching
   - The hatchling has no owner and needs to be tamed again with "Rabbit Meat"
+- Behaviour:
+  - Staying near the pejelagarto for 5s will make the pack aggressive
 - Animations (Priority):
   - Walk (1)
   - Idle (-)
