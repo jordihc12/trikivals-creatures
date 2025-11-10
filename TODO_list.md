@@ -1,15 +1,8 @@
 # TODO list
 ## Pejelagarto
 - Variants:
-  - Jungle:
-    - Increased speed (x1.1f)
   - Pink:
     - Venom +1
-    - x0.8 size
-  - Sandy:
-    - Increased attack (x1.1f)
-    - Increased Health (x1.1f)
-    - x2 size
   - Albino:
     - Can only be obtained by breeding. Small percentage of getting it (1/1200)
     - Range attack

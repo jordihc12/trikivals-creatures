@@ -69,9 +69,27 @@ public class PejelagartoEntity extends AnimalEntity {
         this.goalSelector.add(6, new LookAroundGoal(this));
     }
 
+    private void setCustomEntityAttributes() {
+        //Modifying base attribute values of specific variants
+        switch (getVariant()) {
+            case JUNGLE -> {
+                double speedBaseValue = this.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+                this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(speedBaseValue * 1.2F);
+            }
+            case SAND -> {
+                double attackBaseValue = this.getAttributeBaseValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(attackBaseValue * 1.2F);
+
+                double healthBaseValue = this.getAttributeBaseValue(EntityAttributes.GENERIC_MAX_HEALTH);
+                this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(healthBaseValue * 2.0F);
+            }
+        }
+    }
+
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         RegistryKey<Biome> biome = world.getBiome(this.getBlockPos()).getKey().orElseGet(null);
+        PejelagartoVariant thisVariant;
         if(biome != null) {
             List<PejelagartoVariant> possibleVariants = new java.util.ArrayList<>(Collections.emptyList());
             List.of(PejelagartoVariant.values()).forEach(variant -> {
@@ -94,15 +112,15 @@ public class PejelagartoEntity extends AnimalEntity {
                 }
             });
 
-            PejelagartoVariant variant = Util.getRandom(possibleVariants, this.random);
-            setVariant(variant);
+            thisVariant = Util.getRandom(possibleVariants, this.random);
         }
         else {
             TrikiValsCreatures.LOGGER.info("No biome detected. Spawning random variant");
 
-            PejelagartoVariant variant = Util.getRandom(PejelagartoVariant.values(), this.random);
-            setVariant(variant);
+            thisVariant = Util.getRandom(PejelagartoVariant.values(), this.random);
         }
+        this.setVariant(thisVariant);
+        this.setCustomEntityAttributes();
 
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
@@ -169,6 +187,7 @@ public class PejelagartoEntity extends AnimalEntity {
         //Create baby entity
         PejelagartoEntity baby = ModEntities.PEJELAGARTO.create(world);
         baby.setVariant(Util.getRandom(PejelagartoVariant.values(), this.random));
+        baby.setCustomEntityAttributes();
         return baby;
     }
     //endregion
