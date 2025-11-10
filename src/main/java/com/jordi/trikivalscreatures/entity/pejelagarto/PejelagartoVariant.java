@@ -13,20 +13,22 @@ import java.util.Objects;
 
 @SuppressWarnings("unchecked")
 public enum PejelagartoVariant implements StringIdentifiable {
-    PLAINS("green", 0),
-    JUNGLE("pink", 1, new RegistryKey[]{
-            BiomeKeys.JUNGLE}),
-    PINK("pink", 2, new RegistryKey[] {
-            BiomeKeys.MUSHROOM_FIELDS
+    PLAINS("green", 0, 1.0F),
+    JUNGLE("pink", 1, 1.0F, new RegistryKey[]{
+        BiomeKeys.JUNGLE }),
+    PINK("pink", 2, 0.8F, new RegistryKey[] {
+        BiomeKeys.MUSHROOM_FIELDS
     }),
-    SAND("sand", 3, new RegistryKey[] {
+    SAND("sand", 3, 2.0F, new RegistryKey[] {
         BiomeKeys.DESERT
     }),
-    ALBINO("albino", 4, null);
+    ALBINO("albino", 4, 1.0F, null);
 
     private static final PejelagartoVariant[] BY_ID = Arrays.stream(values()).sorted(
             Comparator.comparingInt(PejelagartoVariant::getId)).toArray(PejelagartoVariant[]::new);
     private final int id;
+
+    private final float size;
 
     // List of biomes where each variant spawn. Can have 3 values:
     // - biomes = new RegistryKey[]{ BiomeKeys.BIOME_1, BiomeKeys.BIOME_2, ... } -> variant can spawn in any biome present in the list
@@ -35,14 +37,16 @@ public enum PejelagartoVariant implements StringIdentifiable {
     private RegistryKey<Biome>[] biomes = new RegistryKey[]{};
     private final String name;
 
-    PejelagartoVariant(String name, int id) {
+    PejelagartoVariant(String name, int id, float size) {
         this.id = id;
         this.name = name;
+        this.size = size;
     }
 
-    PejelagartoVariant(String name, int id, RegistryKey<Biome>[] biomes) {
+    PejelagartoVariant(String name, int id, float size, RegistryKey<Biome>[] biomes) {
         this.name = name;
         this.id = id;
+        this.size = size;
         this.biomes = biomes;
     }
 
@@ -63,6 +67,10 @@ public enum PejelagartoVariant implements StringIdentifiable {
             if(Objects.equals(variant.name, name)) return variant;
         }
         return null;
+    }
+
+    public float getVariantSize() {
+        return size;
     }
 
     @Override

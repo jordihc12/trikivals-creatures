@@ -10,6 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
+import java.util.Dictionary;
 import java.util.Map;
 
 public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, PejelagartoModel<PejelagartoEntity>> {
@@ -31,13 +32,15 @@ public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, Pe
     }
 
     @Override
-    public void render(PejelagartoEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(PejelagartoEntity mobEntity, float f, float g, MatrixStack matrixStack,
+                       VertexConsumerProvider vertexConsumerProvider, int i) {
+        float scalingFactor = mobEntity.getVariant().getVariantSize();
+
         if(mobEntity.isBaby()) {
-            matrixStack.scale(0.5f, 0.5f, 0.5f);
+            scalingFactor *= 0.5f;
         }
-        else {
-            matrixStack.scale(1.0f,1.0f,1.0f);
-        }
+
+        matrixStack.scale(scalingFactor, scalingFactor, scalingFactor);
 
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }
