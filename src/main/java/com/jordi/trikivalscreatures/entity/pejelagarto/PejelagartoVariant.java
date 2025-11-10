@@ -19,7 +19,7 @@ public enum PejelagartoVariant implements StringIdentifiable {
     PINK("pink", 2, new RegistryKey[] {
             BiomeKeys.MUSHROOM_FIELDS
     }),
-    SANDY("sandy", 3, new RegistryKey[] {
+    SAND("sand", 3, new RegistryKey[] {
         BiomeKeys.DESERT
     }),
     ALBINO("albino", 4, null);
@@ -27,6 +27,7 @@ public enum PejelagartoVariant implements StringIdentifiable {
     private static final PejelagartoVariant[] BY_ID = Arrays.stream(values()).sorted(
             Comparator.comparingInt(PejelagartoVariant::getId)).toArray(PejelagartoVariant[]::new);
     private final int id;
+
     // List of biomes where each variant spawn. Can have 3 values:
     // - biomes = new RegistryKey[]{ BiomeKeys.BIOME_1, BiomeKeys.BIOME_2, ... } -> variant can spawn in any biome present in the list
     // - biomes = new RegistryKey[]{} -> variant can spawn in any biome the entity spawns

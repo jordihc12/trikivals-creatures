@@ -17,7 +17,7 @@ public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, Pe
         map.put(PejelagartoVariant.PLAINS, new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto_plains.png"));
         map.put(PejelagartoVariant.JUNGLE, new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto_jungle.png"));
         map.put(PejelagartoVariant.PINK, new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto_pink.png"));
-        map.put(PejelagartoVariant.SANDY, new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto_sandy.png"));
+        map.put(PejelagartoVariant.SAND, new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto_sand.png"));
         map.put(PejelagartoVariant.ALBINO, new Identifier(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto_albino.png"));
     });
 

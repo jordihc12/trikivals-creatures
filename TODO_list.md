@@ -1,17 +1,12 @@
 # TODO list
 ## Pejelagarto
 - Variants:
-  - Meadow
-    - Spawn: Plains
   - Jungle:
-    - Spawn: Jungle
     - Increased speed (x1.1f)
   - Pink:
-    - Spawn: Mushroom Islands
     - Venom +1
     - x0.8 size
   - Sandy:
-    - Spawn: Desert
     - Increased attack (x1.1f)
     - Increased Health (x1.1f)
     - x2 size
