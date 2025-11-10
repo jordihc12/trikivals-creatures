@@ -22,10 +22,11 @@ public class PejelagartoTargetGoal<T extends LivingEntity> extends ActiveTargetG
 
     @Override
     public boolean canStart() {
+        if(((PejelagartoEntity) this.mob).getVariant() == PejelagartoVariant.PLAINS) return false;
+
         this.findClosestTarget();
         if(this.targetEntity == null || this.targetEntity instanceof PejelagartoEntity) return false;
 
-        if(((PejelagartoEntity) this.mob).getVariant() == PejelagartoVariant.SAND) return super.canStart();
 
         this.entityNearFor++;
         if(this.lastTargetEntity != this.targetEntity) {
