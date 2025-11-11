@@ -17,9 +17,5 @@
   - Fall (2): If it's been falling for more than 2 blocks until it reaches the floor
   - Jump (3): Ends if it's falling for more than 2 blocks
   - Sprint (4)
-- Tool Usage:
-  - Using a "Glass Bottle" gives a splash venom potion:
-    - Adult: 15s venom 2 (Pink: 15s venom 3)
-    - Baby: 5s venom 1 (Pink: 5s venom 2)
 - Pejelagarto Egg Block State:
   - Check BlockStateModelGenerator::getTurtleEggModel and BlockStateModelGenerator::registerTurtleEgg

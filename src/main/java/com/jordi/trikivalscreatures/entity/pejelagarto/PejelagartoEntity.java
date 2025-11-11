@@ -206,6 +206,10 @@ public class PejelagartoEntity extends TameableEntity {
 
                 return ActionResult.SUCCESS;
             }
+            else if(itemStack.isEmpty()) {
+                this.setSitting(!this.isSitting());
+                return ActionResult.SUCCESS;
+            }
         }
         else {
             if(itemStack.isOf(Items.RABBIT)) {
@@ -310,14 +314,15 @@ public class PejelagartoEntity extends TameableEntity {
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new PejelagartoAttackGoal(this,1, true ));
-        this.goalSelector.add(2, new AnimalMateGoal(this, 1.15));
-        this.goalSelector.add(3, new PejelagartoFollowOwnerGoal(this, 1.0, 10.0F, 2.0F));
-        this.goalSelector.add(4, new TemptGoal(this, 1.15,
+        this.goalSelector.add(2, new SitGoal(this));
+        this.goalSelector.add(3, new AnimalMateGoal(this, 1.15));
+        this.goalSelector.add(4, new PejelagartoFollowOwnerGoal(this, 1.0, 10.0F, 2.0F));
+        this.goalSelector.add(5, new TemptGoal(this, 1.15,
                 Ingredient.ofItems(Items.RABBIT), false));
-        this.goalSelector.add(5, new FollowParentGoal(this, 1.0f));
-        this.goalSelector.add(6, new WanderAroundGoal(this, 1.0f));
-        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 1.0f));
-        this.goalSelector.add(8, new LookAroundGoal(this));
+        this.goalSelector.add(6, new FollowParentGoal(this, 1.0f));
+        this.goalSelector.add(7, new WanderAroundGoal(this, 1.0f));
+        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 1.0f));
+        this.goalSelector.add(9, new LookAroundGoal(this));
 
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new PejelagartoTargetGoal<>(this,  LivingEntity.class));
