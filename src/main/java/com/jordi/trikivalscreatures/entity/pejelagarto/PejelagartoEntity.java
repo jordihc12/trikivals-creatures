@@ -22,8 +22,10 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
@@ -36,6 +38,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -192,24 +195,57 @@ public class PejelagartoEntity extends TameableEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
-        if(itemStack.isOf(Items.RABBIT)) {
-            if (!player.getAbilities().creativeMode) {
-                itemStack.decrement(1);
-            }
+        if(this.isTamed()) {
+            if(itemStack.isOf(Items.GLASS_BOTTLE)) {
+                player.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
 
-            if (this.random.nextInt(3) == 0) {
-                this.setOwner(player);
-                this.navigation.stop();
-                this.setTarget(null);
-                this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
-            } else {
-                this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
-            }
+                ItemStack poisonPotion = PotionUtil.setCustomPotionEffects(Items.SPLASH_POTION.getDefaultStack(), List.of(getStatusEffectInstance()));
 
-            return ActionResult.SUCCESS;
+                ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, poisonPotion);
+                player.setStackInHand(hand, itemStack2);
+
+                return ActionResult.SUCCESS;
+            }
+        }
+        else {
+            if(itemStack.isOf(Items.RABBIT)) {
+                if (!player.getAbilities().creativeMode) {
+                    itemStack.decrement(1);
+                }
+
+                if (this.random.nextInt(3) == 0) {
+                    this.setOwner(player);
+                    this.navigation.stop();
+                    this.setTarget(null);
+                    this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+                } else {
+                    this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+                }
+
+                return ActionResult.SUCCESS;
+            }
         }
 
         return super.interactMob(player, hand);
+    }
+
+    private @NotNull StatusEffectInstance getStatusEffectInstance() {
+        StatusEffectInstance customEffect;
+        if(isBaby()) {
+            customEffect = new StatusEffectInstance(
+                    StatusEffects.POISON,
+                    100,
+                    (getVariant() == PejelagartoVariant.PINK) ? 1 : 0
+            );
+        }
+        else {
+            customEffect = new StatusEffectInstance(
+                    StatusEffects.POISON,
+                    300,
+                    (getVariant() == PejelagartoVariant.PINK) ? 2 : 1
+            );
+        }
+        return customEffect;
     }
 
     @Override
@@ -322,4 +358,9 @@ public class PejelagartoEntity extends TameableEntity {
         return this.getWorld();
     }
 //endregion
+
+    @Override
+    public boolean canHaveStatusEffect(StatusEffectInstance effect) {
+        return effect.getEffectType() != StatusEffects.POISON && super.canHaveStatusEffect(effect);
+    }
 }

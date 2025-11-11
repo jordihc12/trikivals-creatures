@@ -27,7 +27,6 @@ public class PejelagartoTargetGoal<T extends LivingEntity> extends ActiveTargetG
         this.findClosestTarget();
         if(this.targetEntity == null || this.targetEntity instanceof PejelagartoEntity) return false;
 
-
         this.entityNearFor++;
         if(this.lastTargetEntity != this.targetEntity) {
             this.entityNearFor = 0;
