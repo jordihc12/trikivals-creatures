@@ -26,6 +26,7 @@ import net.minecraft.world.WorldEvents;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class PejelagartoEggBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final IntProperty EGGS = Properties.EGGS;
 
@@ -106,16 +107,12 @@ public class PejelagartoEggBlock extends BlockWithEntity implements BlockEntityP
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        switch (state.get(EGGS)) {
-            case 1:
-                return Block.createCuboidShape(4.0, 0.0, 3.0, 10.0, 7.0, 9.0);
-            case 2:
-                return Block.createCuboidShape(4.0, 0.0, 3.0, 11.0, 8.0, 14.0);
-            case 3:
-                return Block.createCuboidShape(4.0, 0.0, 3.0, 15.0, 8.0, 14.0);
-            case 4:
-                return Block.createCuboidShape(0.0, 0.0, 3.0, 15.0, 8.0, 14.0);
-        }
-        return super.getOutlineShape(state, world, pos, context);
+        return switch (state.get(EGGS)) {
+            case 1 -> Block.createCuboidShape(4.0, 0.0, 3.0, 10.0, 7.0, 9.0);
+            case 2 -> Block.createCuboidShape(4.0, 0.0, 3.0, 11.0, 8.0, 14.0);
+            case 3 -> Block.createCuboidShape(4.0, 0.0, 3.0, 15.0, 8.0, 14.0);
+            case 4 -> Block.createCuboidShape(0.0, 0.0, 3.0, 15.0, 8.0, 14.0);
+            default -> super.getOutlineShape(state, world, pos, context);
+        };
     }
 }
