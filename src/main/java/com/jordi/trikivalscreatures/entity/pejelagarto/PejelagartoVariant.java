@@ -13,8 +13,8 @@ import java.util.Objects;
 
 @SuppressWarnings("unchecked")
 public enum PejelagartoVariant implements StringIdentifiable {
-    PLAINS("green", 0, 1.0F),
-    JUNGLE("pink", 1, 1.0F, new RegistryKey[]{
+    PLAINS("plains", 0, 1.0F),
+    JUNGLE("jungle", 1, 1.0F, new RegistryKey[]{
         BiomeKeys.JUNGLE }),
     PINK("pink", 2, 0.8F, new RegistryKey[] {
         BiomeKeys.MUSHROOM_FIELDS
