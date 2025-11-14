@@ -64,6 +64,7 @@ public class PejelagartoEggBlock extends BlockWithEntity implements BlockEntityP
 
                 addEgg(pejelagartoEggBlockEntity,
                         PejelagartoVariant.byId(nbt.getInt("variant")));
+                stack.decrement(1);
 
                 return ActionResult.SUCCESS;
             }
