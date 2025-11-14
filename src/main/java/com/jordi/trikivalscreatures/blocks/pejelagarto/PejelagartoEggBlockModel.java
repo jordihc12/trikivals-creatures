@@ -24,28 +24,32 @@ public class PejelagartoEggBlockModel {
         ModelPartData root = modelData.getRoot();
 
         // Define the texture dimensions (e.g., 16x16)
-        final int TEXTURE_WIDTH = 16;
-        final int TEXTURE_HEIGHT = 16;
+        final int TEXTURE_WIDTH = 32;
+        final int TEXTURE_HEIGHT = 32;
 
         // --- Egg 1 ---
         // addChild is called on the ModelPartData, and it takes a ModelPartBuilder.
         root.addChild("Egg_1",
-                ModelPartBuilder.create().uv(1, 4).cuboid(5.0F, 0.0F, 4.0F, 4.0F, 7.0F, 4.0F),
+                ModelPartBuilder.create()
+                        .uv(0, 0).cuboid(5.0F, 0.0F, 4.0F, 4.0F, 7.0F, 4.0F),
                 ModelTransform.NONE);
 
         // --- Egg 2 ---
         root.addChild("Egg_2",
-                ModelPartBuilder.create().uv(4, 11).cuboid(6.0F, 0.0F, 9.0F, 4.0F, 4.0F, 4.0F),
+                ModelPartBuilder.create()
+                        .uv(13, 8).cuboid(6.0F, 0.0F, 9.0F, 4.0F, 4.0F, 4.0F),
                 ModelTransform.NONE);
 
         // --- Egg 3 ---
         root.addChild("Egg_3",
-                ModelPartBuilder.create().uv(8, 3).cuboid(11.0F, 0.0F, 7.0F, 3.0F, 4.0F, 3.0F),
+                ModelPartBuilder.create()
+                        .uv(18, 0).cuboid(11.0F, 0.0F, 7.0F, 3.0F, 4.0F, 3.0F),
                 ModelTransform.NONE);
 
         // --- Egg 4 ---
         root.addChild("Egg_4",
-                ModelPartBuilder.create().uv(10, 10).cuboid(1.0F, 0.0F, 7.0F, 4.0F, 5.0F, 4.0F),
+                ModelPartBuilder.create()
+                        .uv(0, 13).cuboid(1.0F, 0.0F, 7.0F, 4.0F, 5.0F, 4.0F),
                 ModelTransform.NONE);
 
         // 3. Bake the ModelData into a ModelPart
