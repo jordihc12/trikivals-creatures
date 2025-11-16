@@ -1,4 +1,6 @@
 {
   "item.trikivals-creatures.pejelagarto_spawn_egg": "Pejelagarto Spawn Egg",
-  "item.trikivals-creatures.pejelagarto_egg": "Pejelagarto Egg"
+  "block.trikivals-creatures.pejelagarto_egg": "Pejelagarto Egg",
+
+  "itemgroup.trikivals-creatures.creatures": "TrikiVals Creatures"
 }

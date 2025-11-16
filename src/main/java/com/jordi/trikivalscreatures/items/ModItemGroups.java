@@ -1,11 +1,12 @@
 package com.jordi.trikivalscreatures.items;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
+import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlock;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
@@ -18,26 +19,27 @@ public class ModItemGroups {
             .displayName(Text.translatable("itemgroup.trikivals-creatures.creatures"))
             .icon(() -> new ItemStack(ModItems.PEJELAGARTO_SPAWN_EGG))
             .entries((displayContext, entries) -> {
-                //Add Pejelagarto Eggs here
-                for (PejelagartoVariant variant : PejelagartoVariant.values()) {
-                    entries.add(getPejelagartoEggVariantItemStack(variant));
-                }
+                //Adding Pejelagarto Eggs
+                ModItemGroups.addPejelagartoEggEntries(entries);
 
+                //Adding Pejelagarto entity Spawn egg
                 entries.add(ModItems.PEJELAGARTO_SPAWN_EGG);
             }).build());
 
-    private static ItemStack getPejelagartoEggVariantItemStack(PejelagartoVariant variant) {
-        ItemStack stack = new ItemStack(ModItems.PEJELAGARTO_EGG_ITEM);
-        NbtCompound nbt = stack.getOrCreateNbt();
+    //Add Pejelagarto Egg variants to TrikiVals creatures group
+    private static void addPejelagartoEggEntries(ItemGroup.Entries entries) {
+        for (PejelagartoVariant variant : PejelagartoVariant.values()) {
+            //Create new Stack for the egg variant
+            ItemStack pejelagartoEggItemStack = new ItemStack(ModItems.PEJELAGARTO_EGG_ITEM);
 
-        // Set the "Variant" NBT, which your item uses for placement
-        nbt.putInt("variant", variant.getId());
-        return stack;
+            //Request nbt with the variant from PejelagartoEggBlock
+            pejelagartoEggItemStack.getOrCreateNbt()
+                    .put(BlockItem.BLOCK_STATE_TAG_KEY, PejelagartoEggBlock.getItemBlockStateNbt(variant));
+
+            //Add pejelagartoEggItemStack to item group
+            entries.add(pejelagartoEggItemStack);
+        }
     }
 
-    public static void registerItemGroups() {
-        TrikiValsCreatures.LOGGER.info("Registering Mod Item Groups for " + TrikiValsCreatures.MOD_ID);
-
-
-    }
+    public static void registerItemGroups() { TrikiValsCreatures.LOGGER.info("Registering Mod Item Groups for " + TrikiValsCreatures.MOD_ID); }
 }

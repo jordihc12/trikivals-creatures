@@ -19,18 +19,22 @@ public class PejelagartoEggBlockItem extends BlockItem {
     @Override
     protected boolean postPlacement(BlockPos pos, World world, @Nullable PlayerEntity player, ItemStack stack, BlockState state) {
         boolean bl = super.postPlacement(pos, world, player, stack, state);
+        if(getBlock() instanceof PejelagartoEggBlock pejelagartoEggBlock) {
+            PejelagartoVariant variant = PejelagartoVariant.PLAINS;
 
-        NbtCompound nbt = stack.getNbt();
-        if(nbt == null) return bl;
-
-        if(!world.isClient
-                && !bl
-                && player != null
-                && world.getBlockEntity(pos) instanceof PejelagartoEggBlockEntity pejelagartoEggBlockEntity
-                && world.getBlockState(pos).getBlock() instanceof PejelagartoEggBlock pejelagartoEggBlock) {
-            pejelagartoEggBlock.addEgg(
-                pejelagartoEggBlockEntity,
-                PejelagartoVariant.byId(nbt.getInt("variant")));
+            NbtCompound nbt = stack.getNbt();
+            if(nbt == null) return bl;
+            NbtCompound blockStateTag = nbt.getCompound(BlockItem.BLOCK_STATE_TAG_KEY);
+            if(blockStateTag.isEmpty()) return bl;
+            if(blockStateTag.contains("variant"))
+                variant =  PejelagartoVariant.byName(blockStateTag.getString("variant"));
+            else {
+                NbtCompound propertiesTag = blockStateTag.getCompound("Properties");
+                if(propertiesTag.isEmpty()) return bl;
+                if(propertiesTag.contains("variant"))
+                    variant =  PejelagartoVariant.byName(propertiesTag.getString("variant"));
+            }
+            pejelagartoEggBlock.setVariant(variant);
         }
 
         return bl;

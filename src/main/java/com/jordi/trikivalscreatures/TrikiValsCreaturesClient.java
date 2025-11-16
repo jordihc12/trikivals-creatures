@@ -1,7 +1,6 @@
 package com.jordi.trikivalscreatures;
 
 import com.jordi.trikivalscreatures.blocks.ModBlockEntities;
-import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlockEntityRenderer;
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import com.jordi.trikivalscreatures.entity.client.ModModelLayers;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoModel;
@@ -16,7 +15,5 @@ public class TrikiValsCreaturesClient implements ClientModInitializer {
 	public void onInitializeClient() {
         EntityRendererRegistry.register(ModEntities.PEJELAGARTO, PejelagartoRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.PEJELAGARTO, PejelagartoModel::getTexturedModelData);
-
-        BlockEntityRendererFactories.register(ModBlockEntities.PEJELAGARTO_EGG_BE, PejelagartoEggBlockEntityRenderer::new);
     }
 }

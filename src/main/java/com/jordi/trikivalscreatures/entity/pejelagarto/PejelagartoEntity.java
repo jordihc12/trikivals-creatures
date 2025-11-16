@@ -17,7 +17,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -57,10 +56,10 @@ public class PejelagartoEntity extends TameableEntity {
     private int attackAnimationCooldown = 0;
 
 // DATA TRACKER VARIABLES
-    private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
-            DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> VARIANT =
+        DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> ATTACKING =
-            DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     private final int POISON_ATTACK_DURATION = 100; // 100 / 20 = 5 sec
 
@@ -141,7 +140,7 @@ public class PejelagartoEntity extends TameableEntity {
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+        this.dataTracker.startTracking(VARIANT, 0);
         this.dataTracker.startTracking(ATTACKING, false);
     }
 
@@ -154,7 +153,7 @@ public class PejelagartoEntity extends TameableEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
+        this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
     }
 //endregion
 
@@ -301,11 +300,11 @@ public class PejelagartoEntity extends TameableEntity {
     }
 
     private int getTypeVariant() {
-        return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+        return this.dataTracker.get(VARIANT);
     }
 
     private void setVariant(PejelagartoVariant variant) {
-        this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+        this.dataTracker.set(VARIANT, variant.getId() & 255);
     }
 //endregion
 
