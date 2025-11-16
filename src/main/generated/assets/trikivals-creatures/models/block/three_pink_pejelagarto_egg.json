@@ -1,0 +1,6 @@
+{
+  "parent": "trikivals-creatures:block/template_three_pejelagarto_egg",
+  "textures": {
+    "all": "trikivals-creatures:block/pejelagarto_egg_pink"
+  }
+}
