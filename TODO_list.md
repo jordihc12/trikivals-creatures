@@ -5,10 +5,7 @@
     - Can only be obtained by breeding. Small percentage of getting it (1/1200)
     - Range attack
 - Breeding:
-  - Lays eggs (i.e. turtles)
-    - Check if possible to use different textures for the different eggs
-  - 1/1200 chance of getting Albino variant on egg hatching
-  - The hatchling has no owner and needs to be tamed again with "Rabbit Meat"
+  - The egg takes 1h to hatch
 - Animations (Priority):
   - Walk (1)
   - Idle (-)
@@ -17,5 +14,3 @@
   - Fall (2): If it's been falling for more than 2 blocks until it reaches the floor
   - Jump (3): Ends if it's falling for more than 2 blocks
   - Sprint (4)
-- Pejelagarto Egg Block State:
-  - Check BlockStateModelGenerator::getTurtleEggModel and BlockStateModelGenerator::registerTurtleEgg
