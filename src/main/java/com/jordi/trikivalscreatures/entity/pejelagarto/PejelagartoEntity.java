@@ -4,6 +4,7 @@ import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoAttackGoal;
 import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoFollowOwnerGoal;
+import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoMateGoal;
 import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoTargetGoal;
 import com.jordi.trikivalscreatures.utils.ModTags;
 import net.minecraft.entity.*;
@@ -32,6 +33,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Pair;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -40,6 +42,7 @@ import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -271,8 +274,20 @@ public class PejelagartoEntity extends TameableEntity {
     public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         //Create baby entity
         PejelagartoEntity baby = ModEntities.PEJELAGARTO.create(world);
-        baby.setVariant(Util.getRandom(PejelagartoVariant.values(), this.random));
-        baby.setCustomEntityAttributes();
+
+        if(entity instanceof PejelagartoEntity pejelagarto) {
+            if(this.getVariant() != PejelagartoVariant.ALBINO && pejelagarto.getVariant() != PejelagartoVariant.ALBINO &&
+                    this.random.nextInt() == 0) {
+                baby.setVariant(PejelagartoVariant.ALBINO);
+            }
+            else {
+                PejelagartoVariant[] variants = new PejelagartoVariant[] { this.getVariant(), pejelagarto.getVariant() };
+                baby.setVariant(this.random.nextBoolean() ? variants[0] : variants[1]);
+            }
+
+            baby.setCustomEntityAttributes();
+        }
+
         return baby;
     }
 //endregion
@@ -314,7 +329,7 @@ public class PejelagartoEntity extends TameableEntity {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new PejelagartoAttackGoal(this,1, true ));
         this.goalSelector.add(2, new SitGoal(this));
-        this.goalSelector.add(3, new AnimalMateGoal(this, 1.15));
+        this.goalSelector.add(3, new PejelagartoMateGoal(this, 1.15));
         this.goalSelector.add(4, new PejelagartoFollowOwnerGoal(this, 1.0, 10.0F, 2.0F));
         this.goalSelector.add(5, new TemptGoal(this, 1.15,
                 Ingredient.ofItems(Items.RABBIT), false));
