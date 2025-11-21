@@ -44,21 +44,41 @@ public class ModModelUtils {
         }
     }
 
-    public static Identifier getEggHatchModelTemplate(int hatch, int eggs, Block block, String prefix,
+    public static Identifier getEggHatchModelTemplateWithVariant(int hatch, int eggs, Block block, String variant,
                                                 BiConsumer<Identifier, Supplier<JsonElement>> modelCollector, Model[] modelTemplates) {
         String blockId = Registries.BLOCK.getId(block).getPath();
         switch (hatch) {
             case 0 -> {
-                return getEggModelTemplate(eggs, prefix + "_" + blockId,
-                        TextureMap.all(TextureMap.getSubId(block, "_" + prefix)), modelCollector, modelTemplates);
+                return getEggModelTemplate(eggs, variant + "_" + blockId,
+                        TextureMap.all(TextureMap.getSubId(block, "_" + variant)), modelCollector, modelTemplates);
             }
             case 1 -> {
-                return getEggModelTemplate(eggs, "slightly_cracked_" + prefix + "_" + blockId,
-                        TextureMap.all(TextureMap.getSubId(block, "_" + prefix + "_slightly_cracked")), modelCollector, modelTemplates);
+                return getEggModelTemplate(eggs, "slightly_cracked_" + variant + "_" + blockId,
+                        TextureMap.all(TextureMap.getSubId(block, "_" + variant + "_slightly_cracked")), modelCollector, modelTemplates);
             }
             case 2 -> {
-                return getEggModelTemplate(eggs, "very_cracked_" + prefix + "_" + blockId,
-                        TextureMap.all(TextureMap.getSubId(block, "_" + prefix + "_very_cracked")), modelCollector, modelTemplates);
+                return getEggModelTemplate(eggs, "very_cracked_" + variant + "_" + blockId,
+                        TextureMap.all(TextureMap.getSubId(block, "_" + variant + "_very_cracked")), modelCollector, modelTemplates);
+            }
+            default -> throw new UnsupportedOperationException();
+        }
+    }
+
+    public static Identifier getEggHatchModelTemplate(int hatch, int eggs, Block block,
+                                                                 BiConsumer<Identifier, Supplier<JsonElement>> modelCollector, Model[] modelTemplates) {
+        String blockId = Registries.BLOCK.getId(block).getPath();
+        switch (hatch) {
+            case 0 -> {
+                return getEggModelTemplate(eggs, blockId,
+                        TextureMap.all(TextureMap.getId(block)), modelCollector, modelTemplates);
+            }
+            case 1 -> {
+                return getEggModelTemplate(eggs, "slightly_cracked_" + blockId,
+                        TextureMap.all(TextureMap.getSubId(block, "_slightly_cracked")), modelCollector, modelTemplates);
+            }
+            case 2 -> {
+                return getEggModelTemplate(eggs, "very_cracked_" + blockId,
+                        TextureMap.all(TextureMap.getSubId(block, "_very_cracked")), modelCollector, modelTemplates);
             }
             default -> throw new UnsupportedOperationException();
         }

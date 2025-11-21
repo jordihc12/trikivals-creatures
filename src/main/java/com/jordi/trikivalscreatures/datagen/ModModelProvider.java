@@ -29,12 +29,13 @@ public class ModModelProvider extends FabricModelProvider {
 
     private Identifier getPejelagartoEggModel(Integer eggs, PejelagartoVariant variant, Integer hatch,
                                                     BiConsumer<Identifier, Supplier<JsonElement>> modelCollector) {
-        return ModModelUtils.getEggHatchModelTemplate(hatch, eggs, ModBlocks.PEJELAGARTO_EGG, variant.asString(), modelCollector,
-            new Model[] {
-                ModModels.TEMPLATE_PEJELAGARTO_EGG,
-                ModModels.TEMPLATE_TWO_PEJELAGARTO_EGGS,
-                ModModels.TEMPLATE_THREE_PEJELAGARTO_EGGS,
-                ModModels.TEMPLATE_FOUR_PEJELAGARTO_EGGS
+        return ModModelUtils.getEggHatchModelTemplateWithVariant(hatch, eggs, ModBlocks.PEJELAGARTO_EGG,
+                variant.asString(), modelCollector,
+                new Model[] {
+                        ModModels.TEMPLATE_PEJELAGARTO_EGG,
+                        ModModels.TEMPLATE_TWO_PEJELAGARTO_EGGS,
+                        ModModels.TEMPLATE_THREE_PEJELAGARTO_EGGS,
+                        ModModels.TEMPLATE_FOUR_PEJELAGARTO_EGGS
         });
     }
 
