@@ -13,16 +13,35 @@ import java.util.Objects;
 
 @SuppressWarnings("unchecked")
 public enum PejelagartoVariant implements StringIdentifiable {
-    PLAINS("plains", 0, 1.0F),
-    JUNGLE("jungle", 1, 1.0F, new RegistryKey[]{
-        BiomeKeys.JUNGLE }),
-    PINK("pink", 2, 0.8F, new RegistryKey[] {
-        BiomeKeys.MUSHROOM_FIELDS
-    }),
-    SAND("sand", 3, 2.0F, new RegistryKey[] {
-        BiomeKeys.DESERT
-    }),
-    ALBINO("albino", 4, 1.0F, null);
+    PLAINS(
+        "plains",
+        0,
+        1.0F
+    ),
+    JUNGLE(
+        "jungle",
+        1,
+        1.0F,
+        new RegistryKey[]{BiomeKeys.JUNGLE}
+    ),
+    PINK(
+        "pink",
+        2,
+        0.8F,
+        new RegistryKey[] {BiomeKeys.MUSHROOM_FIELDS}
+    ),
+    SAND(
+        "sand",
+        3,
+        2.0F,
+        new RegistryKey[] {BiomeKeys.DESERT}
+    ),
+    ALBINO(
+        "albino",
+        4,
+        1.0F,
+        null
+    );
 
     private static final PejelagartoVariant[] BY_ID = Arrays.stream(values()).sorted(
             Comparator.comparingInt(PejelagartoVariant::getId)).toArray(PejelagartoVariant[]::new);

@@ -104,7 +104,7 @@ public class PejelagartoEggBlock extends Block {
         TrikiValsCreatures.LOGGER.info("[PejelagartoEggBlock] Block below allows egg incubation: {}", bl);
         if(bl) {
             world.syncWorldEvent(WorldEvents.PLANT_FERTILIZED, pos, 0);
-            world.scheduleBlockTick(pos, this, HATCH_TIME_TICKS / 3);   //Hatch time divided by egg stages
+            world.scheduleBlockTick(pos, this, HATCH_TIME_TICKS);   //Time that takes to increase Hatch state
         }
     }
 
@@ -140,7 +140,6 @@ public class PejelagartoEggBlock extends Block {
     private boolean isIncubationBlockBelow(BlockView world, BlockPos pos) {
         return world.getBlockState(pos).isIn(BlockTags.SAND);   //Override BlockTags.SAND with incubation blocks tag
     }
-
 
 //endregion
 
