@@ -36,6 +36,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Pair;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
@@ -270,25 +272,27 @@ public class PejelagartoEntity extends TameableEntity {
         return stack.isOf(Items.RABBIT);
     }
 
-    @Override
-    public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        //Create baby entity
+    public static PejelagartoEntity createNewChild(ServerWorld world, Vec3d pos, PejelagartoVariant variant) {
         PejelagartoEntity baby = ModEntities.PEJELAGARTO.create(world);
+        if(baby != null) {
+            baby.setBaby(true);
+            baby.refreshPositionAndAngles(
+                    pos.getX(),
+                    pos.getY(),
+                    pos.getZ(),
+                    MathHelper.wrapDegrees(world.random.nextFloat() * 360.0F),
+                    0.0F);
 
-        if(entity instanceof PejelagartoEntity pejelagarto) {
-            if(this.getVariant() != PejelagartoVariant.ALBINO && pejelagarto.getVariant() != PejelagartoVariant.ALBINO &&
-                    this.random.nextInt() == 0) {
-                baby.setVariant(PejelagartoVariant.ALBINO);
-            }
-            else {
-                PejelagartoVariant[] variants = new PejelagartoVariant[] { this.getVariant(), pejelagarto.getVariant() };
-                baby.setVariant(this.random.nextBoolean() ? variants[0] : variants[1]);
-            }
-
+            // 1 / 200 possibility of baby being albino
+            baby.setVariant((baby.random.nextInt(200) == 0) ? PejelagartoVariant.ALBINO : variant);
             baby.setCustomEntityAttributes();
         }
-
         return baby;
+    }
+
+    @Override
+    public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return ModEntities.PEJELAGARTO.create(world);
     }
 //endregion
 
