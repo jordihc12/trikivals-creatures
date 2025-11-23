@@ -40,7 +40,7 @@ public class PejelagartoEggBlock extends Block {
     private static final VoxelShape SMALL_SHAPE = Block.createCuboidShape(3.0, 0.0, 3.0, 12.0, 7.0, 12.0);
     private static final VoxelShape LARGE_SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 7.0, 15.0);
 
-    private static final int HATCH_TIME_TICKS = 300;
+    private static final int HATCH_STAGE_TICKS = 18000;  //15min per stage = 15min * 60sec * 20ticks
 
     //region INITIALISATION
     public PejelagartoEggBlock(Settings settings) {
@@ -104,7 +104,7 @@ public class PejelagartoEggBlock extends Block {
         TrikiValsCreatures.LOGGER.info("[PejelagartoEggBlock] Block below allows egg incubation: {}", bl);
         if(bl) {
             world.syncWorldEvent(WorldEvents.PLANT_FERTILIZED, pos, 0);
-            world.scheduleBlockTick(pos, this, HATCH_TIME_TICKS);   //Time that takes to increase Hatch state
+            world.scheduleBlockTick(pos, this, HATCH_STAGE_TICKS);   //Time that takes to increase Hatch state
         }
     }
 

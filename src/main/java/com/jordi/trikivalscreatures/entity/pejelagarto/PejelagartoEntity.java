@@ -2,10 +2,10 @@ package com.jordi.trikivalscreatures.entity.pejelagarto;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
-import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoAttackGoal;
-import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoFollowOwnerGoal;
-import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoMateGoal;
-import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoTargetGoal;
+import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoAttackGoal;
+import com.jordi.trikivalscreatures.entity.ai.FollowOwnerNoTeleportGoal;
+import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoMateGoal;
+import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoTargetGoal;
 import com.jordi.trikivalscreatures.utils.ModTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -33,7 +33,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Pair;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -44,7 +43,6 @@ import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -334,7 +332,7 @@ public class PejelagartoEntity extends TameableEntity {
         this.goalSelector.add(1, new PejelagartoAttackGoal(this,1, true ));
         this.goalSelector.add(2, new SitGoal(this));
         this.goalSelector.add(3, new PejelagartoMateGoal(this, 1.15));
-        this.goalSelector.add(4, new PejelagartoFollowOwnerGoal(this, 1.0, 10.0F, 2.0F));
+        this.goalSelector.add(4, new FollowOwnerNoTeleportGoal(this, 1.0, 10.0F, 2.0F));
         this.goalSelector.add(5, new TemptGoal(this, 1.15,
                 Ingredient.ofItems(Items.RABBIT), false));
         this.goalSelector.add(6, new FollowParentGoal(this, 1.0f));

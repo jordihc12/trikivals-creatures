@@ -1,4 +1,4 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.ai;
+package com.jordi.trikivalscreatures.entity.ai;
 
 import java.util.EnumSet;
 import net.minecraft.entity.LivingEntity;
@@ -9,7 +9,7 @@ import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.passive.TameableEntity;
 
-public class PejelagartoFollowOwnerGoal extends Goal {
+public class FollowOwnerNoTeleportGoal extends Goal {
     private final TameableEntity tameable;
     private LivingEntity owner;
     private final double speed;
@@ -19,7 +19,7 @@ public class PejelagartoFollowOwnerGoal extends Goal {
     private final float minDistance;
     private float oldWaterPathfindingPenalty;
 
-    public PejelagartoFollowOwnerGoal(TameableEntity tameable, double speed, float minDistance, float maxDistance) {
+    public FollowOwnerNoTeleportGoal(TameableEntity tameable, double speed, float minDistance, float maxDistance) {
         this.tameable = tameable;
         this.speed = speed;
         this.navigation = tameable.getNavigation();
