@@ -2,10 +2,13 @@ package com.jordi.trikivalscreatures.entity.pejelagarto;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
+import com.jordi.trikivalscreatures.entity.ai.CustomRangedAttackGoal;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoAttackGoal;
 import com.jordi.trikivalscreatures.entity.ai.FollowOwnerNoTeleportGoal;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoMateGoal;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoTargetGoal;
+import com.jordi.trikivalscreatures.entity.ai.CustomRangedAttackMob;
+import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
 import com.jordi.trikivalscreatures.utils.ModTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -47,7 +50,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class PejelagartoEntity extends TameableEntity {
+public class PejelagartoEntity extends TameableEntity implements CustomRangedAttackMob {
 
 // ANIMATION VARIABLES
     //Idle Animation
@@ -329,6 +332,7 @@ public class PejelagartoEntity extends TameableEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(1, new CustomRangedAttackGoal(this,1, 30, 10, 40, 20.0F ));
         this.goalSelector.add(1, new PejelagartoAttackGoal(this,1, true ));
         this.goalSelector.add(2, new SitGoal(this));
         this.goalSelector.add(3, new PejelagartoMateGoal(this, 1.15));
@@ -371,6 +375,35 @@ public class PejelagartoEntity extends TameableEntity {
             return true;
         }
     }
+
+    @Override
+    public void attack(LivingEntity target, float pullProgress) {
+        this.spitAt(target);
+    }
+
+    private void spitAt(LivingEntity target) {
+        PejelagartoSpitEntity pejelagartoSpitEntity = new PejelagartoSpitEntity(this.getWorld(), this);
+        double d = target.getX() - this.getX();
+        double e = target.getBodyY(0.3333333333333333) - pejelagartoSpitEntity.getY();
+        double f = target.getZ() - this.getZ();
+        double g = Math.sqrt(d * d + f * f) * 0.2F;
+        pejelagartoSpitEntity.setVelocity(d, e + g, f, 1.5F, 10.0F);
+        if (!this.isSilent()) {
+            this.getWorld()
+                    .playSound(
+                            null,
+                            this.getX(),
+                            this.getY(),
+                            this.getZ(),
+                            SoundEvents.ENTITY_LLAMA_SPIT,
+                            this.getSoundCategory(),
+                            1.0F,
+                            1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F
+                    );
+        }
+
+        this.getWorld().spawnEntity(pejelagartoSpitEntity);
+    }
 //endregion
 
 //region TAMING
@@ -383,5 +416,10 @@ public class PejelagartoEntity extends TameableEntity {
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
         return effect.getEffectType() != StatusEffects.POISON && super.canHaveStatusEffect(effect);
+    }
+
+    @Override
+    public boolean canPerformRangedAttack() {
+        return this.getVariant() == PejelagartoVariant.ALBINO;
     }
 }
