@@ -42,6 +42,8 @@ public class PejelagartoEggBlock extends Block {
 
     private static final int HATCH_STAGE_TICKS = 18000;  //15min per stage = 15min * 60sec * 20ticks
 
+    private boolean canHatch = false;
+
     //region INITIALISATION
     public PejelagartoEggBlock(Settings settings) {
         super(settings);
@@ -100,9 +102,9 @@ public class PejelagartoEggBlock extends Block {
 
     @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        boolean bl = isIncubationBlockBelow(world, pos.down());
-        TrikiValsCreatures.LOGGER.info("[PejelagartoEggBlock] Block below allows egg incubation: {}", bl);
-        if(bl) {
+        this.canHatch = isIncubationBlockBelow(world, pos.down());
+        TrikiValsCreatures.LOGGER.info("[PejelagartoEggBlock] Block below allows egg incubation: {}", this.canHatch);
+        if(this.canHatch) {
             world.syncWorldEvent(WorldEvents.PLANT_FERTILIZED, pos, 0);
             world.scheduleBlockTick(pos, this, HATCH_STAGE_TICKS);   //Time that takes to increase Hatch state
         }
@@ -114,6 +116,8 @@ public class PejelagartoEggBlock extends Block {
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        if(!this.canHatch) return;
+
         if(!readyToHatch(state)) {
             world.playSound(null, pos, SoundEvents.BLOCK_SNIFFER_EGG_CRACK, SoundCategory.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
             world.setBlockState(pos, state.with(HATCH, state.get(HATCH) + 1), Block.NOTIFY_LISTENERS);
@@ -128,8 +132,6 @@ public class PejelagartoEggBlock extends Block {
                     world.spawnEntity(baby);
                 }
             }
-
-
         }
     }
 
