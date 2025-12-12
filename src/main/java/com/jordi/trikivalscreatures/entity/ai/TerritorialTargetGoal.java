@@ -13,9 +13,9 @@ public class TerritorialTargetGoal<T extends LivingEntity> extends ActiveTargetG
 
     private final float TARGET_RANGE;
 
-    public TerritorialTargetGoal(MobEntity mob, Class<T> targetClass, float targetRange, float intervalToAggressive) {
-        super(mob, targetClass, true);
-        this.entity = (CustomMeleeAttackMob) mob;
+    public TerritorialTargetGoal(CustomMeleeAttackMob mob, Class<T> targetClass, float targetRange, float intervalToAggressive) {
+        super((MobEntity) mob, targetClass, true);
+        this.entity = mob;
         this.TARGET_RANGE = targetRange;
         this.INTERVAL_TO_AGGRESSIVE = intervalToAggressive;
     }
@@ -28,8 +28,8 @@ public class TerritorialTargetGoal<T extends LivingEntity> extends ActiveTargetG
     @Override
     public boolean canStart() {
         this.findClosestTarget();
-        if(this.entity.canPerformMeleeAttack(this.targetEntity)
-                && this.mob.squaredDistanceTo(this.targetEntity) >= TARGET_RANGE * TARGET_RANGE) return false;
+        if(!this.entity.canPerformMeleeAttack(this.targetEntity)) return false;
+        if(this.mob.squaredDistanceTo(this.targetEntity) >= TARGET_RANGE * TARGET_RANGE) return false;
 
         this.entityNearFor++;
         if(this.lastTargetEntity != this.targetEntity) {

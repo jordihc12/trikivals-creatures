@@ -434,7 +434,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
     @Override
     public boolean canPerformMeleeAttack(LivingEntity target) {
-        return this.getVariant() != PejelagartoVariant.PLAINS && !(target instanceof PejelagartoEntity);
+        return this.getVariant() != PejelagartoVariant.PLAINS && target != null && !(target instanceof PejelagartoEntity);
     }
 
     @Override
