@@ -33,13 +33,13 @@ public enum PejelagartoVariant implements StringIdentifiable {
     SAND(
         "sand",
         3,
-        2.0F,
+        1.0F,
         new RegistryKey[] {BiomeKeys.DESERT}
     ),
     ALBINO(
         "albino",
         4,
-        1.0F,
+        2.0F,
         null
     );
 
