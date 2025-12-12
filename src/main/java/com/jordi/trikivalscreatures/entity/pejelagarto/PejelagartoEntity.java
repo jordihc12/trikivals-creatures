@@ -2,13 +2,10 @@ package com.jordi.trikivalscreatures.entity.pejelagarto;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
-import com.jordi.trikivalscreatures.entity.ai.CustomRangedAttackGoal;
-import com.jordi.trikivalscreatures.entity.ai.NarrowDistanceDelegatingGoal;
+import com.jordi.trikivalscreatures.entity.ai.*;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoAttackGoal;
-import com.jordi.trikivalscreatures.entity.ai.FollowOwnerNoTeleportGoal;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoMateGoal;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoTargetGoal;
-import com.jordi.trikivalscreatures.entity.ai.CustomRangedAttackMob;
 import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
 import com.jordi.trikivalscreatures.utils.ModTags;
 import net.minecraft.entity.*;
@@ -51,7 +48,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class PejelagartoEntity extends TameableEntity implements CustomRangedAttackMob {
+public class PejelagartoEntity extends TameableEntity implements CustomRangedAttackMob, CustomMeleeAttackMob {
 
 // ANIMATION VARIABLES
     //Idle Animation
@@ -357,7 +354,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                 .addGoal(new SwimGoal(this))
                 .addGoal(new NarrowDistanceDelegatingGoal(this))
                 .addGoal(new Goal[]{
-                        new CustomRangedAttackGoal(this,1, getAggroMaxAttackRange(), getAggroMinAttackRange(), 40, 20.0F),
+                        new CustomRangedAttackGoal(this,1, getRangeAggroMaxAttackRange(), getRangeAggroMinAttackRange(), 40, 20.0F),
                         new PejelagartoAttackGoal(this,1, true)
                 })
                 .addGoal(new SitGoal(this))
@@ -429,6 +426,26 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
         this.getWorld().spawnEntity(pejelagartoSpitEntity);
     }
+
+    @Override
+    public int getMeleeAttackRange() {
+        return 2;
+    }
+
+    @Override
+    public int getRangeAggroMaxAttackRange() {
+        return 40;
+    }
+
+    @Override
+    public int getRangeAggroMinAttackRange() {
+        return 4;
+    }
+
+    @Override
+    public boolean canPerformRangedAttack() {
+        return this.getVariant() == PejelagartoVariant.ALBINO;
+    }
 //endregion
 
 //region TAMING
@@ -441,20 +458,5 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
         return effect.getEffectType() != StatusEffects.POISON && super.canHaveStatusEffect(effect);
-    }
-
-    @Override
-    public int getAggroMaxAttackRange() {
-        return 40;
-    }
-
-    @Override
-    public int getAggroMinAttackRange() {
-        return 4;
-    }
-
-    @Override
-    public boolean canPerformRangedAttack() {
-        return this.getVariant() == PejelagartoVariant.ALBINO;
     }
 }

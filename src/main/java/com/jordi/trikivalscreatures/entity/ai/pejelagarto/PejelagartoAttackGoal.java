@@ -49,7 +49,7 @@ public class PejelagartoAttackGoal extends MeleeAttackGoal {
     }
 
     private boolean isEnemyWithinAttackDistance(LivingEntity pEnemy) {
-        float attackRange = 2.0F;
+        float attackRange = this.entity.getMeleeAttackRange();
         //If entity is Albino variant the attack range is doubled
         if(entity.getVariant() == PejelagartoVariant.ALBINO) {
             attackRange *= 2.0F;

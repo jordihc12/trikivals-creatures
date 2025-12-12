@@ -3,15 +3,13 @@ package com.jordi.trikivalscreatures.entity.ai;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.EnumSet;
 
 public class NarrowDistanceDelegatingGoal extends Goal {
     private final PathAwareEntity entity;
     private LivingEntity target;
-
-    // Define your distance constants (using squared values)
-    private static final double MELEE_RANGE = 2.0;
 
     public NarrowDistanceDelegatingGoal(PathAwareEntity mob) {
         this.entity = mob;
@@ -30,11 +28,14 @@ public class NarrowDistanceDelegatingGoal extends Goal {
 
     private boolean NotTargetWithinDistance() {
         double distanceSq = this.entity.squaredDistanceTo(this.target);
-        if(distanceSq <= MELEE_RANGE * MELEE_RANGE) return false;
+        if(this.entity instanceof CustomMeleeAttackMob customMeleeAttackMob) {
+            int MELEE_RANGE = customMeleeAttackMob.getMeleeAttackRange();
+            if(distanceSq <= MELEE_RANGE * MELEE_RANGE) return false;
+        }
 
         if(this.entity instanceof CustomRangedAttackMob customRangedAttackMob) {
-            int RANGE_ATTACK_RANGE_MIN = customRangedAttackMob.getAggroMinAttackRange();
-            int RANGE_ATTACK_RANGE_MAX = customRangedAttackMob.getAggroMaxAttackRange();
+            int RANGE_ATTACK_RANGE_MIN = customRangedAttackMob.getRangeAggroMinAttackRange();
+            int RANGE_ATTACK_RANGE_MAX = customRangedAttackMob.getRangeAggroMaxAttackRange();
 
             return (!(distanceSq >= RANGE_ATTACK_RANGE_MIN * RANGE_ATTACK_RANGE_MIN)
                     || !(distanceSq <= RANGE_ATTACK_RANGE_MAX * RANGE_ATTACK_RANGE_MAX));
@@ -43,11 +44,42 @@ public class NarrowDistanceDelegatingGoal extends Goal {
         return true;
     }
 
+    private boolean isBetweenRanges() {
+        double distanceSq = this.entity.squaredDistanceTo(this.target);
+        if(this.entity instanceof CustomRangedAttackMob customRangedAttackMob) {
+            int RANGE_ATTACK_RANGE_MIN = customRangedAttackMob.getRangeAggroMinAttackRange();
+            int RANGE_ATTACK_RANGE_MAX = customRangedAttackMob.getRangeAggroMaxAttackRange();
+
+            return (!(distanceSq >= RANGE_ATTACK_RANGE_MIN * RANGE_ATTACK_RANGE_MIN)
+                    || !(distanceSq <= RANGE_ATTACK_RANGE_MAX * RANGE_ATTACK_RANGE_MAX));
+        }
+        return false;
+    }
+
     @Override
     public void tick() {
         if(this.target == null) return;
 
         this.entity.getLookControl().lookAt(this.target, 30.0F, 30.0F);
+        if(this.entity instanceof CustomMeleeAttackMob customMeleeAttackMob && this.entity instanceof CustomRangedAttackMob customRangedAttackMob) {
+            double MELEE_RANGE = Math.pow(customMeleeAttackMob.getMeleeAttackRange(), 2);
+            double RANGE_ATTACK_RANGE_MIN = Math.pow(customRangedAttackMob.getRangeAggroMinAttackRange(), 2);
+
+            double distanceSq = this.entity.squaredDistanceTo(this.target);
+
+            if(distanceSq > MELEE_RANGE && distanceSq < RANGE_ATTACK_RANGE_MIN) {
+                double distanceToMelee = distanceSq - MELEE_RANGE;
+                double distanceToRange = RANGE_ATTACK_RANGE_MIN - distanceSq;
+
+                //Flee Target
+                if(distanceToRange < distanceToMelee) {
+                    Vec3d dirNormalized = (this.target.getPos().subtract(this.entity.getPos())).normalize();
+                    Vec3d fleePos = this.entity.getPos().add(dirNormalized.multiply(-2));
+                    this.entity.getNavigation().startMovingTo(fleePos.getX(), fleePos.getY(), fleePos.getZ(), 1.2);
+                    return;
+                }
+            }
+        }
         this.entity.getNavigation().startMovingTo(this.target, 1.2);
     }
 }
