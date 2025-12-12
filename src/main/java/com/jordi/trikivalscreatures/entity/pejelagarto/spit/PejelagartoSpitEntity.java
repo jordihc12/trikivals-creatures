@@ -31,7 +31,7 @@ public class PejelagartoSpitEntity extends ProjectileEntity {
         this.setOwner(owner);
         this.setPosition(
                 owner.getX() - (owner.getWidth() + 1.0F) * 0.5 * MathHelper.sin(owner.bodyYaw * (float) (Math.PI / 180.0)),
-                owner.getEyeY() - 0.1F,
+                owner.getEyeY(),
                 owner.getZ() + (owner.getWidth() + 1.0F) * 0.5 * MathHelper.cos(owner.bodyYaw * (float) (Math.PI / 180.0))
         );
     }
@@ -46,8 +46,6 @@ public class PejelagartoSpitEntity extends ProjectileEntity {
         double e = this.getY() + vec3d.y;
         double f = this.getZ() + vec3d.z;
         this.updateRotation();
-        float g = 0.99F;
-        float h = 0.06F;
         if (this.getWorld().getStatesInBox(this.getBoundingBox()).noneMatch(AbstractBlock.AbstractBlockState::isAir)) {
             this.discard();
         } else if (this.isInsideWaterOrBubbleColumn()) {

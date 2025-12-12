@@ -12,11 +12,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
-public class PejelagartoSpitEntityRendderer  extends EntityRenderer<PejelagartoSpitEntity> {
+public class PejelagartoSpitEntityRenderer extends EntityRenderer<PejelagartoSpitEntity> {
     private static final Identifier TEXTURE = new Identifier("textures/entity/llama/spit.png");
     private final LlamaSpitEntityModel<PejelagartoSpitEntity> model;
 
-    public PejelagartoSpitEntityRendderer(EntityRendererFactory.Context context) {
+    public PejelagartoSpitEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
         this.model = new LlamaSpitEntityModel<>(context.getPart(EntityModelLayers.LLAMA_SPIT));
     }

@@ -11,6 +11,8 @@ public class PejelagartoTargetGoal<T extends LivingEntity> extends ActiveTargetG
     private float entityNearFor = 0;
     private LivingEntity lastTargetEntity = null;
 
+    private final float TARGET_RANGE = 20.0F;
+
     public PejelagartoTargetGoal(MobEntity mob, Class<T> targetClass) {
         super(mob, targetClass, true);
     }
@@ -26,6 +28,7 @@ public class PejelagartoTargetGoal<T extends LivingEntity> extends ActiveTargetG
 
         this.findClosestTarget();
         if(this.targetEntity == null || this.targetEntity instanceof PejelagartoEntity) return false;
+        if(this.mob.squaredDistanceTo(this.targetEntity) >= TARGET_RANGE * TARGET_RANGE) return false;
 
         this.entityNearFor++;
         if(this.lastTargetEntity != this.targetEntity) {

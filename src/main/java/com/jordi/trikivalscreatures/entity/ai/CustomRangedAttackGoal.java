@@ -23,18 +23,23 @@ public class CustomRangedAttackGoal extends ProjectileAttackGoal {
         return false;
     }
 
+    public int getAGGRO_RANGE_MAX() {
+        return AGGRO_RANGE_MAX;
+    }
+
+    public int getAGGRO_RANGE_MIN() {
+        return AGGRO_RANGE_MIN;
+    }
+
     @Override
     public boolean canStart() {
         if(this.entity == null) return false;
-        boolean bl = this.entity.canPerformRangedAttack();
-        if(!bl) return false;
-
-        bl = isWithinDistance();
-        if(!bl) return false;
-
-        bl = super.canStart();
-        if(!bl) return false;
 
         return this.entity.canPerformRangedAttack() && isWithinDistance() && super.canStart();
+    }
+
+    @Override
+    public boolean shouldContinue() {
+        return this.isWithinDistance();
     }
 }
