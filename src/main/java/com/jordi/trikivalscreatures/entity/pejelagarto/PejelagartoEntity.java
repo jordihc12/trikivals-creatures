@@ -296,19 +296,19 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 //endregion
 
 //region SOUNDS
-    @Override
-    protected @Nullable SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_GHAST_AMBIENT;
-    }
+//    @Override
+//    protected @Nullable SoundEvent getAmbientSound() {
+//        return SoundEvents.ENTITY_GHAST_AMBIENT;
+//    }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_CAT_HURT;
+        return PejelagartoSounds.PEJELAGARTO_HURT_SOUND;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_DOLPHIN_DEATH;
+        return PejelagartoSounds.PEJELAGARTO_DEATH_SOUND;
     }
 //endregion
 

@@ -5,7 +5,7 @@ import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.mob.MobEntity;
 
 public class TerritorialTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T> {
-    private final float INTERVAL_TO_AGGRESSIVE; // 60 / 20 = 3 sec
+    private final float INTERVAL_TO_AGGRESSIVE;
     private float entityNearFor = 0;
     private LivingEntity lastTargetEntity = null;
 
