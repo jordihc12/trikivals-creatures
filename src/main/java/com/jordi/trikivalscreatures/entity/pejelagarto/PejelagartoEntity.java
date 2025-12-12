@@ -5,7 +5,7 @@ import com.jordi.trikivalscreatures.entity.ModEntities;
 import com.jordi.trikivalscreatures.entity.ai.*;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoAttackGoal;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoMateGoal;
-import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoTargetGoal;
+import com.jordi.trikivalscreatures.entity.ai.TerritorialTargetGoal;
 import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
 import com.jordi.trikivalscreatures.utils.ModTags;
 import net.minecraft.entity.*;
@@ -367,7 +367,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                 .addGoal(new LookAroundGoal(this));
 
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new PejelagartoTargetGoal<>(this,  LivingEntity.class));
+        this.targetSelector.add(2, new TerritorialTargetGoal<>(this,  LivingEntity.class, 20, 60));
     }
 
     //Attack Logic
@@ -430,6 +430,11 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     @Override
     public int getMeleeAttackRange() {
         return 2;
+    }
+
+    @Override
+    public boolean canPerformMeleeAttack(LivingEntity target) {
+        return this.getVariant() != PejelagartoVariant.PLAINS && !(target instanceof PejelagartoEntity);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class PejelagartoSpitEntityRenderer extends EntityRenderer<PejelagartoSpi
         matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(g, pejelagartoSpitEntity.prevPitch, pejelagartoSpitEntity.getPitch())));
         this.model.setAngles(pejelagartoSpitEntity, g, 0.0F, -0.1F, 0.0F, 0.0F);
         VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE));
-        this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 0.3F, 1.0F, 0.3F, 1.0F);
         matrixStack.pop();
         super.render(pejelagartoSpitEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }
