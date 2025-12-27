@@ -2,5 +2,8 @@
   "item.trikivals-creatures.pejelagarto_spawn_egg": "Pejelagarto Spawn Egg",
   "block.trikivals-creatures.pejelagarto_egg": "Pejelagarto Egg",
 
-  "itemgroup.trikivals-creatures.creatures": "TrikiVals Creatures"
+  "itemgroup.trikivals-creatures.creatures": "TrikiVals Creatures",
+
+  "sounds.trikivals-creatures.pejelagarto_hurt": "Pejelagarto Hurt Sound",
+  "sounds.trikivals-creatures.pejelagarto_death": "Pejelagarto Death Sound"
 }

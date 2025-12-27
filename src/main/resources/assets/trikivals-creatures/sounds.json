@@ -1,0 +1,14 @@
+{
+  "pejelagarto_death": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_death",
+    "sounds": [
+      "trikivals-creatures:pejelagarto_death"
+    ]
+  },
+  "pejelagarto_hurt": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_hurt",
+    "sounds": [
+      "trikivals-creatures:pejelagarto_hurt"
+    ]
+  }
+}

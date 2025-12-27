@@ -10,7 +10,7 @@ import net.minecraft.util.Hand;
 public class PejelagartoAttackGoal extends MeleeAttackGoal {
     private final PejelagartoEntity entity;
     private int attackDelay = 10;
-    private int ticksUntilnextAttack = 10;
+    private int ticksUntilnextAttack = 5;
     private boolean shouldCountTillNextAttack = false;
 
     public PejelagartoAttackGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
@@ -23,7 +23,7 @@ public class PejelagartoAttackGoal extends MeleeAttackGoal {
         super.start();
 
         attackDelay = 10;
-        ticksUntilnextAttack = 10;
+        ticksUntilnextAttack = 5;
     }
 
     @Override
@@ -49,13 +49,13 @@ public class PejelagartoAttackGoal extends MeleeAttackGoal {
     }
 
     private boolean isEnemyWithinAttackDistance(LivingEntity pEnemy) {
-        float attackRange = 2.0F;
+        float attackRange = this.entity.getMeleeAttackRange();
         //If entity is Albino variant the attack range is doubled
         if(entity.getVariant() == PejelagartoVariant.ALBINO) {
             attackRange *= 2.0F;
         }
 
-        return this.entity.distanceTo(pEnemy) <= attackRange; //todo
+        return this.entity.distanceTo(pEnemy) <= attackRange;
     }
 
     protected void resetAttackCooldown() {

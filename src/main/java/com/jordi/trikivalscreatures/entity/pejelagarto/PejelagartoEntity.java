@@ -2,10 +2,11 @@ package com.jordi.trikivalscreatures.entity.pejelagarto;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
+import com.jordi.trikivalscreatures.entity.ai.*;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoAttackGoal;
-import com.jordi.trikivalscreatures.entity.ai.FollowOwnerNoTeleportGoal;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoMateGoal;
-import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoTargetGoal;
+import com.jordi.trikivalscreatures.entity.ai.TerritorialTargetGoal;
+import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
 import com.jordi.trikivalscreatures.utils.ModTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -47,7 +48,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class PejelagartoEntity extends TameableEntity {
+public class PejelagartoEntity extends TameableEntity implements CustomRangedAttackMob, CustomMeleeAttackMob {
 
 // ANIMATION VARIABLES
     //Idle Animation
@@ -295,19 +296,19 @@ public class PejelagartoEntity extends TameableEntity {
 //endregion
 
 //region SOUNDS
-    @Override
-    protected @Nullable SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_GHAST_AMBIENT;
-    }
+//    @Override
+//    protected @Nullable SoundEvent getAmbientSound() {
+//        return SoundEvents.ENTITY_GHAST_AMBIENT;
+//    }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_CAT_HURT;
+        return PejelagartoSounds.PEJELAGARTO_HURT_SOUND;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_DOLPHIN_DEATH;
+        return PejelagartoSounds.PEJELAGARTO_DEATH_SOUND;
     }
 //endregion
 
@@ -326,22 +327,47 @@ public class PejelagartoEntity extends TameableEntity {
 //endregion
 
 //region INTELLIGENCE
+    private int goalPriority = 0;
+
+    private PejelagartoEntity startGoalsSetup() {
+        goalPriority = 0;
+        return this;
+    }
+
+    private PejelagartoEntity addGoal(Goal goal) {
+        this.goalSelector.add(goalPriority, goal);
+        goalPriority++;
+        return this;
+    }
+
+    private PejelagartoEntity addGoal(Goal[] goals) {
+        for (var goal: goals) {
+            this.goalSelector.add(goalPriority, goal);
+        }
+        goalPriority++;
+        return this;
+    }
+
     @Override
     protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new PejelagartoAttackGoal(this,1, true ));
-        this.goalSelector.add(2, new SitGoal(this));
-        this.goalSelector.add(3, new PejelagartoMateGoal(this, 1.15));
-        this.goalSelector.add(4, new FollowOwnerNoTeleportGoal(this, 1.0, 10.0F, 2.0F));
-        this.goalSelector.add(5, new TemptGoal(this, 1.15,
-                Ingredient.ofItems(Items.RABBIT), false));
-        this.goalSelector.add(6, new FollowParentGoal(this, 1.0f));
-        this.goalSelector.add(7, new WanderAroundGoal(this, 1.0f));
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 1.0f));
-        this.goalSelector.add(9, new LookAroundGoal(this));
+        startGoalsSetup()
+                .addGoal(new SwimGoal(this))
+                .addGoal(new NarrowDistanceDelegatingGoal(this))
+                .addGoal(new Goal[]{
+                        new CustomRangedAttackGoal(this,1, getRangeAggroMaxAttackRange(), getRangeAggroMinAttackRange(), 40, 20.0F),
+                        new PejelagartoAttackGoal(this,1, true)
+                })
+                .addGoal(new SitGoal(this))
+                .addGoal(new PejelagartoMateGoal(this, 1.15))
+                .addGoal(new FollowOwnerNoTeleportGoal(this, 1.0, 10.0F, 2.0F))
+                .addGoal(new TemptGoal(this, 1.15, Ingredient.ofItems(Items.RABBIT), false))
+                .addGoal(new FollowParentGoal(this, 1.0f))
+                .addGoal(new WanderAroundGoal(this, 1.0f))
+                .addGoal(new LookAtEntityGoal(this, PlayerEntity.class, 1.0f))
+                .addGoal(new LookAroundGoal(this));
 
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new PejelagartoTargetGoal<>(this,  LivingEntity.class));
+        this.targetSelector.add(2, new TerritorialTargetGoal<>(this,  LivingEntity.class, 20, 60));
     }
 
     //Attack Logic
@@ -370,6 +396,60 @@ public class PejelagartoEntity extends TameableEntity {
             }
             return true;
         }
+    }
+
+    @Override
+    public void attack(LivingEntity target, float pullProgress) {
+        this.spitAt(target);
+    }
+
+    private void spitAt(LivingEntity target) {
+        PejelagartoSpitEntity pejelagartoSpitEntity = new PejelagartoSpitEntity(this.getWorld(), this);
+        double d = target.getX() - this.getX();
+        double e = target.getBodyY(0.3333333333333333) - pejelagartoSpitEntity.getY();
+        double f = target.getZ() - this.getZ();
+        double g = Math.sqrt(d * d + f * f) * 0.2F;
+        pejelagartoSpitEntity.setVelocity(d, e + g, f, 1.5F, 10.0F);
+        if (!this.isSilent()) {
+            this.getWorld()
+                    .playSound(
+                            null,
+                            this.getX(),
+                            this.getY(),
+                            this.getZ(),
+                            SoundEvents.ENTITY_LLAMA_SPIT,
+                            this.getSoundCategory(),
+                            1.0F,
+                            1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F
+                    );
+        }
+
+        this.getWorld().spawnEntity(pejelagartoSpitEntity);
+    }
+
+    @Override
+    public int getMeleeAttackRange() {
+        return 2;
+    }
+
+    @Override
+    public boolean canPerformMeleeAttack(LivingEntity target) {
+        return this.getVariant() != PejelagartoVariant.PLAINS && target != null && !(target instanceof PejelagartoEntity);
+    }
+
+    @Override
+    public int getRangeAggroMaxAttackRange() {
+        return 40;
+    }
+
+    @Override
+    public int getRangeAggroMinAttackRange() {
+        return 4;
+    }
+
+    @Override
+    public boolean canPerformRangedAttack() {
+        return this.getVariant() == PejelagartoVariant.ALBINO;
     }
 //endregion
 
