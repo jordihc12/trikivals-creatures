@@ -8,19 +8,22 @@ import net.minecraft.block.Block;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.CopyStateFunction;
+import net.minecraft.loot.function.CopyStateLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.registry.RegistryWrapper;
+
+import java.util.concurrent.CompletableFuture;
 
 public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
-    public ModBlockLootTableProvider(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    protected ModBlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     private LootTable.Builder pejelagartoEgg(Block drop) {
         return LootTable.builder().pool(LootPool.builder()
             .rolls(ConstantLootNumberProvider.create(1.0F))
             .with(ItemEntry.builder(drop)
-                .apply(CopyStateFunction.builder(drop).addProperty(PejelagartoEggBlock.VARIANT))
+                .apply(CopyStateLootFunction.builder(drop).addProperty(PejelagartoEggBlock.VARIANT))
             )
         );
     }

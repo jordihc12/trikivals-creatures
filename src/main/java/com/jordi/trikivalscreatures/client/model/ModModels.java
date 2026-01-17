@@ -1,8 +1,8 @@
 package com.jordi.trikivalscreatures.client.model;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
-import net.minecraft.data.client.Model;
-import net.minecraft.data.client.TextureKey;
+import net.minecraft.client.data.TextureKey;
+import net.minecraft.client.data.Model;
 import net.minecraft.util.Identifier;
 
 import java.util.Optional;
@@ -14,7 +14,7 @@ public class ModModels {
     public static final Model TEMPLATE_FOUR_PEJELAGARTO_EGGS = block("template_four_pejelagarto_egg", TextureKey.ALL);
 
     private static Model block(String parent, TextureKey... requiredTextureKeys) {
-        return new Model(Optional.of(new Identifier(TrikiValsCreatures.MOD_ID,
+        return new Model(Optional.of(Identifier.of(TrikiValsCreatures.MOD_ID,
                 "block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
 }

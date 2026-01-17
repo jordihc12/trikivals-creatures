@@ -1,8 +1,11 @@
 package com.jordi.trikivalscreatures.blocks.pejelagarto;
 
+import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -22,18 +25,11 @@ public class PejelagartoEggBlockItem extends BlockItem {
         if(getBlock() instanceof PejelagartoEggBlock pejelagartoEggBlock) {
             PejelagartoVariant variant = PejelagartoVariant.PLAINS;
 
-            NbtCompound nbt = stack.getNbt();
-            if(nbt == null) return bl;
-            NbtCompound blockStateTag = nbt.getCompound(BlockItem.BLOCK_STATE_TAG_KEY);
-            if(blockStateTag.isEmpty()) return bl;
-            if(blockStateTag.contains("variant"))
-                variant =  PejelagartoVariant.byName(blockStateTag.getString("variant"));
-            else {
-                NbtCompound propertiesTag = blockStateTag.getCompound("Properties");
-                if(propertiesTag.isEmpty()) return bl;
-                if(propertiesTag.contains("variant"))
-                    variant =  PejelagartoVariant.byName(propertiesTag.getString("variant"));
+            BlockStateComponent blockStateComponent = stack.get(DataComponentTypes.BLOCK_STATE);
+            if(blockStateComponent != null && !blockStateComponent.isEmpty()) {
+                variant = blockStateComponent.getValue(PejelagartoEggBlock.VARIANT);
             }
+
             pejelagartoEggBlock.setVariant(variant);
         }
 

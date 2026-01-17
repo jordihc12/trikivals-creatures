@@ -1,25 +1,18 @@
 package com.jordi.trikivalscreatures.datagen;
 
-import com.google.gson.JsonElement;
 import com.jordi.trikivalscreatures.blocks.ModBlocks;
 import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlock;
-import com.jordi.trikivalscreatures.client.model.ModModelIds;
 import com.jordi.trikivalscreatures.client.model.ModModels;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import com.jordi.trikivalscreatures.items.ModItems;
 import com.jordi.trikivalscreatures.utils.ModModelUtils;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.block.Block;
-import net.minecraft.data.client.*;
+import net.minecraft.client.data.*;
 import net.minecraft.util.Identifier;
 
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-
-import static net.minecraft.data.client.BlockStateModelGenerator.createModelVariantWithRandomHorizontalRotations;
 
 //Helper class that generates custom mod data
 public class ModModelProvider extends FabricModelProvider {
@@ -28,7 +21,7 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     private Identifier getPejelagartoEggModel(Integer eggs, PejelagartoVariant variant, Integer hatch,
-                                                    BiConsumer<Identifier, Supplier<JsonElement>> modelCollector) {
+                                                BiConsumer<Identifier, ModelSupplier> modelCollector) {
         return ModModelUtils.getEggHatchModelTemplateWithVariant(hatch, eggs, ModBlocks.PEJELAGARTO_EGG,
                 variant.asString(), modelCollector,
                 new Model[] {
@@ -43,12 +36,13 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         //Register Pejelagarto Eggs
         blockStateModelGenerator.blockStateCollector.accept(
-            VariantsBlockStateSupplier.create(ModBlocks.PEJELAGARTO_EGG)
-                .coordinate(
-                    BlockStateVariantMap.create(PejelagartoEggBlock.EGGS, PejelagartoEggBlock.VARIANT, PejelagartoEggBlock.HATCH)
-                        .registerVariants(((eggInt, variant, hatchInt) ->
-                            Arrays.asList(createModelVariantWithRandomHorizontalRotations(
-                                this.getPejelagartoEggModel(eggInt, variant, hatchInt, blockStateModelGenerator.modelCollector)))))
+            VariantsBlockModelDefinitionCreator.of(ModBlocks.PEJELAGARTO_EGG)
+                .with(
+                    BlockStateVariantMap.models(PejelagartoEggBlock.EGGS, PejelagartoEggBlock.VARIANT, PejelagartoEggBlock.HATCH)
+                        .generate(((eggInt, variant, hatchInt) ->
+                            BlockStateModelGenerator.modelWithYRotation(
+                                BlockStateModelGenerator.createModelVariant(
+                                        this.getPejelagartoEggModel(eggInt, variant, hatchInt, blockStateModelGenerator.modelCollector)))))
                 )
         );
     }
@@ -56,6 +50,6 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.PEJELAGARTO_SPAWN_EGG,
-                new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty()));
+                new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
     }
 }

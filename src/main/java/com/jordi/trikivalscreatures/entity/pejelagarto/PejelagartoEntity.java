@@ -60,7 +60,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     private int attackAnimationCooldown = 0;
 
 // DATA TRACKER VARIABLES
-    private static final TrackedData<Integer> VARIANT =
+    public static final TrackedData<Integer> VARIANT =
         DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> ATTACKING =
         DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);

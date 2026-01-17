@@ -4,6 +4,8 @@ import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlock;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -15,7 +17,7 @@ import net.minecraft.util.Identifier;
 public class ModItemGroups {
 
     public static final ItemGroup TRIKIVALS_CREATURES_GROUP = Registry.register(Registries.ITEM_GROUP,
-        new Identifier(TrikiValsCreatures.MOD_ID, "trikivals_items_group"), FabricItemGroup.builder()
+        Identifier.of(TrikiValsCreatures.MOD_ID, "trikivals_items_group"), FabricItemGroup.builder()
             .displayName(Text.translatable("itemgroup.trikivals-creatures.creatures"))
             .icon(() -> new ItemStack(ModItems.PEJELAGARTO_SPAWN_EGG))
             .entries((displayContext, entries) -> {
@@ -33,8 +35,10 @@ public class ModItemGroups {
             ItemStack pejelagartoEggItemStack = new ItemStack(ModItems.PEJELAGARTO_EGG_ITEM);
 
             //Request nbt with the variant from PejelagartoEggBlock
-            pejelagartoEggItemStack.getOrCreateNbt()
-                    .put(BlockItem.BLOCK_STATE_TAG_KEY, PejelagartoEggBlock.getItemBlockStateNbt(variant));
+            BlockStateComponent blockStateComponent =
+                    BlockStateComponent.DEFAULT.with(PejelagartoEggBlock.VARIANT, variant);
+
+            pejelagartoEggItemStack.set(DataComponentTypes.BLOCK_STATE, blockStateComponent);
 
             //Add pejelagartoEggItemStack to item group
             entries.add(pejelagartoEggItemStack);
