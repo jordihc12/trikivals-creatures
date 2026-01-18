@@ -23,7 +23,7 @@ public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, Pe
     });
 
     public PejelagartoRenderer(EntityRendererFactory.Context context) {
-        super(context, new PejelagartoModel(context.getPart(ModModelLayers.PEJELAGARTO)), 0.4f);
+        super(context, new PejelagartoModel(context.getPart(PejelagartoModel.PEJELAGARTO)), 0.4f);
     }
 
     @Override

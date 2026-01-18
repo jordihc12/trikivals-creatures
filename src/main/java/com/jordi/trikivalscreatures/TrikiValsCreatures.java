@@ -1,5 +1,6 @@
 package com.jordi.trikivalscreatures;
 
+import com.jordi.trikivalscreatures.blocks.ModBlocks;
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.items.ModItemGroups;
@@ -23,6 +24,7 @@ public class TrikiValsCreatures implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
         ModItemGroups.registerItemGroups();
 
+        ModBlocks.registerModBlocks();
         ModItems.registerModItems();
         ModEntityGeneration.addSpawns();
         ModPredicates.registerModelPredicates();

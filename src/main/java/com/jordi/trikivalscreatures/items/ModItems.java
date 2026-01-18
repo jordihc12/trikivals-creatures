@@ -6,7 +6,6 @@ import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlockItem;
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;

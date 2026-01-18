@@ -45,5 +45,6 @@ public class ModItemGroups {
         }
     }
 
-    public static void registerItemGroups() { TrikiValsCreatures.LOGGER.info("Registering Mod Item Groups for " + TrikiValsCreatures.MOD_ID); }
+    public static void registerItemGroups() {
+        TrikiValsCreatures.LOGGER.info("Registering Mod Item Groups for " + TrikiValsCreatures.MOD_ID); }
 }
