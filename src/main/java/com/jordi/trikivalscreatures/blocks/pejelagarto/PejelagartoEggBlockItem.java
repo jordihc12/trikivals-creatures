@@ -1,6 +1,5 @@
 package com.jordi.trikivalscreatures.blocks.pejelagarto;
 
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,7 +8,6 @@ import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;

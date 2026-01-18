@@ -1,15 +1,12 @@
 package com.jordi.trikivalscreatures.entity.pejelagarto;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class PejelagartoAnims {
 
-    public static final Animation PEJELAGARTO_WALK_OLD = Animation.Builder.create(1f).looping()
+    public static final AnimationDefinition PEJELAGARTO_WALK_OLD = AnimationDefinition.Builder.create(1f).looping()
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0.05f, -0.25f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -57,7 +54,7 @@ public class PejelagartoAnims {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-12.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("left_fourth",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, -0.5f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("left_fourth",
@@ -93,7 +90,7 @@ public class PejelagartoAnims {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-12.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("right_fourth",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, -0.5f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("right_fourth",
@@ -105,7 +102,7 @@ public class PejelagartoAnims {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(12.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tail_1",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-0.25f, -0.3f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -128,9 +125,9 @@ public class PejelagartoAnims {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-7.5f, -7.5f, 0.5f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation PEJELAGARTO_IDLE = Animation.Builder.create(1.5f).looping()
+    public static final AnimationDefinition PEJELAGARTO_IDLE = AnimationDefinition.Builder.create(1.5f).looping()
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.375f, AnimationHelper.createTranslationalVector(0f, -0.5f, 0f),
@@ -146,7 +143,7 @@ public class PejelagartoAnims {
                             new Keyframe(1.33333f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("torso",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.375f, AnimationHelper.createTranslationalVector(0f, -0.5f, 0f),
@@ -154,7 +151,7 @@ public class PejelagartoAnims {
                             new Keyframe(0.75f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("jaw",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0.91667f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.125f, AnimationHelper.createTranslationalVector(0f, -0.4f, 0.35f),
@@ -169,9 +166,9 @@ public class PejelagartoAnims {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.33333f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation PEJELAGARTO_WALK_END = Animation.Builder.create(0.5f).looping()
+    public static final AnimationDefinition PEJELAGARTO_WALK_END = AnimationDefinition.Builder.create(0.5f).looping()
             .addBoneAnimation("tail_1",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -0.37f, 0.25f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tail_1",
@@ -179,7 +176,7 @@ public class PejelagartoAnims {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-12.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tail_2",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-0.31f, -0.3f, 0.12f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -0.3f, 0f),
@@ -191,7 +188,7 @@ public class PejelagartoAnims {
                             new Keyframe(0.25f, AnimationHelper.createRotationalVector(-12.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tail_3",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -0.3f, 0.2f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(-0.31f, -0.3f, 0.1f),
@@ -206,7 +203,7 @@ public class PejelagartoAnims {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(-12.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation PEJELAGARTO_WALK = Animation.Builder.create(1f).looping()
+    public static final AnimationDefinition PEJELAGARTO_WALK = AnimationDefinition.Builder.create(1f).looping()
             .addBoneAnimation("left_first",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -304,7 +301,7 @@ public class PejelagartoAnims {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tail_1",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -0.37f, 0.25f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0.25f, -0.37f, -0.15f),
@@ -328,7 +325,7 @@ public class PejelagartoAnims {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-12.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tail_2",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-0.31f, -0.3f, 0.12f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -0.3f, 0f),
@@ -352,7 +349,7 @@ public class PejelagartoAnims {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-12.5f, -12.5f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tail_3",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -0.3f, 0.2f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(-0.31f, -0.3f, 0.1f),
@@ -375,7 +372,7 @@ public class PejelagartoAnims {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-12.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation PEJELAGARTO_WALK_START = Animation.Builder.create(1f)
+    public static final AnimationDefinition PEJELAGARTO_WALK_START = AnimationDefinition.Builder.create(1f)
             .addBoneAnimation("left_first",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -473,7 +470,7 @@ public class PejelagartoAnims {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tail_1",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -0.37f, 0.25f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0.25f, -0.37f, -0.15f),
@@ -497,7 +494,7 @@ public class PejelagartoAnims {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-12.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tail_2",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -0.3f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -0.3f, 0f),
@@ -521,7 +518,7 @@ public class PejelagartoAnims {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-12.5f, -12.5f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tail_3",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -0.3f, 0.2f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(-0.31f, -0.3f, 0.1f),

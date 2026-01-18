@@ -7,5 +7,5 @@ import net.minecraft.util.Identifier;
 //Helper class that creates custom entity model layers
 public class ModModelLayers {
     public static final EntityModelLayer PEJELAGARTO =
-            new EntityModelLayer(new Identifier(TrikiValsCreatures.MOD_ID, "pejelagarto"), "main");
+            new EntityModelLayer(Identifier.of(TrikiValsCreatures.MOD_ID, "pejelagarto"), "main");
 }
