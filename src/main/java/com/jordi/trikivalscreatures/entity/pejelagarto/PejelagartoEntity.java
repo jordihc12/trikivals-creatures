@@ -22,6 +22,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -50,7 +51,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class PejelagartoEntity extends TameableEntity implements CustomRangedAttackMob, CustomMeleeAttackMob {
 
@@ -77,7 +77,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 
     public static DefaultAttributeContainer.Builder createPejelagartoAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createMobAttributes().add(EntityAttributes.TEMPT_RANGE, 2.5F)
                 .add(EntityAttributes.MAX_HEALTH, 10.0F)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.ATTACK_DAMAGE, 3f);
@@ -139,7 +139,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
             thisVariant = Util.getRandom(possibleVariants, this.random);
         }
         else {
-            TrikiValsCreatures.LOGGER.info("No biome detected. Spawning random variant");
+            TrikiValsCreatures.LogStringWarning(this, "No biome detected. Spawning random variant");
 
             thisVariant = Util.getRandom(PejelagartoVariant.values(), this.random);
         }
@@ -211,9 +211,11 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 //region UPDATE
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        TrikiValsCreatures.LogStringInfo(this, String.format("Pejelagarto Tamed: %b",this.isTamed()));
+
         ItemStack itemStack = player.getStackInHand(hand);
         if(this.isTamed()) {
-            if(itemStack.isOf(Items.GLASS_BOTTLE)) {
+            if (itemStack.isOf(Items.GLASS_BOTTLE)) {
                 player.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
 
                 ItemStack poisonPotion = Items.SPLASH_POTION.getDefaultStack();
@@ -241,6 +243,8 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                     this.navigation.stop();
                     this.setTarget(null);
                     this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+
+                    TrikiValsCreatures.LogStringInfo(this, "Pejelagarto Tamed!");
                 } else {
                     this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
                 }
@@ -373,8 +377,8 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                         new CustomRangedAttackGoal(this,1, getRangeAggroMaxAttackRange(), getRangeAggroMinAttackRange(), 40, 20.0F),
                         new PejelagartoAttackGoal(this,1, true)
                 })
-                .addGoal(new SitGoal(this))
                 .addGoal(new PejelagartoMateGoal(this, 1.15))
+                .addGoal(new SitGoal(this))
                 .addGoal(new FollowOwnerNoTeleportGoal(this, 1.0, 10.0F, 2.0F))
                 .addGoal(new TemptGoal(this, 1.15, Ingredient.ofItems(Items.RABBIT), false))
                 .addGoal(new FollowParentGoal(this, 1.0f))
