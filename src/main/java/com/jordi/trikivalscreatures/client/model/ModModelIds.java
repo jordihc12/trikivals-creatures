@@ -2,7 +2,6 @@ package com.jordi.trikivalscreatures.client.model;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import net.minecraft.block.Block;
-import net.minecraft.data.client.ModelIds;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -11,11 +10,11 @@ import java.util.function.UnaryOperator;
 
 public class ModModelIds {
     public static Identifier getNamespacedBlock(String name) {
-        return new Identifier(TrikiValsCreatures.MOD_ID, "block/" + name);
+        return Identifier.of(TrikiValsCreatures.MOD_ID, "block/" + name);
     }
 
     public static Identifier getNamespacedItem(String name) {
-        return new Identifier(TrikiValsCreatures.MOD_ID, "item/" + name);
+        return Identifier.of(TrikiValsCreatures.MOD_ID, "item/" + name);
     }
 
     public static Identifier getBlockSubModelId(Block block, String suffix) {

@@ -8,9 +8,12 @@ import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoMateGoal;
 import com.jordi.trikivalscreatures.entity.ai.TerritorialTargetGoal;
 import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
 import com.jordi.trikivalscreatures.utils.ModTags;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -19,19 +22,20 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.potion.PotionUtil;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -60,7 +64,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     private int attackAnimationCooldown = 0;
 
 // DATA TRACKER VARIABLES
-    private static final TrackedData<Integer> VARIANT =
+    public static final TrackedData<Integer> VARIANT =
         DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> ATTACKING =
         DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -73,31 +77,41 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 
     public static DefaultAttributeContainer.Builder createPejelagartoAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0F)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3f);
+        return AnimalEntity.createMobAttributes().add(EntityAttributes.TEMPT_RANGE, 2.5F)
+                .add(EntityAttributes.MAX_HEALTH, 10.0F)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.2f)
+                .add(EntityAttributes.ATTACK_DAMAGE, 3f);
     }
 
     private void setCustomEntityAttributes() {
         //Modifying base attribute values of specific variants
         switch (getVariant()) {
             case JUNGLE -> {
-                double speedBaseValue = this.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-                this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(speedBaseValue * 1.2F);
+                double speedBaseValue = this.getAttributeBaseValue(EntityAttributes.MOVEMENT_SPEED);
+                EntityAttributeInstance speedAttr = this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
+                if(speedAttr != null) {
+                    speedAttr.setBaseValue(speedBaseValue * 1.2F);
+                }
             }
             case SAND -> {
-                double attackBaseValue = this.getAttributeBaseValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(attackBaseValue * 1.2F);
+                double attackBaseValue = this.getAttributeBaseValue(EntityAttributes.ATTACK_DAMAGE);
+                EntityAttributeInstance attackAttr = this.getAttributeInstance(EntityAttributes.ATTACK_DAMAGE);
+                if(attackAttr != null) {
+                    attackAttr.setBaseValue(attackBaseValue * 1.2F);
+                }
 
-                double healthBaseValue = this.getAttributeBaseValue(EntityAttributes.GENERIC_MAX_HEALTH);
-                this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(healthBaseValue * 2.0F);
+                double healthBaseValue = this.getAttributeBaseValue(EntityAttributes.MAX_HEALTH);
+                EntityAttributeInstance healthAttr = this.getAttributeInstance(EntityAttributes.MAX_HEALTH);
+                if(healthAttr != null) {
+                    healthAttr.setBaseValue(healthBaseValue * 2.0F);
+                }
             }
         }
     }
 
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
+                                 @Nullable EntityData entityData) {
         RegistryKey<Biome> biome = world.getBiome(this.getBlockPos()).getKey().orElseGet(null);
         PejelagartoVariant thisVariant;
         if(biome != null) {
@@ -125,14 +139,14 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
             thisVariant = Util.getRandom(possibleVariants, this.random);
         }
         else {
-            TrikiValsCreatures.LOGGER.info("No biome detected. Spawning random variant");
+            TrikiValsCreatures.LogStringWarning(this, "No biome detected. Spawning random variant");
 
             thisVariant = Util.getRandom(PejelagartoVariant.values(), this.random);
         }
         this.setVariant(thisVariant);
         this.setCustomEntityAttributes();
 
-        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
     public static boolean canSpawn(EntityType<PejelagartoEntity> entity, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
@@ -142,22 +156,22 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
 //region DATA TRACKER
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(VARIANT, 0);
-        this.dataTracker.startTracking(ATTACKING, false);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(VARIANT, 0);
+        builder.add(ATTACKING, false);
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putInt("Variant", this.getTypeVariant());
+    public void writeData(WriteView view) {
+        super.writeData(view);
+        view.putInt("Variant", this.getTypeVariant());
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
+    public void readData(ReadView view) {
+        super.readData(view);
+        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
     }
 //endregion
 
@@ -165,7 +179,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     @Override
     protected void updateLimbs(float posDelta) {
         float f = (this.getPose() == EntityPose.STANDING) ? Math.min(posDelta * 6.0F, 1.0F) : 0;
-        this.limbAnimator.updateLimbs(f, 0.2F);
+        this.limbAnimator.updateLimbs(f, 0.2F, this.isBaby() ? 3.0F : 1.0F);
     }
 
     public void resetAttackAnimationCooldown() {
@@ -197,12 +211,16 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 //region UPDATE
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        TrikiValsCreatures.LogStringInfo(this, String.format("Pejelagarto Tamed: %b",this.isTamed()));
+
         ItemStack itemStack = player.getStackInHand(hand);
         if(this.isTamed()) {
-            if(itemStack.isOf(Items.GLASS_BOTTLE)) {
+            if (itemStack.isOf(Items.GLASS_BOTTLE)) {
                 player.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
 
-                ItemStack poisonPotion = PotionUtil.setCustomPotionEffects(Items.SPLASH_POTION.getDefaultStack(), List.of(getStatusEffectInstance()));
+                ItemStack poisonPotion = Items.SPLASH_POTION.getDefaultStack();
+                PotionContentsComponent potionEffectComponent = PotionContentsComponent.DEFAULT.with(getStatusEffectInstance());
+                poisonPotion.set(DataComponentTypes.POTION_CONTENTS, potionEffectComponent);
 
                 ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, poisonPotion);
                 player.setStackInHand(hand, itemStack2);
@@ -224,9 +242,11 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                     this.setOwner(player);
                     this.navigation.stop();
                     this.setTarget(null);
-                    this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+                    this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+
+                    TrikiValsCreatures.LogStringInfo(this, "Pejelagarto Tamed!");
                 } else {
-                    this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+                    this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
                 }
 
                 return ActionResult.SUCCESS;
@@ -259,7 +279,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     public void tick() {
         super.tick();
 
-        if(this.getWorld().isClient) {
+        if(this.getEntityWorld().isClient()) {
             setupAnimationStates();
         }
     }
@@ -272,7 +292,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 
     public static PejelagartoEntity createNewChild(ServerWorld world, Vec3d pos, PejelagartoVariant variant) {
-        PejelagartoEntity baby = ModEntities.PEJELAGARTO.create(world);
+        PejelagartoEntity baby = ModEntities.PEJELAGARTO.create(world, SpawnReason.BREEDING);
         if(baby != null) {
             baby.setBaby(true);
             baby.refreshPositionAndAngles(
@@ -291,7 +311,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
     @Override
     public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.PEJELAGARTO.create(world);
+        return ModEntities.PEJELAGARTO.create(world, SpawnReason.BREEDING);
     }
 //endregion
 
@@ -357,8 +377,8 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                         new CustomRangedAttackGoal(this,1, getRangeAggroMaxAttackRange(), getRangeAggroMinAttackRange(), 40, 20.0F),
                         new PejelagartoAttackGoal(this,1, true)
                 })
-                .addGoal(new SitGoal(this))
                 .addGoal(new PejelagartoMateGoal(this, 1.15))
+                .addGoal(new SitGoal(this))
                 .addGoal(new FollowOwnerNoTeleportGoal(this, 1.0, 10.0F, 2.0F))
                 .addGoal(new TemptGoal(this, 1.15, Ingredient.ofItems(Items.RABBIT), false))
                 .addGoal(new FollowParentGoal(this, 1.0f))
@@ -380,8 +400,8 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 
     @Override
-    public boolean tryAttack(Entity target) {
-        if(!super.tryAttack(target)) {
+    public boolean tryAttack(ServerWorld world, Entity target) {
+        if(!super.tryAttack(world, target)) {
             return false;
         }
         else {
@@ -399,19 +419,19 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 
     @Override
-    public void attack(LivingEntity target, float pullProgress) {
+    public void shootAt(LivingEntity target, float pullProgress) {
         this.spitAt(target);
     }
 
     private void spitAt(LivingEntity target) {
-        PejelagartoSpitEntity pejelagartoSpitEntity = new PejelagartoSpitEntity(this.getWorld(), this);
+        PejelagartoSpitEntity pejelagartoSpitEntity = new PejelagartoSpitEntity(this.getEntityWorld(), this);
         double d = target.getX() - this.getX();
         double e = target.getBodyY(0.3333333333333333) - pejelagartoSpitEntity.getY();
         double f = target.getZ() - this.getZ();
         double g = Math.sqrt(d * d + f * f) * 0.2F;
         pejelagartoSpitEntity.setVelocity(d, e + g, f, 1.5F, 10.0F);
         if (!this.isSilent()) {
-            this.getWorld()
+            this.getEntityWorld()
                     .playSound(
                             null,
                             this.getX(),
@@ -424,7 +444,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                     );
         }
 
-        this.getWorld().spawnEntity(pejelagartoSpitEntity);
+        this.getEntityWorld().spawnEntity(pejelagartoSpitEntity);
     }
 
     @Override
@@ -454,10 +474,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 //endregion
 
 //region TAMING
-    @Override
-    public EntityView method_48926() {
-        return this.getWorld();
-    }
+
 //endregion
 
     @Override

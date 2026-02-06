@@ -15,6 +15,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(ModTags.Blocks.PEJELAGARTO_SPAWNABLE_ON).add(Blocks.GRASS_BLOCK).add(Blocks.SAND).add(Blocks.MYCELIUM);
+        valueLookupBuilder(ModTags.Blocks.PEJELAGARTO_SPAWNABLE_ON)
+                .add(Blocks.GRASS_BLOCK).add(Blocks.SAND).add(Blocks.MYCELIUM);
     }
 }

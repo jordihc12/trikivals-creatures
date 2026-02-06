@@ -13,6 +13,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        //getOrCreateTagBuilder(ITEM_TAG).add(Item_1).add(Item_2)...
+        //valueLookupBuilder(ITEM_TAG).add(Item_1).add(Item_2)...
     }
 }

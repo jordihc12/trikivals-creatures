@@ -5,11 +5,11 @@ import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -28,10 +28,10 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class PejelagartoEggBlock extends Block {
     public static final IntProperty EGGS = Properties.EGGS;
     public static final IntProperty HATCH = Properties.HATCH;
@@ -105,7 +105,7 @@ public class PejelagartoEggBlock extends Block {
         this.canHatch = isIncubationBlockBelow(world, pos.down());
         TrikiValsCreatures.LOGGER.info("[PejelagartoEggBlock] Block below allows egg incubation: {}", this.canHatch);
         if(this.canHatch) {
-            world.syncWorldEvent(WorldEvents.PLANT_FERTILIZED, pos, 0);
+            world.syncWorldEvent(WorldEvents.TURTLE_EGG_PLACED, pos, 0);
             world.scheduleBlockTick(pos, this, HATCH_STAGE_TICKS);   //Time that takes to increase Hatch state
         }
     }
@@ -149,35 +149,27 @@ public class PejelagartoEggBlock extends Block {
 
     private boolean isStackValid(ItemStack stack) {
         if(stack.getItem() instanceof PejelagartoEggBlockItem) {
-            NbtCompound nbt = stack.getNbt();
-            if(nbt == null) return false;
+            BlockStateComponent blockStateComponent = stack.get(DataComponentTypes.BLOCK_STATE);
+            if(blockStateComponent == null || blockStateComponent.isEmpty()) return false;
 
-            NbtCompound blockStateTag = nbt.getCompound(BlockItem.BLOCK_STATE_TAG_KEY);
-            if(blockStateTag.isEmpty()) return false;
-            if(blockStateTag.contains("variant"))
-                return this.getVariantState() == PejelagartoVariant.byName(blockStateTag.getString("variant"));
-
-            NbtCompound propertiesTag = blockStateTag.getCompound("Properties");
-            if(propertiesTag.isEmpty()) return false;
-
-            return this.getVariantState() == PejelagartoVariant.byName(propertiesTag.getString("variant"));
+            return this.getVariantState() == blockStateComponent.getValue(VARIANT);
         }
 
         return false;
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         int eggs = state.get(EGGS);
         if(eggs >= 4) return ActionResult.PASS;
-        if(!world.isClient && isStackValid(player.getStackInHand(hand))) {
+        if(!world.isClient() && isStackValid(stack)) {
             world.setBlockState(pos, state.with(EGGS, eggs + 1), NOTIFY_LISTENERS);
             if(!player.isCreative()) {
-                player.getStackInHand(hand).decrement(1);
+                stack.decrement(1);
             }
             return ActionResult.SUCCESS;
         }
-        return super.onUse(state, world, pos, player, hand, hit);
+        return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }
 
     @Override
@@ -188,16 +180,12 @@ public class PejelagartoEggBlock extends Block {
     }
 //endregion
 
-    public static NbtCompound getItemBlockStateNbt(PejelagartoVariant variant) {
-        NbtCompound nbt = new NbtCompound();
-        nbt.putString(PejelagartoEggBlock.VARIANT.getName(), variant.asString());
-        return nbt;
-    }
-
     @Override
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        ItemStack stack = super.getPickStack(world, pos, state);
-        stack.getOrCreateNbt().put(BlockItem.BLOCK_STATE_TAG_KEY, PejelagartoEggBlock.getItemBlockStateNbt(state.get(VARIANT)));
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        ItemStack stack = super.getPickStack(world, pos, state, includeData);
+
+        stack.set(DataComponentTypes.BLOCK_STATE,
+                BlockStateComponent.DEFAULT.with(PejelagartoEggBlock.VARIANT, state.get(VARIANT)));
 
         return stack;
     }

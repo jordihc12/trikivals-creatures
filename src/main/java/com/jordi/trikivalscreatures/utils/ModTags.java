@@ -12,13 +12,13 @@ public class ModTags {
         public static final TagKey<Block> PEJELAGARTO_SPAWNABLE_ON = createTag("pejelagarto_spawnable_on");
 
         private static TagKey<Block> createTag(String name) {
-            return TagKey.of(RegistryKeys.BLOCK, new Identifier(TrikiValsCreatures.MOD_ID, name));
+            return TagKey.of(RegistryKeys.BLOCK, Identifier.of(TrikiValsCreatures.MOD_ID, name));
         }
     }
 
     public static class Items {
         private static TagKey<Item> createTag(String name) {
-            return TagKey.of(RegistryKeys.ITEM, new Identifier(TrikiValsCreatures.MOD_ID, name));
+            return TagKey.of(RegistryKeys.ITEM, Identifier.of(TrikiValsCreatures.MOD_ID, name));
         }
     }
 }

@@ -3,12 +3,12 @@ package com.jordi.trikivalscreatures.datagen;
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.utils.ModLootTableBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootTableProvider;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.KilledByPlayerLootCondition;
-import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
-import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.loot.condition.RandomChanceWithEnchantedBonusLootCondition;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 
@@ -16,14 +16,14 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class ModEntityLootTableProvider extends SimpleFabricLootTableProvider {
+public class ModEntityLootTableProvider extends FabricEntityLootTableProvider {
 
     private final ModLootTableBuilder tableBuilder;
 
     private final Map<Identifier, LootTable.Builder> lootTables;
 
     public ModEntityLootTableProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-        super(output, LootContextTypes.ENTITY);
+        super(output, registryLookup);
 
         this.tableBuilder = new ModLootTableBuilder();
         this.lootTables = new HashMap<>();
@@ -40,22 +40,22 @@ public class ModEntityLootTableProvider extends SimpleFabricLootTableProvider {
                         .addItem(
                             tableBuilder.createItem(Items.DIAMOND)
                                 .setPoolCount(0, 1)
-                                .setPoolLootingModifier(0, 2)
+                                .setPoolLootingModifier(this.registries, 0, 2)
                                 .getItem()
                         ).getPool()
                 ).addPool(
                     tableBuilder.createPool()
                         .addItem( tableBuilder.createItem(Items.DIAMOND_BLOCK).getItem() )
                         .addPoolCondition(KilledByPlayerLootCondition.builder())
-                        .addPoolCondition(RandomChanceWithLootingLootCondition.builder(50.0F, 3.0F))
+                        .addPoolCondition(RandomChanceWithEnchantedBonusLootCondition.builder(registries, 50.0F, 3.0F))
                         .getPool()
                 ).getTable());
     }
 
     @Override
-    public void accept(BiConsumer<Identifier, LootTable.Builder> exporter) {
-        this.generate();
+    public void accept(BiConsumer<RegistryKey<LootTable>, LootTable.Builder> biConsumer) {
+        super.accept(biConsumer);
 
-        this.lootTables.forEach(exporter);
+        pejelagartoLootTable();
     }
 }

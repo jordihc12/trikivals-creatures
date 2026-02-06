@@ -1,6 +1,7 @@
 
 package com.jordi.trikivalscreatures.entity.pejelagarto;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.world.biome.Biome;
@@ -42,6 +43,8 @@ public enum PejelagartoVariant implements StringIdentifiable {
         2.0F,
         null
     );
+
+    public static final Codec<PejelagartoVariant> CODEC = StringIdentifiable.createCodec(PejelagartoVariant::values);
 
     private static final PejelagartoVariant[] BY_ID = Arrays.stream(values()).sorted(
             Comparator.comparingInt(PejelagartoVariant::getId)).toArray(PejelagartoVariant[]::new);

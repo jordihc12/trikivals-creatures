@@ -1,20 +1,19 @@
 package com.jordi.trikivalscreatures.utils;
 
-import com.google.gson.JsonElement;
 import com.jordi.trikivalscreatures.client.model.ModModelIds;
 import net.minecraft.block.Block;
-import net.minecraft.data.client.Model;
-import net.minecraft.data.client.TextureMap;
+import net.minecraft.client.data.Model;
+import net.minecraft.client.data.ModelSupplier;
+import net.minecraft.client.data.TextureMap;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 
 public class ModModelUtils {
 
     private static Identifier getEggModelTemplate(int eggs, String entityEggStr, TextureMap textures,
-                                           BiConsumer<Identifier, Supplier<JsonElement>> modelCollector, Model[] modelTemplates) {
+                                                  BiConsumer<Identifier, ModelSupplier> modelCollector, Model[] modelTemplates) {
         switch (eggs) {
             case 1 -> {
                 return modelTemplates[0].upload(
@@ -45,7 +44,7 @@ public class ModModelUtils {
     }
 
     public static Identifier getEggHatchModelTemplateWithVariant(int hatch, int eggs, Block block, String variant,
-                                                BiConsumer<Identifier, Supplier<JsonElement>> modelCollector, Model[] modelTemplates) {
+                                                                 BiConsumer<Identifier, ModelSupplier> modelCollector, Model[] modelTemplates) {
         String blockId = Registries.BLOCK.getId(block).getPath();
         switch (hatch) {
             case 0 -> {
@@ -65,7 +64,7 @@ public class ModModelUtils {
     }
 
     public static Identifier getEggHatchModelTemplate(int hatch, int eggs, Block block,
-                                                                 BiConsumer<Identifier, Supplier<JsonElement>> modelCollector, Model[] modelTemplates) {
+                                                      BiConsumer<Identifier, ModelSupplier> modelCollector, Model[] modelTemplates) {
         String blockId = Registries.BLOCK.getId(block).getPath();
         switch (hatch) {
             case 0 -> {

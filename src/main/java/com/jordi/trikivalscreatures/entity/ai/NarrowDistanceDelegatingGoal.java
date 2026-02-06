@@ -73,8 +73,11 @@ public class NarrowDistanceDelegatingGoal extends Goal {
 
                 //Flee Target
                 if(distanceToRange < distanceToMelee) {
-                    Vec3d dirNormalized = (this.target.getPos().subtract(this.entity.getPos())).normalize();
-                    Vec3d fleePos = this.entity.getPos().add(dirNormalized.multiply(-2));
+                    Vec3d targetPos = new Vec3d(this.target.getX(), this.target.getY(), this.target.getZ());
+                    Vec3d entityPos = new Vec3d(this.entity.getX(), this.entity.getY(), this.entity.getZ());
+
+                    Vec3d dirNormalized = (targetPos.subtract(entityPos)).normalize();
+                    Vec3d fleePos = entityPos.add(dirNormalized.multiply(-2));
                     this.entity.getNavigation().startMovingTo(fleePos.getX(), fleePos.getY(), fleePos.getZ(), 1.2);
                     return;
                 }

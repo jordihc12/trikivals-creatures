@@ -5,6 +5,7 @@ import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 
 public class PejelagartoAttackGoal extends MeleeAttackGoal {
@@ -27,7 +28,7 @@ public class PejelagartoAttackGoal extends MeleeAttackGoal {
     }
 
     @Override
-    protected void attack(LivingEntity target, double squaredDistance) {
+    protected void attack(LivingEntity target) {
         if(isEnemyWithinAttackDistance(target)) {
             shouldCountTillNextAttack = true;
 
@@ -73,7 +74,7 @@ public class PejelagartoAttackGoal extends MeleeAttackGoal {
     protected void performAttack(LivingEntity pEnemy) {
         this.resetAttackCooldown();
         this.mob.swingHand(Hand.MAIN_HAND);
-        this.mob.tryAttack(pEnemy);
+        this.mob.tryAttack((ServerWorld) (this.mob.getEntityWorld()), pEnemy);
     }
 
     @Override

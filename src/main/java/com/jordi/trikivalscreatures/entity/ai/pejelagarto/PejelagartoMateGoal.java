@@ -1,5 +1,6 @@
 package com.jordi.trikivalscreatures.entity.ai.pejelagarto;
 
+import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.blocks.ModBlocks;
 import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlock;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;

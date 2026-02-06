@@ -53,7 +53,7 @@ public class FollowOwnerNoTeleportGoal extends Goal {
         if (this.navigation.isIdle()) {
             return false;
         } else {
-            return this.cannotFollow() ? false : !(this.tameable.squaredDistanceTo(this.owner) <= this.maxDistance * this.maxDistance);
+            return !this.cannotFollow() && !(this.tameable.squaredDistanceTo(this.owner) <= this.maxDistance * this.maxDistance);
         }
     }
 

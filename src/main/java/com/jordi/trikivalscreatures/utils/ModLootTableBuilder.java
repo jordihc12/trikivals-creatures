@@ -6,10 +6,11 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LeafEntry;
-import net.minecraft.loot.function.LootingEnchantLootFunction;
+import net.minecraft.loot.function.EnchantedCountIncreaseLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.LootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.registry.RegistryWrapper;
 
 public class ModLootTableBuilder {
 
@@ -63,8 +64,8 @@ public class ModLootTableBuilder {
         return this;
     }
 
-    public ModLootTableBuilder setPoolLootingModifier(int min, int max) {
-        this.item.apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(min, max)));
+    public ModLootTableBuilder setPoolLootingModifier(RegistryWrapper.WrapperLookup registries, float min, float max) {
+        this.item.apply(EnchantedCountIncreaseLootFunction.builder(registries, UniformLootNumberProvider.create(min, max)));
         return this;
     }
 

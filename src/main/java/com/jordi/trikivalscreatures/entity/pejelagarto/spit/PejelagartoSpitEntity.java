@@ -6,12 +6,14 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -46,9 +48,9 @@ public class PejelagartoSpitEntity extends ProjectileEntity {
         double e = this.getY() + vec3d.y;
         double f = this.getZ() + vec3d.z;
         this.updateRotation();
-        if (this.getWorld().getStatesInBox(this.getBoundingBox()).noneMatch(AbstractBlock.AbstractBlockState::isAir)) {
+        if (this.getEntityWorld().getStatesInBox(this.getBoundingBox()).noneMatch(AbstractBlock.AbstractBlockState::isAir)) {
             this.discard();
-        } else if (this.isInsideWaterOrBubbleColumn()) {
+        } else if (this.isTouchingWater()) {
             this.discard();
         } else {
             this.setVelocity(vec3d.multiply(0.99F));
@@ -65,7 +67,7 @@ public class PejelagartoSpitEntity extends ProjectileEntity {
         super.onEntityHit(entityHitResult);
         if (this.getOwner() instanceof LivingEntity livingEntity) {
             Entity entity = entityHitResult.getEntity();
-            entity.damage(this.getDamageSources().mobProjectile(this, livingEntity), 1.0F);
+            entity.damage(((ServerWorld) this.getEntityWorld()), this.getDamageSources().mobProjectile(this, livingEntity), 1.0F);
 
             StatusEffectInstance customEffect = new StatusEffectInstance(
                     StatusEffects.POISON,
@@ -79,25 +81,25 @@ public class PejelagartoSpitEntity extends ProjectileEntity {
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
-        if (!this.getWorld().isClient) {
+        if (!this.getEntityWorld().isClient()) {
             this.discard();
         }
     }
 
     @Override
-    protected void initDataTracker() {
+    protected void initDataTracker(DataTracker.Builder builder) {
     }
 
     @Override
     public void onSpawnPacket(EntitySpawnS2CPacket packet) {
         super.onSpawnPacket(packet);
-        double d = packet.getVelocityX();
-        double e = packet.getVelocityY();
-        double f = packet.getVelocityZ();
+        double d = packet.getVelocity().getX();
+        double e = packet.getVelocity().getY();
+        double f = packet.getVelocity().getZ();
 
         for (int i = 0; i < 7; i++) {
             double g = 0.4 + 0.1 * i;
-            this.getWorld().addParticle(ParticleTypes.SPIT, this.getX(), this.getY(), this.getZ(), d * g, e, f * g);
+            this.getEntityWorld().addParticleClient(ParticleTypes.SPIT, this.getX(), this.getY(), this.getZ(), d * g, e, f * g);
         }
 
         this.setVelocity(d, e, f);
