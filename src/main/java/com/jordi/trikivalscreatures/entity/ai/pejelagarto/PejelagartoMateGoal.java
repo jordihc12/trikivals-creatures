@@ -1,6 +1,5 @@
 package com.jordi.trikivalscreatures.entity.ai.pejelagarto;
 
-import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.blocks.ModBlocks;
 import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlock;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
@@ -13,7 +12,7 @@ import net.minecraft.entity.ai.goal.AnimalMateGoal;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.GameRules;
+import net.minecraft.world.rule.GameRules;
 import net.minecraft.world.event.GameEvent;
 
 public class PejelagartoMateGoal extends AnimalMateGoal {
@@ -51,7 +50,6 @@ public class PejelagartoMateGoal extends AnimalMateGoal {
         BlockState blockState = ModBlocks.PEJELAGARTO_EGG.getDefaultState()
                 .with(PejelagartoEggBlock.EGGS, NUMBER_OF_EGGS)
                 .with(PejelagartoEggBlock.VARIANT, variant);
-        pejelagarto.getBlockPos();
 
         world.setBlockState(pejelagarto.getBlockPos().south(), blockState, Block.NOTIFY_ALL);
         world.emitGameEvent(GameEvent.BLOCK_PLACE, pejelagarto.getBlockPos().south(), GameEvent.Emitter.of(this.pejelagarto, blockState));
@@ -61,7 +59,7 @@ public class PejelagartoMateGoal extends AnimalMateGoal {
         this.animal.resetLoveTicks();
         this.mate.resetLoveTicks();
         Random random = this.animal.getRandom();
-        if (this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
+        if(this.world.getGameRules().getValue(GameRules.DO_MOB_LOOT)) {
             this.world.spawnEntity(new ExperienceOrbEntity(this.world, this.animal.getX(), this.animal.getY(), this.animal.getZ(), random.nextInt(7) + 1));
         }
     }
