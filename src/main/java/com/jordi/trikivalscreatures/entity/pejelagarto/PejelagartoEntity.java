@@ -21,7 +21,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
@@ -197,7 +196,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
         //Attack Animation
         if(this.isAttacking() && this.attackAnimationCooldown <= 0) {
-            this.attackAnimationCooldown = this.random.nextInt(40) + 80;
+            this.attackAnimationCooldown = 15;
             this.attackAnimationState.start(this.age);
         }
         else {
@@ -387,7 +386,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                 .addGoal(new LookAroundGoal(this));
 
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new TerritorialTargetGoal<>(this,  LivingEntity.class, 20, 60));
+        this.targetSelector.add(2, new TerritorialTargetGoal<>(this,  LivingEntity.class, 20, 20));
     }
 
     //Attack Logic

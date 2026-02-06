@@ -18,8 +18,17 @@ public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
 	private final ModelPart root;
     private final ModelPart head;
 
-    private final Animation walkingAnimation;
+    //--- ANIMATIONS ---
+    //IDLE
     private final Animation idlingAnimation;
+    private final Animation idlingWaterAnimation;
+
+    //ATTACK
+    private final Animation attackAnimation;
+
+    //MOVEMENT
+    private final Animation walkingAnimation;
+    private final Animation swimAnimation;
 
 	public PejelagartoModel(ModelPart root) {
         super(root);
@@ -28,6 +37,9 @@ public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
 
         this.walkingAnimation = PejelagartoAnims.PEJELAGARTO_WALK.createAnimation(root);
         this.idlingAnimation = PejelagartoAnims.PEJELAGARTO_IDLE.createAnimation(root);
+        this.idlingWaterAnimation = PejelagartoAnims.PEJELAGARTO_IDLE_WATER.createAnimation(root);
+        this.swimAnimation = PejelagartoAnims.PEJELAGARTO_SWIM.createAnimation(root);
+        this.attackAnimation = PejelagartoAnims.PEJELAGARTO_ATTACK.createAnimation(root);
 	}
 
     //TODO: Volver a exportar el modelo para la nueva version
@@ -87,8 +99,19 @@ public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
         super.setAngles(state);
         this.setHeadAngles(state.relativeHeadYaw, state.pitch);
 
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
-        this.idlingAnimation.apply(state.idleAnimationState, state.age, 1f);
+        if(state.attackAnimationState.isRunning()) {
+            this.attackAnimation.apply(state.attackAnimationState, state.age, 1f);
+        }
+        else {
+            if(state.inWater) {
+                this.idlingWaterAnimation.apply(state.idleAnimationState, state.age, 1f);
+                this.swimAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
+            }
+            else {
+                this.idlingAnimation.apply(state.idleAnimationState, state.age, 1f);
+                this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
+            }
+        }
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

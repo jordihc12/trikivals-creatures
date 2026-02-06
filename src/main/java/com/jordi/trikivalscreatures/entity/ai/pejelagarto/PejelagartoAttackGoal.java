@@ -10,7 +10,7 @@ import net.minecraft.util.Hand;
 
 public class PejelagartoAttackGoal extends MeleeAttackGoal {
     private final PejelagartoEntity entity;
-    private int attackDelay = 10;
+    private int attackDelay = 5;
     private int ticksUntilnextAttack = 5;
     private boolean shouldCountTillNextAttack = false;
 
@@ -23,7 +23,7 @@ public class PejelagartoAttackGoal extends MeleeAttackGoal {
     public void start() {
         super.start();
 
-        attackDelay = 10;
+        attackDelay = 5;
         ticksUntilnextAttack = 5;
     }
 

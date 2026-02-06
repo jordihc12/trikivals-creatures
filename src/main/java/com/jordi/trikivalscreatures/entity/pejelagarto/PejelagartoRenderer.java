@@ -2,7 +2,6 @@ package com.jordi.trikivalscreatures.entity.pejelagarto;
 
 import com.google.common.collect.Maps;
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
-import com.jordi.trikivalscreatures.entity.client.ModModelLayers;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
@@ -50,9 +49,16 @@ public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, Pe
     }
 
     @Override
-    public void updateRenderState(PejelagartoEntity livingEntity, PejelagartoRenderState livingEntityRenderState, float f) {
-        super.updateRenderState(livingEntity, livingEntityRenderState, f);
-        livingEntityRenderState.idleAnimationState.copyFrom(livingEntity.idleAnimationState);
-        livingEntityRenderState.variant = livingEntity.getVariant();
+    public void updateRenderState(PejelagartoEntity pejelagartoEntity, PejelagartoRenderState pejelagartoRenderState, float f) {
+        super.updateRenderState(pejelagartoEntity, pejelagartoRenderState, f);
+
+        pejelagartoRenderState.variant = pejelagartoEntity.getVariant();
+
+        //Animation States
+        pejelagartoRenderState.idleAnimationState.copyFrom(pejelagartoEntity.idleAnimationState);
+        pejelagartoRenderState.attackAnimationState.copyFrom(pejelagartoEntity.attackAnimationState);
+
+        //Control Variables
+        pejelagartoRenderState.inWater = pejelagartoEntity.isTouchingWater();
     }
 }

@@ -65,9 +65,9 @@ public class PejelagartoSpitEntity extends ProjectileEntity {
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
-        if (this.getOwner() instanceof LivingEntity livingEntity) {
+        if (this.getOwner() instanceof LivingEntity livingEntity && this.getEntityWorld() instanceof ServerWorld serverWorld) {
             Entity entity = entityHitResult.getEntity();
-            entity.damage(((ServerWorld) this.getEntityWorld()), this.getDamageSources().mobProjectile(this, livingEntity), 1.0F);
+            entity.damage(serverWorld, this.getDamageSources().mobProjectile(this, livingEntity), 1.0F);
 
             StatusEffectInstance customEffect = new StatusEffectInstance(
                     StatusEffects.POISON,
