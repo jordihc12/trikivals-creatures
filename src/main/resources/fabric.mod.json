@@ -3,9 +3,10 @@
 	"id": "trikivals-creatures",
 	"version": "${version}",
 	"name": "TrikiVals Creatures",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Mod de criaturas para TrikiVals_. Añade criaturas como el Pejelagarto, Palgaster o otros en un futuro.",
 	"authors": [
-		"Jordi"
+        "Jordi",
+        "TrikiVals_"
 	],
 	"license": "CC0-1.0",
 	"environment": "*",
@@ -24,8 +25,8 @@
 		"trikivals-creatures.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.0",
-		"minecraft": "~1.21.10",
+		"fabricloader": ">=0.18.0",
+		"minecraft": "~1.21.11",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
