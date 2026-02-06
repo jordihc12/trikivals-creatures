@@ -50,7 +50,6 @@ public class PejelagartoMateGoal extends AnimalMateGoal {
         BlockState blockState = ModBlocks.PEJELAGARTO_EGG.getDefaultState()
                 .with(PejelagartoEggBlock.EGGS, NUMBER_OF_EGGS)
                 .with(PejelagartoEggBlock.VARIANT, variant);
-        pejelagarto.getBlockPos();
 
         world.setBlockState(pejelagarto.getBlockPos().south(), blockState, Block.NOTIFY_ALL);
         world.emitGameEvent(GameEvent.BLOCK_PLACE, pejelagarto.getBlockPos().south(), GameEvent.Emitter.of(this.pejelagarto, blockState));
