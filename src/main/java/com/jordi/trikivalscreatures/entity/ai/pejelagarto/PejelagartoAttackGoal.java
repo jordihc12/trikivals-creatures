@@ -1,5 +1,6 @@
 package com.jordi.trikivalscreatures.entity.ai.pejelagarto;
 
+import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import net.minecraft.entity.LivingEntity;
@@ -10,7 +11,7 @@ import net.minecraft.util.Hand;
 
 public class PejelagartoAttackGoal extends MeleeAttackGoal {
     private final PejelagartoEntity entity;
-    private int attackDelay = 10;
+    private int attackDelay = 5;
     private int ticksUntilnextAttack = 5;
     private boolean shouldCountTillNextAttack = false;
 
@@ -23,7 +24,7 @@ public class PejelagartoAttackGoal extends MeleeAttackGoal {
     public void start() {
         super.start();
 
-        attackDelay = 10;
+        attackDelay = 5;
         ticksUntilnextAttack = 5;
     }
 
@@ -45,7 +46,7 @@ public class PejelagartoAttackGoal extends MeleeAttackGoal {
             resetAttackCooldown();
             shouldCountTillNextAttack = false;
             entity.setAttacking(false);
-            entity.resetAttackAnimationCooldown();
+            entity.getAnimationManager().resetAnimationCooldownFor(PejelagartoAnimatorManager.Animation.ATTACK);
         }
     }
 

@@ -2,7 +2,6 @@ package com.jordi.trikivalscreatures.entity.pejelagarto;
 
 import com.google.common.collect.Maps;
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
-import com.jordi.trikivalscreatures.entity.client.ModModelLayers;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
@@ -50,9 +49,25 @@ public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, Pe
     }
 
     @Override
-    public void updateRenderState(PejelagartoEntity livingEntity, PejelagartoRenderState livingEntityRenderState, float f) {
-        super.updateRenderState(livingEntity, livingEntityRenderState, f);
-        livingEntityRenderState.idleAnimationState.copyFrom(livingEntity.idleAnimationState);
-        livingEntityRenderState.variant = livingEntity.getVariant();
+    public void updateRenderState(PejelagartoEntity pejelagartoEntity, PejelagartoRenderState pejelagartoRenderState, float f) {
+        super.updateRenderState(pejelagartoEntity, pejelagartoRenderState, f);
+
+        pejelagartoRenderState.variant = pejelagartoEntity.getVariant();
+
+        PejelagartoAnimatorManager manager = pejelagartoEntity.getAnimationManager();
+        var activeAnimation = manager.getActiveAnim();
+
+        //Animation States
+        pejelagartoRenderState.idleAnimationState.copyFrom(
+                manager.getAnimationStateFor
+                        (pejelagartoEntity.isTouchingWater() ?
+                                PejelagartoAnimatorManager.Animation.IDLE : PejelagartoAnimatorManager.Animation.IDLE_WATER
+                        )
+        );
+
+        pejelagartoRenderState.activeAnimation = activeAnimation;
+        pejelagartoRenderState.activeAnimationState.copyFrom(manager.getAnimationStateFor(activeAnimation));
+
+        pejelagartoRenderState.inWater = pejelagartoEntity.isTouchingWater();
     }
 }

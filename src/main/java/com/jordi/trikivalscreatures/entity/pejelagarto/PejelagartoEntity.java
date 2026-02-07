@@ -21,7 +21,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
@@ -55,13 +54,7 @@ import java.util.List;
 public class PejelagartoEntity extends TameableEntity implements CustomRangedAttackMob, CustomMeleeAttackMob {
 
 // ANIMATION VARIABLES
-    //Idle Animation
-    public final AnimationState idleAnimationState = new AnimationState();
-    private int idleAnimationCooldown = 0;
-
-    //Attack Animation
-    public final AnimationState attackAnimationState = new AnimationState();
-    private int attackAnimationCooldown = 0;
+    private final PejelagartoAnimatorManager animationManager = new PejelagartoAnimatorManager();
 
 // DATA TRACKER VARIABLES
     public static final TrackedData<Integer> VARIANT =
@@ -182,29 +175,19 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
         this.limbAnimator.updateLimbs(f, 0.2F, this.isBaby() ? 3.0F : 1.0F);
     }
 
-    public void resetAttackAnimationCooldown() {
-        this.attackAnimationCooldown = 0;
+    public final PejelagartoAnimatorManager getAnimationManager() {
+        return animationManager;
     }
 
-    private void setupAnimationStates() {
-        //Idle Animation
-        if (this.idleAnimationCooldown <= 0) {
-            this.idleAnimationCooldown = this.random.nextInt(40) + 80;
-            this.idleAnimationState.start(this.age);
-        } else {
-            this.idleAnimationCooldown--;
-        }
+    private void updatePejelagartoAnimations() {
+        //Global animations update
+        animationManager.updateAnimations(this.age);
 
-        //Attack Animation
-        if(this.isAttacking() && this.attackAnimationCooldown <= 0) {
-            this.attackAnimationCooldown = this.random.nextInt(40) + 80;
-            this.attackAnimationState.start(this.age);
-        }
-        else {
-            this.attackAnimationCooldown--;
-        }
+        //Update active animation
+        animationManager.updateActiveAnimation(this);
 
-        if(!this.isAttacking()) this.attackAnimationState.stop();
+        //Stop Attack animation if it's not running
+        if(!this.isAttacking()) animationManager.stopAnimation(PejelagartoAnimatorManager.Animation.ATTACK);
     }
 //endregion
 
@@ -280,7 +263,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
         super.tick();
 
         if(this.getEntityWorld().isClient()) {
-            setupAnimationStates();
+            updatePejelagartoAnimations();
         }
     }
 //endregion
@@ -387,7 +370,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                 .addGoal(new LookAroundGoal(this));
 
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new TerritorialTargetGoal<>(this,  LivingEntity.class, 20, 60));
+        this.targetSelector.add(2, new TerritorialTargetGoal<>(this,  LivingEntity.class, 20, 20));
     }
 
     //Attack Logic

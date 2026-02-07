@@ -13,6 +13,8 @@ public class TerritorialTargetGoal<T extends LivingEntity> extends ActiveTargetG
 
     private final float TARGET_RANGE;
 
+    //TODO: Create mob types blacklist and override findClosestTarget so it ignores the blacklisted types
+
     public TerritorialTargetGoal(CustomMeleeAttackMob mob, Class<T> targetClass, float targetRange, float intervalToAggressive) {
         super((MobEntity) mob, targetClass, true);
         this.entity = mob;

@@ -3,7 +3,6 @@
 - Variants:
   - Albino:
     - Can only be obtained by breeding. Small percentage of getting it (1/1200)
-    - Range attack
 - Breeding:
   - The egg takes 1h to hatch
 - Animations (Priority):

@@ -33,7 +33,7 @@ public class NarrowDistanceDelegatingGoal extends Goal {
             if(distanceSq <= MELEE_RANGE * MELEE_RANGE) return false;
         }
 
-        if(this.entity instanceof CustomRangedAttackMob customRangedAttackMob) {
+        if(this.entity instanceof CustomRangedAttackMob customRangedAttackMob && customRangedAttackMob.canPerformRangedAttack()) {
             int RANGE_ATTACK_RANGE_MIN = customRangedAttackMob.getRangeAggroMinAttackRange();
             int RANGE_ATTACK_RANGE_MAX = customRangedAttackMob.getRangeAggroMaxAttackRange();
 
@@ -42,18 +42,6 @@ public class NarrowDistanceDelegatingGoal extends Goal {
         }
 
         return true;
-    }
-
-    private boolean isBetweenRanges() {
-        double distanceSq = this.entity.squaredDistanceTo(this.target);
-        if(this.entity instanceof CustomRangedAttackMob customRangedAttackMob) {
-            int RANGE_ATTACK_RANGE_MIN = customRangedAttackMob.getRangeAggroMinAttackRange();
-            int RANGE_ATTACK_RANGE_MAX = customRangedAttackMob.getRangeAggroMaxAttackRange();
-
-            return (!(distanceSq >= RANGE_ATTACK_RANGE_MIN * RANGE_ATTACK_RANGE_MIN)
-                    || !(distanceSq <= RANGE_ATTACK_RANGE_MAX * RANGE_ATTACK_RANGE_MAX));
-        }
-        return false;
     }
 
     @Override
@@ -69,7 +57,7 @@ public class NarrowDistanceDelegatingGoal extends Goal {
 
             if(distanceSq > MELEE_RANGE && distanceSq < RANGE_ATTACK_RANGE_MIN) {
                 double distanceToMelee = distanceSq - MELEE_RANGE;
-                double distanceToRange = RANGE_ATTACK_RANGE_MIN - distanceSq;
+                double distanceToRange =(customRangedAttackMob.canPerformRangedAttack()) ? RANGE_ATTACK_RANGE_MIN - distanceSq : Integer.MAX_VALUE;
 
                 //Flee Target
                 if(distanceToRange < distanceToMelee) {
