@@ -4,9 +4,11 @@ import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.entity.AnimationState;
 
 public class PejelagartoRenderState extends LivingEntityRenderState {
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState attackAnimationState = new AnimationState();
+    public AnimationState idleAnimationState = new AnimationState();
+    public AnimationState activeAnimationState = new AnimationState();
     public PejelagartoVariant variant;
+
+    public PejelagartoAnimatorManager.Animation activeAnimation;
 
     public boolean inWater;
 }

@@ -54,11 +54,20 @@ public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, Pe
 
         pejelagartoRenderState.variant = pejelagartoEntity.getVariant();
 
-        //Animation States
-        pejelagartoRenderState.idleAnimationState.copyFrom(pejelagartoEntity.idleAnimationState);
-        pejelagartoRenderState.attackAnimationState.copyFrom(pejelagartoEntity.attackAnimationState);
+        PejelagartoAnimatorManager manager = pejelagartoEntity.getAnimationManager();
+        var activeAnimation = manager.getActiveAnim();
 
-        //Control Variables
+        //Animation States
+        pejelagartoRenderState.idleAnimationState.copyFrom(
+                manager.getAnimationStateFor
+                        (pejelagartoEntity.isTouchingWater() ?
+                                PejelagartoAnimatorManager.Animation.IDLE : PejelagartoAnimatorManager.Animation.IDLE_WATER
+                        )
+        );
+
+        pejelagartoRenderState.activeAnimation = activeAnimation;
+        pejelagartoRenderState.activeAnimationState.copyFrom(manager.getAnimationStateFor(activeAnimation));
+
         pejelagartoRenderState.inWater = pejelagartoEntity.isTouchingWater();
     }
 }

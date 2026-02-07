@@ -1,5 +1,6 @@
 package com.jordi.trikivalscreatures.entity.ai.pejelagarto;
 
+import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import net.minecraft.entity.LivingEntity;
@@ -45,7 +46,7 @@ public class PejelagartoAttackGoal extends MeleeAttackGoal {
             resetAttackCooldown();
             shouldCountTillNextAttack = false;
             entity.setAttacking(false);
-            entity.resetAttackAnimationCooldown();
+            entity.getAnimationManager().resetAnimationCooldownFor(PejelagartoAnimatorManager.Animation.ATTACK);
         }
     }
 

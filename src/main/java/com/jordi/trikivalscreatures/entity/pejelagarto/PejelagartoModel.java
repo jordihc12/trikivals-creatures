@@ -26,6 +26,9 @@ public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
     //ATTACK
     private final Animation attackAnimation;
 
+    //NOT TOUCHING GROUND
+    private final Animation fallAnimation;
+
     //MOVEMENT
     private final Animation walkingAnimation;
     private final Animation swimAnimation;
@@ -40,6 +43,7 @@ public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
         this.idlingWaterAnimation = PejelagartoAnims.PEJELAGARTO_IDLE_WATER.createAnimation(root);
         this.swimAnimation = PejelagartoAnims.PEJELAGARTO_SWIM.createAnimation(root);
         this.attackAnimation = PejelagartoAnims.PEJELAGARTO_ATTACK.createAnimation(root);
+        this.fallAnimation = PejelagartoAnims.PEJELAGARTO_FALL.createAnimation(root);
 	}
 
     //TODO: Volver a exportar el modelo para la nueva version
@@ -99,18 +103,20 @@ public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
         super.setAngles(state);
         this.setHeadAngles(state.relativeHeadYaw, state.pitch);
 
-        if(state.attackAnimationState.isRunning()) {
-            this.attackAnimation.apply(state.attackAnimationState, state.age, 1f);
+        //NON Movement animation
+        switch (state.activeAnimation) {
+            case ATTACK -> this.attackAnimation.apply(state.activeAnimationState, state.age, 1f);
+            case FALL -> this.fallAnimation.apply(state.activeAnimationState, state.age, 1f);
+            case IDLE_WATER -> this.idlingWaterAnimation.apply(state.activeAnimationState, state.age, 1f);
+            case IDLE -> this.idlingAnimation.apply(state.activeAnimationState, state.age, 1f);
+        }
+
+        //Movement animation
+        if(state.inWater) {
+            this.swimAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
         }
         else {
-            if(state.inWater) {
-                this.idlingWaterAnimation.apply(state.idleAnimationState, state.age, 1f);
-                this.swimAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
-            }
-            else {
-                this.idlingAnimation.apply(state.idleAnimationState, state.age, 1f);
-                this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
-            }
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
         }
     }
 
