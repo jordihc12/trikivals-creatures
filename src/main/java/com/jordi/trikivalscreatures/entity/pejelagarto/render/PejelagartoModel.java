@@ -2,9 +2,10 @@
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
 
-package com.jordi.trikivalscreatures.entity.pejelagarto;
+package com.jordi.trikivalscreatures.entity.pejelagarto.render;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
+import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
@@ -38,12 +39,12 @@ public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
         this.root = root.getChild("pejelagarto");
         this.head = this.root.getChild("body").getChild("head");
 
-        this.walkingAnimation = PejelagartoAnims.PEJELAGARTO_WALK.createAnimation(root);
-        this.idlingAnimation = PejelagartoAnims.PEJELAGARTO_IDLE.createAnimation(root);
-        this.idlingWaterAnimation = PejelagartoAnims.PEJELAGARTO_IDLE_WATER.createAnimation(root);
-        this.swimAnimation = PejelagartoAnims.PEJELAGARTO_SWIM.createAnimation(root);
-        this.attackAnimation = PejelagartoAnims.PEJELAGARTO_ATTACK.createAnimation(root);
-        this.fallAnimation = PejelagartoAnims.PEJELAGARTO_FALL.createAnimation(root);
+        this.walkingAnimation = PejelagartoAnimations.PEJELAGARTO_WALK.createAnimation(root);
+        this.idlingAnimation = PejelagartoAnimations.PEJELAGARTO_IDLE.createAnimation(root);
+        this.idlingWaterAnimation = PejelagartoAnimations.PEJELAGARTO_IDLE_WATER.createAnimation(root);
+        this.swimAnimation = PejelagartoAnimations.PEJELAGARTO_SWIM.createAnimation(root);
+        this.attackAnimation = PejelagartoAnimations.PEJELAGARTO_ATTACK.createAnimation(root);
+        this.fallAnimation = PejelagartoAnimations.PEJELAGARTO_FALL.createAnimation(root);
 	}
 
     //TODO: Volver a exportar el modelo para la nueva version

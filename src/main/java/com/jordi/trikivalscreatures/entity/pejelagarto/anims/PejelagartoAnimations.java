@@ -1,8 +1,8 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto;
+package com.jordi.trikivalscreatures.entity.pejelagarto.anims;
 
 import net.minecraft.client.render.entity.animation.*;
 
-public class PejelagartoAnims {
+public class PejelagartoAnimations {
         public static final AnimationDefinition PEJELAGARTO_IDLE = AnimationDefinition.Builder.create(1.5F).looping()
                 .addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE,
                         new Keyframe(0.9167F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),

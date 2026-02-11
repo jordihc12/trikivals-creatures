@@ -1,6 +1,7 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto;
+package com.jordi.trikivalscreatures.entity.pejelagarto.anims;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
+import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import net.minecraft.entity.AnimationState;
 import java.util.EnumMap;
 

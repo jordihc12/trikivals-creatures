@@ -1,6 +1,6 @@
 package com.jordi.trikivalscreatures.entity.ai.pejelagarto;
 
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoAnimatorManager;
+import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import net.minecraft.entity.LivingEntity;
