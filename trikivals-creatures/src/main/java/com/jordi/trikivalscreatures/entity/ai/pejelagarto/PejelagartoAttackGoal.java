@@ -77,14 +77,8 @@ public class PejelagartoAttackGoal extends MeleeAttackGoal {
         this.resetAttackCooldown();
         this.mob.swingHand(Hand.MAIN_HAND);
         this.mob.tryAttack((ServerWorld) (this.mob.getEntityWorld()), pEnemy);
-        this.mob.getEntityWorld().playSoundAtBlockCenterClient(
-                this.entity.getBlockPos(),          // Position
-                this.entity.getAttackSound(),       // Audio pitch
-                SoundCategory.HOSTILE,              // Audio category
-                10.0F,                              // Volume
-                (this.entity.getRandom().nextFloat() - this.entity.getRandom().nextFloat()) * 0.2F + 1.0F,
-                false
-        );
+
+        this.entity.playAttackSound();
     }
 
     @Override

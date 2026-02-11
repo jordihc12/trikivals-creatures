@@ -328,7 +328,11 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
         };
     }
 
-    public @Nullable SoundEvent getAttackSound() {
+    public void playAttackSound() {
+        this.playSound(this.getAttackSound(), 1.0F, 1.0F);
+    }
+
+    private @Nullable SoundEvent getAttackSound() {
         return switch (this.getVariant()) {
             case PINK -> PejelagartoSounds.PEJELAGARTO_ATTACK_SOUND_PINK;
             case ALBINO -> PejelagartoSounds.PEJELAGARTO_ATTACK_SOUND_ALBINO;
