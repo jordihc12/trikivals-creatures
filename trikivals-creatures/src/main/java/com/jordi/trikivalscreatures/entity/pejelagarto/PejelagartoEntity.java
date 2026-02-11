@@ -29,6 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
+import net.minecraft.item.consume.PlaySoundConsumeEffect;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
@@ -300,19 +301,39 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 //endregion
 
 //region SOUNDS
-//    @Override
-//    protected @Nullable SoundEvent getAmbientSound() {
-//        return SoundEvents.ENTITY_GHAST_AMBIENT;
-//    }
+    @Override
+    protected @Nullable SoundEvent getAmbientSound() {
+        return switch (this.getVariant()) {
+            case PINK -> PejelagartoSounds.PEJELAGARTO_IDLE_SOUND_PINK;
+            case ALBINO -> PejelagartoSounds.PEJELAGARTO_IDLE_SOUND_ALBINO;
+            case PLAINS, JUNGLE, SAND -> PejelagartoSounds.PEJELAGARTO_IDLE_SOUND;
+        };
+    }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return PejelagartoSounds.PEJELAGARTO_HURT_SOUND;
+        return switch (this.getVariant()) {
+            case PINK -> PejelagartoSounds.PEJELAGARTO_HURT_SOUND_PINK;
+            case ALBINO -> PejelagartoSounds.PEJELAGARTO_HURT_SOUND_ALBINO;
+            case PLAINS, JUNGLE, SAND -> PejelagartoSounds.PEJELAGARTO_HURT_SOUND;
+        };
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return PejelagartoSounds.PEJELAGARTO_DEATH_SOUND;
+        return switch (this.getVariant()) {
+            case PINK -> PejelagartoSounds.PEJELAGARTO_DEATH_SOUND_PINK;
+            case ALBINO -> PejelagartoSounds.PEJELAGARTO_DEATH_SOUND_ALBINO;
+            case PLAINS, JUNGLE, SAND -> PejelagartoSounds.PEJELAGARTO_DEATH_SOUND;
+        };
+    }
+
+    public @Nullable SoundEvent getAttackSound() {
+        return switch (this.getVariant()) {
+            case PINK -> PejelagartoSounds.PEJELAGARTO_ATTACK_SOUND_PINK;
+            case ALBINO -> PejelagartoSounds.PEJELAGARTO_ATTACK_SOUND_ALBINO;
+            case PLAINS, JUNGLE, SAND -> PejelagartoSounds.PEJELAGARTO_ATTACK_SOUND;
+        };
     }
 //endregion
 

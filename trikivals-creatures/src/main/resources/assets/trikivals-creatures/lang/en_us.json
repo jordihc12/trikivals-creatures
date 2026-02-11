@@ -4,6 +4,18 @@
 
   "itemgroup.trikivals-creatures.creatures": "TrikiVals Creatures",
 
-  "sounds.trikivals-creatures.pejelagarto_hurt": "Pejelagarto Hurt Sound",
-  "sounds.trikivals-creatures.pejelagarto_death": "Pejelagarto Death Sound"
+  "sounds.trikivals-creatures.pejelagarto_idle_albino": "Albino Pejelagarto Ambient Sound",
+  "sounds.trikivals-creatures.pejelagarto_attack_albino": "Albino Pejelagarto Attack Sound",
+  "sounds.trikivals-creatures.pejelagarto_death_albino": "Albino Pejelagarto Death Sound",
+  "sounds.trikivals-creatures.pejelagarto_hurt_albino": "Albino Pejelagarto Hurt Sound",
+
+  "sounds.trikivals-creatures.pejelagarto_idle_pink": "Pink Pejelagarto Ambient Sound",
+  "sounds.trikivals-creatures.pejelagarto_attack_pink": "Pink Pejelagarto Attack Sound",
+  "sounds.trikivals-creatures.pejelagarto_death_pink": "Pink Pejelagarto Death Sound",
+  "sounds.trikivals-creatures.pejelagarto_hurt_pink": "Pink Pejelagarto Hurt Sound",
+
+  "sounds.trikivals-creatures.pejelagarto_idle": "Pejelagarto Ambient Sound",
+  "sounds.trikivals-creatures.pejelagarto_attack": "Pejelagarto Attack Sound",
+  "sounds.trikivals-creatures.pejelagarto_death": "Pejelagarto Death Sound",
+  "sounds.trikivals-creatures.pejelagarto_hurt": "Pejelagarto Hurt Sound"
 }
