@@ -481,7 +481,6 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 //region TAMING
 
 //endregion
-
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
         return effect.getEffectType() != StatusEffects.POISON && super.canHaveStatusEffect(effect);
