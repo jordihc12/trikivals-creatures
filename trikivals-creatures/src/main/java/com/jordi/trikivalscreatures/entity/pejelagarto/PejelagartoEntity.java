@@ -68,6 +68,11 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
     private final int POISON_ATTACK_DURATION = 100; // 100 / 20 = 5 sec
 
+// MOISTURE LOGIC
+    private int moisture = 0;
+    private static final int MOISTURE_MAX_THRESHOLD = 600; // 30 seconds of "charging"
+    private static final int MOISTURE_MIN_THRESHOLD = 200; // 10 seconds of "charging"
+
 //region INITIALIZATION
     public PejelagartoEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
@@ -165,12 +170,14 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     public void writeData(WriteView view) {
         super.writeData(view);
         view.putInt("Variant", this.getTypeVariant());
+        view.putInt("Moisture", this.moisture);
     }
 
     @Override
     public void readData(ReadView view) {
         super.readData(view);
         this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+        this.moisture = view.getInt("Moisture", 0);
     }
 //endregion
 
@@ -268,9 +275,28 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     public void tick() {
         super.tick();
 
+        //Client update
         if(this.getEntityWorld().isClient()) {
             updatePejelagartoAnimations();
         }
+        //Server update
+        else {
+            if(this.isTouchingWater()) {
+                // Gain moisture
+                if (this.moisture < MOISTURE_MAX_THRESHOLD) moisture++;
+            } else {
+                // Slowly lose moisture while on land
+                if (moisture > 0) moisture--;
+            }
+        }
+    }
+
+    public boolean isDehydrated() {
+        return this.moisture <= MOISTURE_MIN_THRESHOLD;
+    }
+
+    public boolean isFullyHydrated() {
+        return this.moisture >= MOISTURE_MAX_THRESHOLD;
     }
 //endregion
 
@@ -406,7 +432,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
         this.targetSelector.add(2, new TerritorialTargetGoal<>(this,  LivingEntity.class, 20, 20));
     }
 
-    //Attack Logic
+//region Attack Logic
     public void setAttacking(boolean attacking) {
         this.dataTracker.set(ATTACKING, attacking);
     }
@@ -489,9 +515,12 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 //endregion
 
+//endregion
+
 //region TAMING
 
 //endregion
+
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
         return effect.getEffectType() != StatusEffects.POISON && super.canHaveStatusEffect(effect);
@@ -554,12 +583,15 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
         @Override
         public boolean shouldContinue() {
-            return !this.pejelagarto.isTouchingWater() && this.tryingTime <= 1200 && this.isTargetPos(this.pejelagarto.getEntityWorld(), this.targetPos);
+            return !this.pejelagarto.isTouchingWater() &&
+                    this.tryingTime <= 1200 &&
+                    this.pejelagarto.isFullyHydrated() &&
+                    this.isTargetPos(this.pejelagarto.getEntityWorld(), this.targetPos);
         }
 
         @Override
         public boolean canStart() {
-            if(this.pejelagarto.isTouchingWater()) return false;
+            if(this.pejelagarto.isTouchingWater() && !this.pejelagarto.isDehydrated()) return false;
             return super.canStart();
         }
 
