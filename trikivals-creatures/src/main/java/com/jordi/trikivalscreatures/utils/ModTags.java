@@ -21,8 +21,4 @@ public class ModTags {
             return TagKey.of(RegistryKeys.ITEM, Identifier.of(TrikiValsCreatures.MOD_ID, name));
         }
     }
-
-    public void addVanillaTags() {
-
-    }
 }
