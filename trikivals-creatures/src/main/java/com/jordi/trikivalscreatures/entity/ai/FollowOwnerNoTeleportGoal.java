@@ -3,10 +3,7 @@ package com.jordi.trikivalscreatures.entity.ai;
 import java.util.EnumSet;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.pathing.BirdNavigation;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.ai.pathing.MobNavigation;
-import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.entity.ai.pathing.*;
 import net.minecraft.entity.passive.TameableEntity;
 
 public class FollowOwnerNoTeleportGoal extends Goal {
@@ -26,9 +23,15 @@ public class FollowOwnerNoTeleportGoal extends Goal {
         this.minDistance = minDistance;
         this.maxDistance = maxDistance;
         this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
-        if (!(tameable.getNavigation() instanceof MobNavigation) && !(tameable.getNavigation() instanceof BirdNavigation)) {
+        if (!this.isNavigationSupported(tameable.getNavigation())) {
             throw new IllegalArgumentException("Unsupported mob type for FollowOwnerGoal");
         }
+    }
+
+    private boolean isNavigationSupported(EntityNavigation navigation) {
+        return navigation instanceof MobNavigation ||
+                navigation instanceof BirdNavigation ||
+                navigation instanceof AmphibiousSwimNavigation;
     }
 
     @Override

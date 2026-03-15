@@ -104,20 +104,13 @@ public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
         super.setAngles(state);
         this.setHeadAngles(state.relativeHeadYaw, state.pitch);
 
-        //NON Movement animation
         switch (state.activeAnimation) {
             case ATTACK -> this.attackAnimation.apply(state.activeAnimationState, state.age, 1f);
             case FALL -> this.fallAnimation.apply(state.activeAnimationState, state.age, 1f);
             case IDLE_WATER -> this.idlingWaterAnimation.apply(state.activeAnimationState, state.age, 1f);
             case IDLE -> this.idlingAnimation.apply(state.activeAnimationState, state.age, 1f);
-        }
-
-        //Movement animation
-        if(state.inWater) {
-            this.swimAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
-        }
-        else {
-            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
+            case SWIM -> this.swimAnimation.apply(state.activeAnimationState, state.age, 1f);
+            case WALK -> this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
         }
     }
 

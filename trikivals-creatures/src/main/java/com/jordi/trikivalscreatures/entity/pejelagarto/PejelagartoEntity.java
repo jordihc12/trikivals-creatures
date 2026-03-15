@@ -9,10 +9,15 @@ import com.jordi.trikivalscreatures.entity.ai.TerritorialTargetGoal;
 import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
 import com.jordi.trikivalscreatures.utils.ModTags;
+import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.AmphibiousSwimNavigation;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -22,14 +27,11 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
-import net.minecraft.item.consume.PlaySoundConsumeEffect;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
@@ -66,9 +68,16 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
     private final int POISON_ATTACK_DURATION = 100; // 100 / 20 = 5 sec
 
+// MOISTURE LOGIC
+    private int moisture = 0;
+    private static final int MOISTURE_MAX_THRESHOLD = 600; // 30 seconds of "charging"
+    private static final int MOISTURE_MIN_THRESHOLD = 200; // 10 seconds of "charging"
+
 //region INITIALIZATION
     public PejelagartoEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
+        this.setPathfindingPenalty(PathNodeType.WATER, 4.0F);
+        this.moveControl = new PejelagartoMoveControl(this);
     }
 
     public static DefaultAttributeContainer.Builder createPejelagartoAttributes() {
@@ -161,12 +170,14 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     public void writeData(WriteView view) {
         super.writeData(view);
         view.putInt("Variant", this.getTypeVariant());
+        view.putInt("Moisture", this.moisture);
     }
 
     @Override
     public void readData(ReadView view) {
         super.readData(view);
         this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+        this.moisture = view.getInt("Moisture", 0);
     }
 //endregion
 
@@ -264,9 +275,28 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     public void tick() {
         super.tick();
 
+        //Client update
         if(this.getEntityWorld().isClient()) {
             updatePejelagartoAnimations();
         }
+        //Server update
+        else {
+            if(this.isTouchingWater()) {
+                // Gain moisture
+                if (this.moisture < MOISTURE_MAX_THRESHOLD) moisture++;
+            } else {
+                // Slowly lose moisture while on land
+                if (moisture > 0) moisture--;
+            }
+        }
+    }
+
+    public boolean isDehydrated() {
+        return this.moisture <= MOISTURE_MIN_THRESHOLD;
+    }
+
+    public boolean isFullyHydrated() {
+        return this.moisture >= MOISTURE_MAX_THRESHOLD;
     }
 //endregion
 
@@ -378,9 +408,13 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 
     @Override
+    protected EntityNavigation createNavigation(World world) {
+        return new AmphibiousSwimNavigation(this, world);
+    }
+
+    @Override
     protected void initGoals() {
         startGoalsSetup()
-                .addGoal(new SwimGoal(this))
                 .addGoal(new NarrowDistanceDelegatingGoal(this))
                 .addGoal(new Goal[]{
                         new CustomRangedAttackGoal(this,1, getRangeAggroMaxAttackRange(), getRangeAggroMinAttackRange(), 40, 20.0F),
@@ -391,7 +425,10 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                 .addGoal(new FollowOwnerNoTeleportGoal(this, 1.0, 10.0F, 2.0F))
                 .addGoal(new TemptGoal(this, 1.15, Ingredient.ofItems(Items.RABBIT), false))
                 .addGoal(new FollowParentGoal(this, 1.0f))
-                .addGoal(new WanderAroundGoal(this, 1.0f))
+                .addGoal(new Goal[]{
+                        new WanderAroundGoal(this, 1.0f),
+                        new WanderInWaterGoal(this, 1.0)
+                })
                 .addGoal(new LookAtEntityGoal(this, PlayerEntity.class, 1.0f))
                 .addGoal(new LookAroundGoal(this));
 
@@ -399,7 +436,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
         this.targetSelector.add(2, new TerritorialTargetGoal<>(this,  LivingEntity.class, 20, 20));
     }
 
-    //Attack Logic
+//region Attack Logic
     public void setAttacking(boolean attacking) {
         this.dataTracker.set(ATTACKING, attacking);
     }
@@ -482,6 +519,8 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 //endregion
 
+//endregion
+
 //region TAMING
 
 //endregion
@@ -489,5 +528,85 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
         return effect.getEffectType() != StatusEffects.POISON && super.canHaveStatusEffect(effect);
+    }
+
+    static class PejelagartoMoveControl extends MoveControl {
+        private final PejelagartoEntity pejelagarto;
+
+        public PejelagartoMoveControl(PejelagartoEntity pejelagarto) {
+            super(pejelagarto);
+            this.pejelagarto = pejelagarto;
+        }
+
+        private void updateVelocity() {
+            if (this.pejelagarto.isTouchingWater()) {
+                this.pejelagarto.setVelocity(this.pejelagarto.getVelocity().add(0.0, 0.005, 0.0));
+                this.pejelagarto.setMovementSpeed(Math.max(this.pejelagarto.getMovementSpeed() * 1.05f, 0.08F));
+
+                if (this.pejelagarto.isBaby()) {
+                    this.pejelagarto.setMovementSpeed(Math.max(this.pejelagarto.getMovementSpeed(), 0.06F));
+                }
+            } else if (this.pejelagarto.isOnGround()) {
+                this.pejelagarto.setMovementSpeed(Math.max(this.pejelagarto.getMovementSpeed(), 0.06F));
+            }
+        }
+
+        @Override
+        public void tick() {
+            this.updateVelocity();
+            if (this.state == State.MOVE_TO && !this.pejelagarto.getNavigation().isIdle()) {
+                double d = this.targetX - this.pejelagarto.getX();
+                double e = this.targetY - this.pejelagarto.getY();
+                double f = this.targetZ - this.pejelagarto.getZ();
+                double g = Math.sqrt(d * d + e * e + f * f);
+                if (g < 1.0E-5F) {
+                    this.entity.setMovementSpeed(0.0F);
+                } else {
+                    e /= g;
+                    float h = (float)(MathHelper.atan2(f, d) * 180.0F / (float)Math.PI) - 90.0F;
+                    this.pejelagarto.setYaw(this.wrapDegrees(this.pejelagarto.getYaw(), h, 90.0F));
+                    this.pejelagarto.bodyYaw = this.pejelagarto.getYaw();
+                    float i = (float)(this.speed * this.pejelagarto.getAttributeValue(EntityAttributes.MOVEMENT_SPEED));
+                    this.pejelagarto.setMovementSpeed(MathHelper.lerp(0.125F, this.pejelagarto.getMovementSpeed(), i));
+                    this.pejelagarto.setVelocity(this.pejelagarto.getVelocity().add(0.0, this.pejelagarto.getMovementSpeed() * e * 0.1, 0.0));
+                }
+            } else {
+                this.pejelagarto.setMovementSpeed(0.0F);
+            }
+        }
+    }
+
+    static class WanderInWaterGoal extends MoveToTargetPosGoal {
+        private final PejelagartoEntity pejelagarto;
+
+        WanderInWaterGoal(PejelagartoEntity pejelagarto, double speed) {
+            super(pejelagarto, pejelagarto.isBaby() ? 2.0 : speed, 24);
+            this.pejelagarto = pejelagarto;
+            this.lowestY = -1;
+        }
+
+        @Override
+        public boolean shouldContinue() {
+            return !this.pejelagarto.isTouchingWater() &&
+                    this.tryingTime <= 1200 &&
+                    this.pejelagarto.isFullyHydrated() &&
+                    this.isTargetPos(this.pejelagarto.getEntityWorld(), this.targetPos);
+        }
+
+        @Override
+        public boolean canStart() {
+            if(this.pejelagarto.isTouchingWater() && !this.pejelagarto.isDehydrated()) return false;
+            return super.canStart();
+        }
+
+        @Override
+        public boolean shouldResetPath() {
+            return this.tryingTime % 160 == 0;
+        }
+
+        @Override
+        protected boolean isTargetPos(WorldView world, BlockPos pos) {
+            return world.getBlockState(pos).isOf(Blocks.WATER);
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.jordi.trikivalscreatures.datagen;
+package com.jordi.trikivalscreatures.datagen.tag_providers;
 
 import com.jordi.trikivalscreatures.utils.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
