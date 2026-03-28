@@ -81,6 +81,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
     public static DefaultAttributeContainer.Builder createPejelagartoAttributes() {
         return AnimalEntity.createMobAttributes()
+                .add(EntityAttributes.TEMPT_RANGE, 10.0F)
                 .add(EntityAttributes.MAX_HEALTH, 10.0F)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.ATTACK_DAMAGE, 3f);
