@@ -32,7 +32,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -81,7 +80,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 
     public static DefaultAttributeContainer.Builder createPejelagartoAttributes() {
-        return AnimalEntity.createMobAttributes().add(EntityAttributes.TEMPT_RANGE, 2.5F)
+        return AnimalEntity.createMobAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 10.0F)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.ATTACK_DAMAGE, 3f);
@@ -229,27 +228,27 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
             }
         }
         else {
-            if(itemStack.isOf(Items.RABBIT)) {
-                if (!player.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                }
-
-                if (this.random.nextInt(3) == 0) {
-                    this.setOwner(player);
-                    this.navigation.stop();
-                    this.setTarget(null);
-                    this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
-
-                    TrikiValsCreatures.LogStringInfo(this, "Pejelagarto Tamed!");
-                } else {
-                    this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
-                }
-
-                return ActionResult.SUCCESS;
+            if(!this.getEntityWorld().isClient() && itemStack.isOf(Items.RABBIT)) {
+                itemStack.decrementUnlessCreative(1, player);
+                this.tryTame(player);
+                return ActionResult.SUCCESS_SERVER;
             }
         }
 
         return super.interactMob(player, hand);
+    }
+
+    private void tryTame(PlayerEntity player) {
+        if (this.random.nextInt(3) == 0) {
+            this.setOwner(player);
+            this.navigation.stop();
+            this.setTarget(null);
+            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+
+            TrikiValsCreatures.LogStringInfo(this, "Pejelagarto Tamed!");
+        } else {
+            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+        }
     }
 
     private @NotNull StatusEffectInstance getStatusEffectInstance() {
@@ -423,7 +422,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                 .addGoal(new PejelagartoMateGoal(this, 1.15))
                 .addGoal(new SitGoal(this))
                 .addGoal(new FollowOwnerNoTeleportGoal(this, 1.0, 10.0F, 2.0F))
-                .addGoal(new TemptGoal(this, 1.15, Ingredient.ofItems(Items.RABBIT), false))
+                .addGoal(new TemptGoal(this, 1.15, stack -> stack.isOf(Items.RABBIT), false))
                 .addGoal(new FollowParentGoal(this, 1.0f))
                 .addGoal(new Goal[]{
                         new WanderAroundGoal(this, 1.0f),
@@ -571,7 +570,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                     this.pejelagarto.setVelocity(this.pejelagarto.getVelocity().add(0.0, this.pejelagarto.getMovementSpeed() * e * 0.1, 0.0));
                 }
             } else {
-                this.pejelagarto.setMovementSpeed(0.0F);
+                super.tick();
             }
         }
     }
