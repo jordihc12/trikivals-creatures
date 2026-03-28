@@ -167,18 +167,19 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 
     @Override
-    public void writeData(WriteView view) {
-        super.writeData(view);
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
         view.putInt("Variant", this.getTypeVariant());
         view.putInt("Moisture", this.moisture);
     }
 
     @Override
-    public void readData(ReadView view) {
-        super.readData(view);
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
         this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
         this.moisture = view.getInt("Moisture", 0);
     }
+
 //endregion
 
 //region ANIMATIONS
@@ -227,27 +228,25 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
             }
         }
         else {
-            if(itemStack.isOf(Items.RABBIT)) {
-                if (!player.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                }
-
-                if (this.random.nextInt(3) == 0) {
-                    this.setOwner(player);
-                    this.navigation.stop();
-                    this.setTarget(null);
-                    this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
-
-                    TrikiValsCreatures.LogStringInfo(this, "Pejelagarto Tamed!");
-                } else {
-                    this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
-                }
-
-                return ActionResult.SUCCESS;
+            if(!this.getEntityWorld().isClient() && itemStack.isOf(Items.RABBIT)) {
+                itemStack.decrementUnlessCreative(1, player);
+                this.tryTame(player);
+                return ActionResult.SUCCESS_SERVER;
             }
         }
 
         return super.interactMob(player, hand);
+    }
+
+    private void tryTame(PlayerEntity player) {
+        if (this.random.nextInt(3) == 0) {
+            this.setTamedBy(player);
+            this.navigation.stop();
+            this.setTarget(null);
+            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+        } else {
+            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+        }
     }
 
     private @NotNull StatusEffectInstance getStatusEffectInstance() {
