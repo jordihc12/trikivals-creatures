@@ -206,8 +206,6 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 //region UPDATE
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        TrikiValsCreatures.LogStringInfo(this, String.format("Pejelagarto Tamed: %b",this.isTamed()));
-
         ItemStack itemStack = player.getStackInHand(hand);
         if(this.isTamed()) {
             if (itemStack.isOf(Items.GLASS_BOTTLE)) {
@@ -244,8 +242,6 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
             this.navigation.stop();
             this.setTarget(null);
             this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
-
-            TrikiValsCreatures.LogStringInfo(this, "Pejelagarto Tamed!");
         } else {
             this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
         }
