@@ -32,7 +32,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -81,7 +80,8 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 
     public static DefaultAttributeContainer.Builder createPejelagartoAttributes() {
-        return AnimalEntity.createMobAttributes().add(EntityAttributes.TEMPT_RANGE, 2.5F)
+        return AnimalEntity.createMobAttributes()
+                .add(EntityAttributes.TEMPT_RANGE, 10.0F)
                 .add(EntityAttributes.MAX_HEALTH, 10.0F)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.ATTACK_DAMAGE, 3f);
@@ -207,8 +207,6 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 //region UPDATE
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        TrikiValsCreatures.LogStringInfo(this, String.format("Pejelagarto Tamed: %b",this.isTamed()));
-
         ItemStack itemStack = player.getStackInHand(hand);
         if(this.isTamed()) {
             if (itemStack.isOf(Items.GLASS_BOTTLE)) {
@@ -423,7 +421,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                 .addGoal(new PejelagartoMateGoal(this, 1.15))
                 .addGoal(new SitGoal(this))
                 .addGoal(new FollowOwnerNoTeleportGoal(this, 1.0, 10.0F, 2.0F))
-                .addGoal(new TemptGoal(this, 1.15, Ingredient.ofItems(Items.RABBIT), false))
+                .addGoal(new TemptGoal(this, 1.15, stack -> stack.isOf(Items.RABBIT), false))
                 .addGoal(new FollowParentGoal(this, 1.0f))
                 .addGoal(new Goal[]{
                         new WanderAroundGoal(this, 1.0f),
@@ -571,7 +569,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                     this.pejelagarto.setVelocity(this.pejelagarto.getVelocity().add(0.0, this.pejelagarto.getMovementSpeed() * e * 0.1, 0.0));
                 }
             } else {
-                this.pejelagarto.setMovementSpeed(0.0F);
+                super.tick();
             }
         }
     }
