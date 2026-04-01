@@ -9,6 +9,9 @@ import net.minecraft.util.Identifier;
 
 public class ModSounds {
 
+    public static final SoundEvent EASTER_EGG_HURT = ModSounds.registerSoundEvent("easter_egg_hurt");
+    public static final SoundEvent EASTER_EGG_DEATH = ModSounds.registerSoundEvent("easter_egg_death");
+
     public static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(TrikiValsCreatures.MOD_ID, name);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
