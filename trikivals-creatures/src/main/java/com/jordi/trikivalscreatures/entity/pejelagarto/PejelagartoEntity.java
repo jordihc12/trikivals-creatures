@@ -8,6 +8,7 @@ import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoMateGoal;
 import com.jordi.trikivalscreatures.entity.ai.TerritorialTargetGoal;
 import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
+import com.jordi.trikivalscreatures.sound.ModSounds;
 import com.jordi.trikivalscreatures.utils.ModTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
@@ -38,6 +39,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -339,6 +341,11 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
+        Text text = this.getCustomName();
+        if(text != null && text.getString().equals("TrikiVals_")) {
+            return ModSounds.EASTER_EGG_HURT;
+        }
+
         return switch (this.getVariant()) {
             case PINK -> PejelagartoSounds.PEJELAGARTO_HURT_SOUND_PINK;
             case ALBINO -> PejelagartoSounds.PEJELAGARTO_HURT_SOUND_ALBINO;
@@ -348,6 +355,11 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
+        Text text = this.getCustomName();
+        if(text != null && text.getString().equals("TrikiVals_")) {
+            return ModSounds.EASTER_EGG_DEATH;
+        }
+
         return switch (this.getVariant()) {
             case PINK -> PejelagartoSounds.PEJELAGARTO_DEATH_SOUND_PINK;
             case ALBINO -> PejelagartoSounds.PEJELAGARTO_DEATH_SOUND_ALBINO;

@@ -17,5 +17,8 @@
   "sounds.trikivals-creatures.pejelagarto_idle": "Pejelagarto Ambient Sound",
   "sounds.trikivals-creatures.pejelagarto_attack": "Pejelagarto Attack Sound",
   "sounds.trikivals-creatures.pejelagarto_death": "Pejelagarto Death Sound",
-  "sounds.trikivals-creatures.pejelagarto_hurt": "Pejelagarto Hurt Sound"
+  "sounds.trikivals-creatures.pejelagarto_hurt": "Pejelagarto Hurt Sound",
+
+  "sounds.trikivals-creatures.easter_egg_death": "Easter Egg Death Sound",
+  "sounds.trikivals-creatures.easter_egg_hurt": "Easter Egg Hurt Sound"
 }

@@ -78,5 +78,18 @@
     "sounds": [
       "trikivals-creatures:pejelagarto/pink/pejelagarto_hurt"
     ]
+  },
+
+  "easter_egg_hurt": {
+    "subtitle": "sounds.trikivals-creatures.easter_egg_hurt",
+    "sounds": [
+      "trikivals-creatures:easter_egg/hurt_easter_egg"
+    ]
+  },
+  "easter_egg_death": {
+    "subtitle": "sounds.trikivals-creatures.easter_egg_death",
+    "sounds": [
+      "trikivals-creatures:easter_egg/death_easter_egg"
+    ]
   }
 }
