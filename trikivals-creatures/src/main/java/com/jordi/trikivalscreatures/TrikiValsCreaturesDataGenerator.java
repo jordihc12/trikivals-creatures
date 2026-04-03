@@ -1,6 +1,7 @@
 package com.jordi.trikivalscreatures;
 
 import com.jordi.trikivalscreatures.datagen.ModBlockLootTableProvider;
+import com.jordi.trikivalscreatures.datagen.ModRecipeProvider;
 import com.jordi.trikivalscreatures.datagen.tag_providers.ModBlockTagProvider;
 import com.jordi.trikivalscreatures.datagen.ModEntityLootTableProvider;
 import com.jordi.trikivalscreatures.datagen.ModModelProvider;
@@ -18,5 +19,6 @@ public class TrikiValsCreaturesDataGenerator implements DataGeneratorEntrypoint 
         pack.addProvider(ModEntityTagProvider::new);
         pack.addProvider(ModBlockLootTableProvider::new);
         pack.addProvider(ModEntityLootTableProvider::new);
+        pack.addProvider(ModRecipeProvider::new);
 	}
 }
