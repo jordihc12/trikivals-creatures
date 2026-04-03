@@ -333,6 +333,10 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 //region SOUNDS
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
+        if(ModSounds.checkEasterEggSound(this)) {
+            return ModSounds.EASTER_EGG_AMBIENT;
+        }
+
         return switch (this.getVariant()) {
             case PINK -> PejelagartoSounds.PEJELAGARTO_IDLE_SOUND_PINK;
             case ALBINO -> PejelagartoSounds.PEJELAGARTO_IDLE_SOUND_ALBINO;
@@ -342,11 +346,6 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        Text text = this.getCustomName();
-        if(text != null && text.getString().equals("TrikiVals_")) {
-            return ModSounds.EASTER_EGG_HURT;
-        }
-
         return switch (this.getVariant()) {
             case PINK -> PejelagartoSounds.PEJELAGARTO_HURT_SOUND_PINK;
             case ALBINO -> PejelagartoSounds.PEJELAGARTO_HURT_SOUND_ALBINO;
@@ -356,8 +355,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        Text text = this.getCustomName();
-        if(text != null && text.getString().equals("TrikiVals_")) {
+        if(ModSounds.checkEasterEggSound(this)) {
             return ModSounds.EASTER_EGG_DEATH;
         }
 

@@ -80,10 +80,10 @@
     ]
   },
 
-  "easter_egg_hurt": {
-    "subtitle": "sounds.trikivals-creatures.easter_egg_hurt",
+  "easter_egg_ambient": {
+    "subtitle": "sounds.trikivals-creatures.easter_egg_ambient",
     "sounds": [
-      "trikivals-creatures:easter_egg/hurt_easter_egg"
+      "trikivals-creatures:easter_egg/ambient_easter_egg"
     ]
   },
   "easter_egg_death": {
