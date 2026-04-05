@@ -30,6 +30,9 @@ public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
     //NOT TOUCHING GROUND
     private final Animation fallAnimation;
 
+    //SIT
+    private final Animation sitAnimation;
+
     //MOVEMENT
     private final Animation walkingAnimation;
     private final Animation swimAnimation;
@@ -45,6 +48,7 @@ public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
         this.swimAnimation = PejelagartoAnimations.PEJELAGARTO_SWIM.createAnimation(root);
         this.attackAnimation = PejelagartoAnimations.PEJELAGARTO_ATTACK.createAnimation(root);
         this.fallAnimation = PejelagartoAnimations.PEJELAGARTO_FALL.createAnimation(root);
+        this.sitAnimation = PejelagartoAnimations.PEJELAGARTO_SIT.createAnimation(root);
 	}
 
     //TODO: Volver a exportar el modelo para la nueva version
@@ -111,6 +115,7 @@ public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
             case IDLE -> this.idlingAnimation.apply(state.activeAnimationState, state.age, 1f);
             case SWIM -> this.swimAnimation.apply(state.activeAnimationState, state.age, 1f);
             case WALK -> this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
+            case SIT -> this.sitAnimation.apply(state.activeAnimationState, state.age, 2f);
         }
     }
 

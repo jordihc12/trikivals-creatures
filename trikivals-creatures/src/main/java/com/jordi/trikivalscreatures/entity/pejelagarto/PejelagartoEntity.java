@@ -196,11 +196,11 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 
     private void updatePejelagartoAnimations() {
-        //Global animations update
-        animationManager.updateAnimations(this.age);
-
         //Update active animation
         animationManager.updateActiveAnimation(this);
+
+        //Global animations update
+        animationManager.updateAnimations(this.age);
 
         //Stop Attack animation if it's not running
         if(!this.isAttacking()) animationManager.stopAnimation(PejelagartoAnimatorManager.Animation.ATTACK);

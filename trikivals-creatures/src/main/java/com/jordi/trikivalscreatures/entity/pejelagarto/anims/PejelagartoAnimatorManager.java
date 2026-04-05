@@ -10,12 +10,12 @@ public class PejelagartoAnimatorManager {
     private static class AnimationData {
         int cooldown;
         AnimationState animationState;
+        boolean animationFinished;
 
         AnimationData() {
             cooldown = 0;
             animationState = new AnimationState();
-
-
+            animationFinished = false;
         }
     }
 
@@ -39,21 +39,28 @@ public class PejelagartoAnimatorManager {
         SWIM(20, "swim"),
         FALL(10, "fall"),
         IDLE_WATER(40, "idle_water"),
-        IDLE(30, "idle");
+        IDLE(30, "idle"),
+        SIT(10, "sit", false);
 
         private final int tickLength;
         private final String name;
+        private final boolean loop;
 
-        Animation(int tickLength, String name) {
+        Animation(int tickLength, String name, boolean loop) {
             this.tickLength = tickLength;
             this.name = name;
+            this.loop = loop;
         }
 
-        public int getTickLength() {
-            return this.tickLength;
+        Animation(int tickLength, String name) {
+            this(tickLength, name, true);
         }
 
-        public String getName() {return this.name; }
+        public int getTickLength() { return this.tickLength; }
+
+        public String getName() { return this.name; }
+
+        public boolean getLoop() { return this.loop; }
     }
 
     public final AnimationState getAnimationStateFor(Animation anim) {
@@ -72,8 +79,18 @@ public class PejelagartoAnimatorManager {
         return activeAnim;
     }
 
+    private void resetAnimFor(Animation anim, int tick) {
+        AnimationData data = animations.get(activeAnim);
+        data.animationFinished = false;
+        data.animationState.stop();
+        data.animationState.start(tick);
+    }
+
     public void updateActiveAnimation(PejelagartoEntity pejelagarto) {
-        if(pejelagarto.isAttacking()) {
+        if(pejelagarto.isSitting()) {
+            activeAnim = Animation.SIT;
+        }
+        else if(pejelagarto.isAttacking()) {
             activeAnim = Animation.ATTACK;
         }
         else if(!pejelagarto.isOnGround() && pejelagarto.getMovement().getY() < -0.5F) {
@@ -87,6 +104,8 @@ public class PejelagartoAnimatorManager {
         }
 
         if(previousActiveAnim != activeAnim) {
+            resetAnimFor(previousActiveAnim, pejelagarto.age);
+
             TrikiValsCreatures.LogStringInfo(this,
                     String.format("Switched animation from %s to %s", previousActiveAnim.getName(), activeAnim.getName()));
             previousActiveAnim = activeAnim;
@@ -94,14 +113,17 @@ public class PejelagartoAnimatorManager {
     }
 
     public void updateAnimations(int tick) {
-        animations.forEach(((animation, animationData) -> {
-            if(animationData.cooldown <= 0) {
-                animationData.cooldown = animation.getTickLength();
+        AnimationData animationData = animations.get(activeAnim);
+
+        if(animationData.cooldown <= 0) {
+            if(activeAnim.getLoop() || !animationData.animationFinished) {
+                animationData.animationFinished = true;
+                animationData.cooldown = activeAnim.getTickLength();
                 animationData.animationState.start(tick);
             }
-            else {
-                --animationData.cooldown;
-            }
-        }));
+        }
+        else {
+            --animationData.cooldown;
+        }
     }
 }
