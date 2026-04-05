@@ -6,6 +6,7 @@ import com.jordi.trikivalscreatures.entity.ai.*;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoAttackGoal;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoMateGoal;
 import com.jordi.trikivalscreatures.entity.ai.TerritorialTargetGoal;
+import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimation;
 import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
 import com.jordi.trikivalscreatures.sound.ModSounds;
@@ -203,7 +204,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
         animationManager.updateAnimations(this.age);
 
         //Stop Attack animation if it's not running
-        if(!this.isAttacking()) animationManager.stopAnimation(PejelagartoAnimatorManager.Animation.ATTACK);
+        if(!this.isAttacking()) animationManager.stopAnimation(PejelagartoAnimation.ATTACK);
     }
 //endregion
 

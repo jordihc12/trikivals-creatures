@@ -1,5 +1,6 @@
 package com.jordi.trikivalscreatures.entity.pejelagarto.render;
 
+import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimation;
 import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
@@ -10,7 +11,7 @@ public class PejelagartoRenderState extends LivingEntityRenderState {
     public AnimationState activeAnimationState = new AnimationState();
     public PejelagartoVariant variant;
 
-    public PejelagartoAnimatorManager.Animation activeAnimation;
+    public PejelagartoAnimation activeAnimation;
 
     public boolean inWater;
 }
