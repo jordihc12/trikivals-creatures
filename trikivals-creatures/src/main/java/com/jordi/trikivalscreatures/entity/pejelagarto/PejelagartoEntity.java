@@ -6,6 +6,7 @@ import com.jordi.trikivalscreatures.entity.ai.*;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoAttackGoal;
 import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoMateGoal;
 import com.jordi.trikivalscreatures.entity.ai.TerritorialTargetGoal;
+import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimation;
 import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
 import com.jordi.trikivalscreatures.sound.ModSounds;
@@ -39,7 +40,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -196,14 +196,14 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     }
 
     private void updatePejelagartoAnimations() {
-        //Global animations update
-        animationManager.updateAnimations(this.age);
-
         //Update active animation
         animationManager.updateActiveAnimation(this);
 
+        //Global animations update
+        animationManager.updateAnimations(this.age);
+
         //Stop Attack animation if it's not running
-        if(!this.isAttacking()) animationManager.stopAnimation(PejelagartoAnimatorManager.Animation.ATTACK);
+        if(!this.isAttacking()) animationManager.stopAnimation(PejelagartoAnimation.ATTACK);
     }
 //endregion
 

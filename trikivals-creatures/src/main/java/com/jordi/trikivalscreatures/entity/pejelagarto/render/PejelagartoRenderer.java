@@ -2,6 +2,7 @@ package com.jordi.trikivalscreatures.entity.pejelagarto.render;
 
 import com.google.common.collect.Maps;
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
+import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimation;
 import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
@@ -64,7 +65,7 @@ public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, Pe
         pejelagartoRenderState.idleAnimationState.copyFrom(
                 manager.getAnimationStateFor
                         (pejelagartoEntity.isTouchingWater() ?
-                                PejelagartoAnimatorManager.Animation.IDLE : PejelagartoAnimatorManager.Animation.IDLE_WATER
+                                PejelagartoAnimation.IDLE : PejelagartoAnimation.IDLE_WATER
                         )
         );
 
