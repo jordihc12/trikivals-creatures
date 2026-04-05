@@ -1,14 +1,12 @@
 package com.jordi.trikivalscreatures.entity.ai.pejelagarto;
 
 import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimation;
-import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
 
 public class PejelagartoAttackGoal extends MeleeAttackGoal {
