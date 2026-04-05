@@ -4,8 +4,11 @@ import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.blocks.ModBlocks;
 import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlockItem;
 import com.jordi.trikivalscreatures.entity.ModEntities;
+import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
@@ -20,14 +23,24 @@ import java.util.function.Function;
 //Helper class that initializes custom Items
 public class ModItems {
 
-    public static final Item PEJELAGARTO_SPAWN_EGG = registerItem("pejelagarto_spawn_egg",
-            settings -> new SpawnEggItem(settings.spawnEgg(ModEntities.PEJELAGARTO)));
+    public static final Item PEJELAGARTO_SPAWN_EGG = registerSpawnEgg(ModEntities.PEJELAGARTO);
 
     public static final Item PEJELAGARTO_EGG_ITEM = registerItem("pejelagarto_egg",
             settings -> new PejelagartoEggBlockItem(ModBlocks.PEJELAGARTO_EGG, settings));
 
     private static void addItemsToSpawnEggsItemGroup(FabricItemGroupEntries entries) {
         entries.add(PEJELAGARTO_SPAWN_EGG);
+    }
+
+    private static Item registerSpawnEgg(EntityType<?> type) {
+        return registerItem(RegistryKey.of(RegistryKeys.ITEM,
+                EntityType.getId(type).withSuffixedPath("_spawn_egg")),
+                SpawnEggItem::new,
+                new Item.Settings().spawnEgg(type));
+    }
+
+    private static Item registerItem(RegistryKey<Item> key, Function<Item.Settings, Item> factory, Item.Settings settings) {
+        return Registry.register(Registries.ITEM, key, factory.apply(settings.registryKey(key)));
     }
 
     private static Item registerItem(String name, Function<Item.Settings, Item> function) {

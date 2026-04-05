@@ -3,6 +3,7 @@ package com.jordi.trikivalscreatures.entity;
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
@@ -27,4 +28,10 @@ public class ModEntities {
             Identifier.of(TrikiValsCreatures.MOD_ID, "pejelagarto_spit"),
             EntityType.Builder.create((EntityType.EntityFactory<PejelagartoSpitEntity>)PejelagartoSpitEntity::new, SpawnGroup.MISC)
                     .dimensions(0.25F, 0.25F).build(PEJELAGARTO_SPIT_KEY));
+
+    public static void registerEntities() {
+        TrikiValsCreatures.LOGGER.info("Registering entities!");
+
+        FabricDefaultAttributeRegistry.register(ModEntities.PEJELAGARTO, PejelagartoEntity.createPejelagartoAttributes());
+    }
 }
