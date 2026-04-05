@@ -21,14 +21,14 @@ public class TrikiValsCreatures implements ModInitializer {
 	public void onInitialize() {
 
 		LOGGER.info("Hello Fabric world!");
+        ModEntities.registerEntities();
+
         ModItemGroups.registerItemGroups();
 
         ModBlocks.registerModBlocks();
         ModItems.registerModItems();
         ModEntityGeneration.addSpawns();
         ModSounds.registerSounds();
-
-        FabricDefaultAttributeRegistry.register(ModEntities.PEJELAGARTO, PejelagartoEntity.createPejelagartoAttributes());
 	}
 
     public static void LogStringInfo(Object object, String text) {
