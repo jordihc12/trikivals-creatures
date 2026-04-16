@@ -1,6 +1,11 @@
 {
   "item.trikivals-creatures.pejelagarto_spawn_egg": "Pejelagarto Spawn Egg",
-  "block.trikivals-creatures.pejelagarto_egg": "Pejelagarto Egg",
+
+  "item.trikivals-creatures.pejelagarto_egg.plains": "Plains Pejelagarto Egg",
+  "item.trikivals-creatures.pejelagarto_egg.jungle": "Jungle Pejelagarto Egg",
+  "item.trikivals-creatures.pejelagarto_egg.pink": "Pink Pejelagarto Egg",
+  "item.trikivals-creatures.pejelagarto_egg.sand": "Sand Pejelagarto Egg",
+  "item.trikivals-creatures.pejelagarto_egg.albino": "Albino Pejelagarto Egg",
 
   "itemgroup.trikivals-creatures.creatures": "TrikiVals Creatures",
 
