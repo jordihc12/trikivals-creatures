@@ -3,9 +3,11 @@ package com.jordi.trikivalscreatures.entity.pejelagarto;
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import com.jordi.trikivalscreatures.entity.ai.*;
-import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoAttackGoal;
-import com.jordi.trikivalscreatures.entity.ai.pejelagarto.PejelagartoMateGoal;
+import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoAttackGoal;
+import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoMateGoal;
 import com.jordi.trikivalscreatures.entity.ai.TerritorialTargetGoal;
+import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoMoveControl;
+import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoWanderInWater;
 import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimation;
 import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
@@ -422,11 +424,9 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     @Override
     protected void initGoals() {
         startGoalsSetup()
-                .addGoal(new NarrowDistanceDelegatingGoal(this))
-                .addGoal(new Goal[]{
-                        new CustomRangedAttackGoal(this,1, getRangeAggroMaxAttackRange(), getRangeAggroMinAttackRange(), 40, 20.0F),
-                        new PejelagartoAttackGoal(this,1, true)
-                })
+                .addGoal(new CustomEscapeDangerGoal(this, 2.0F, 10, 10))
+                .addGoal(new CustomRangedAttackGoal(this,1, getRangeAggroMaxAttackRange(), getRangeAggroMinAttackRange(), 40, 20.0F))
+                .addGoal(new PejelagartoAttackGoal(this,1, true))
                 .addGoal(new PejelagartoMateGoal(this, 1.15))
                 .addGoal(new SitGoal(this))
                 .addGoal(new FollowOwnerNoTeleportGoal(this, 1.0, 10.0F, 2.0F))
@@ -434,7 +434,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
                 .addGoal(new FollowParentGoal(this, 1.0f))
                 .addGoal(new Goal[]{
                         new WanderAroundGoal(this, 1.0f),
-                        new WanderInWaterGoal(this, 1.0)
+                        new PejelagartoWanderInWater(this, 1.0)
                 })
                 .addGoal(new LookAtEntityGoal(this, PlayerEntity.class, 1.0f))
                 .addGoal(new LookAroundGoal(this));
@@ -535,85 +535,5 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
         return effect.getEffectType() != StatusEffects.POISON && super.canHaveStatusEffect(effect);
-    }
-
-    static class PejelagartoMoveControl extends MoveControl {
-        private final PejelagartoEntity pejelagarto;
-
-        public PejelagartoMoveControl(PejelagartoEntity pejelagarto) {
-            super(pejelagarto);
-            this.pejelagarto = pejelagarto;
-        }
-
-        private void updateVelocity() {
-            if (this.pejelagarto.isTouchingWater()) {
-                this.pejelagarto.setVelocity(this.pejelagarto.getVelocity().add(0.0, 0.005, 0.0));
-                this.pejelagarto.setMovementSpeed(Math.max(this.pejelagarto.getMovementSpeed() * 1.05f, 0.08F));
-
-                if (this.pejelagarto.isBaby()) {
-                    this.pejelagarto.setMovementSpeed(Math.max(this.pejelagarto.getMovementSpeed(), 0.06F));
-                }
-            } else if (this.pejelagarto.isOnGround()) {
-                this.pejelagarto.setMovementSpeed(Math.max(this.pejelagarto.getMovementSpeed(), 0.06F));
-            }
-        }
-
-        @Override
-        public void tick() {
-            this.updateVelocity();
-            if (this.state == State.MOVE_TO && !this.pejelagarto.getNavigation().isIdle()) {
-                double d = this.targetX - this.pejelagarto.getX();
-                double e = this.targetY - this.pejelagarto.getY();
-                double f = this.targetZ - this.pejelagarto.getZ();
-                double g = Math.sqrt(d * d + e * e + f * f);
-                if (g < 1.0E-5F) {
-                    this.entity.setMovementSpeed(0.0F);
-                } else {
-                    e /= g;
-                    float h = (float)(MathHelper.atan2(f, d) * 180.0F / (float)Math.PI) - 90.0F;
-                    this.pejelagarto.setYaw(this.wrapDegrees(this.pejelagarto.getYaw(), h, 90.0F));
-                    this.pejelagarto.bodyYaw = this.pejelagarto.getYaw();
-                    float i = (float)(this.speed * this.pejelagarto.getAttributeValue(EntityAttributes.MOVEMENT_SPEED));
-                    this.pejelagarto.setMovementSpeed(MathHelper.lerp(0.125F, this.pejelagarto.getMovementSpeed(), i));
-                    this.pejelagarto.setVelocity(this.pejelagarto.getVelocity().add(0.0, this.pejelagarto.getMovementSpeed() * e * 0.1, 0.0));
-                }
-            } else {
-                super.tick();
-            }
-        }
-    }
-
-    static class WanderInWaterGoal extends MoveToTargetPosGoal {
-        private final PejelagartoEntity pejelagarto;
-
-        WanderInWaterGoal(PejelagartoEntity pejelagarto, double speed) {
-            super(pejelagarto, pejelagarto.isBaby() ? 2.0 : speed, 24);
-            this.pejelagarto = pejelagarto;
-            this.lowestY = -1;
-        }
-
-        @Override
-        public boolean shouldContinue() {
-            return !this.pejelagarto.isTouchingWater() &&
-                    this.tryingTime <= 1200 &&
-                    this.pejelagarto.isFullyHydrated() &&
-                    this.isTargetPos(this.pejelagarto.getEntityWorld(), this.targetPos);
-        }
-
-        @Override
-        public boolean canStart() {
-            if(this.pejelagarto.isTouchingWater() && !this.pejelagarto.isDehydrated()) return false;
-            return super.canStart();
-        }
-
-        @Override
-        public boolean shouldResetPath() {
-            return this.tryingTime % 160 == 0;
-        }
-
-        @Override
-        protected boolean isTargetPos(WorldView world, BlockPos pos) {
-            return world.getBlockState(pos).isOf(Blocks.WATER);
-        }
     }
 }
