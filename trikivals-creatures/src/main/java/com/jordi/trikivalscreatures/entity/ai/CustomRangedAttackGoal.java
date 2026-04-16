@@ -23,14 +23,6 @@ public class CustomRangedAttackGoal extends ProjectileAttackGoal {
         return false;
     }
 
-    public int getAGGRO_RANGE_MAX() {
-        return AGGRO_RANGE_MAX;
-    }
-
-    public int getAGGRO_RANGE_MIN() {
-        return AGGRO_RANGE_MIN;
-    }
-
     @Override
     public boolean canStart() {
         if(this.entity == null) return false;
