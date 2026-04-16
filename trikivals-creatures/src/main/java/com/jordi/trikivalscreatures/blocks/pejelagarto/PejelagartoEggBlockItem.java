@@ -18,7 +18,7 @@ public class PejelagartoEggBlockItem extends BlockItem {
         super(block, settings);
     }
 
-    PejelagartoVariant getVariant(PejelagartoVariant defaultValue, ItemStack stack) {
+    PejelagartoVariant getVariant(ItemStack stack, PejelagartoVariant defaultValue) {
         PejelagartoVariant variant = getVariant(stack);
         return variant != null ? variant : defaultValue;
     }
@@ -36,7 +36,7 @@ public class PejelagartoEggBlockItem extends BlockItem {
     protected boolean postPlacement(BlockPos pos, World world, @Nullable PlayerEntity player, ItemStack stack, BlockState state) {
         boolean bl = super.postPlacement(pos, world, player, stack, state);
         if(getBlock() instanceof PejelagartoEggBlock pejelagartoEggBlock) {
-            pejelagartoEggBlock.setVariant(getVariant(PejelagartoVariant.PLAINS, stack));
+            pejelagartoEggBlock.setVariant(getVariant(stack, PejelagartoVariant.PLAINS));
         }
 
         return bl;
