@@ -11,5 +11,3 @@
 ## Autores
 - Jordi
 - TrikiVals_
-
-[Todo list](TODO_list.md)
