@@ -10,6 +10,7 @@
 	],
 	"license": "CC0-1.0",
 	"environment": "*",
+    "icon": "assets/trikivals-creatures/icon/icon.png",
 	"entrypoints": {
 		"main": [
 			"com.jordi.trikivalscreatures.TrikiValsCreatures"
