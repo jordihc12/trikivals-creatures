@@ -3,10 +3,10 @@
 *Añadir descripción del mod aquí.*
 
 ## CARACTERÍSTICAS
-- **Version**: 0.2.0
-- Minecraft: 1.20.1
-- Fabric: 0.16.0
-- Java: >=17
+- **Version**: 0.3.0
+- Minecraft: 1.21.11
+- Fabric: 0.18.2
+- Java: >=21
 
 ## Autores
 - Jordi

@@ -1,0 +1,95 @@
+{
+  "pejelagarto_ambient": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_idle",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/pejelagarto_idle_0",
+      "trikivals-creatures:pejelagarto/pejelagarto_idle_1",
+      "trikivals-creatures:pejelagarto/pejelagarto_idle_2"
+    ]
+  },
+  "pejelagarto_attack": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_attack",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/pejelagarto_attack"
+    ]
+  },
+  "pejelagarto_death": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_death",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/pejelagarto_death"
+    ]
+  },
+  "pejelagarto_hurt": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_hurt",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/pejelagarto_hurt"
+    ]
+  },
+
+  "pejelagarto_ambient_albino": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_idle_albino",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/albino/pejelagarto_idle_0",
+      "trikivals-creatures:pejelagarto/albino/pejelagarto_idle_1",
+      "trikivals-creatures:pejelagarto/albino/pejelagarto_idle_2"
+    ]
+  },
+  "pejelagarto_attack_albino": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_attack_albino",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/albino/pejelagarto_attack"
+    ]
+  },
+  "pejelagarto_death_albino": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_death_albino",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/albino/pejelagarto_death"
+    ]
+  },
+  "pejelagarto_hurt_albino": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_hurt_albino",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/albino/pejelagarto_hurt"
+    ]
+  },
+
+  "pejelagarto_ambient_pink": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_idle_pink",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/pink/pejelagarto_idle_0",
+      "trikivals-creatures:pejelagarto/pink/pejelagarto_idle_1",
+      "trikivals-creatures:pejelagarto/pink/pejelagarto_idle_2"
+    ]
+  },
+  "pejelagarto_attack_pink": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_attack_pink",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/pink/pejelagarto_attack"
+    ]
+  },
+  "pejelagarto_death_pink": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_death_pink",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/pink/pejelagarto_death"
+    ]
+  },
+  "pejelagarto_hurt_pink": {
+    "subtitle": "sounds.trikivals-creatures.pejelagarto_hurt_pink",
+    "sounds": [
+      "trikivals-creatures:pejelagarto/pink/pejelagarto_hurt"
+    ]
+  },
+
+  "easter_egg_ambient": {
+    "subtitle": "sounds.trikivals-creatures.easter_egg_ambient",
+    "sounds": [
+      "trikivals-creatures:easter_egg/ambient_easter_egg"
+    ]
+  },
+  "easter_egg_death": {
+    "subtitle": "sounds.trikivals-creatures.easter_egg_death",
+    "sounds": [
+      "trikivals-creatures:easter_egg/death_easter_egg"
+    ]
+  }
+}

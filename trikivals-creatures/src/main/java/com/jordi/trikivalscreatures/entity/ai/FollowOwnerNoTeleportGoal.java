@@ -1,0 +1,91 @@
+package com.jordi.trikivalscreatures.entity.ai;
+
+import java.util.EnumSet;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.pathing.*;
+import net.minecraft.entity.passive.TameableEntity;
+
+public class FollowOwnerNoTeleportGoal extends Goal {
+    private final TameableEntity tameable;
+    private LivingEntity owner;
+    private final double speed;
+    private final EntityNavigation navigation;
+    private int updateCountdownTicks;
+    private final float maxDistance;
+    private final float minDistance;
+    private float oldWaterPathfindingPenalty;
+
+    public FollowOwnerNoTeleportGoal(TameableEntity tameable, double speed, float minDistance, float maxDistance) {
+        this.tameable = tameable;
+        this.speed = speed;
+        this.navigation = tameable.getNavigation();
+        this.minDistance = minDistance;
+        this.maxDistance = maxDistance;
+        this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+        if (!this.isNavigationSupported(tameable.getNavigation())) {
+            throw new IllegalArgumentException("Unsupported mob type for FollowOwnerGoal");
+        }
+    }
+
+    private boolean isNavigationSupported(EntityNavigation navigation) {
+        return navigation instanceof MobNavigation ||
+                navigation instanceof BirdNavigation ||
+                navigation instanceof AmphibiousSwimNavigation;
+    }
+
+    @Override
+    public boolean canStart() {
+        LivingEntity livingEntity = this.tameable.getOwner();
+        if (livingEntity == null) {
+            return false;
+        } else if (livingEntity.isSpectator()) {
+            return false;
+        } else if (this.cannotFollow()) {
+            return false;
+        } else if (this.tameable.squaredDistanceTo(livingEntity) < this.minDistance * this.minDistance) {
+            return false;
+        } else {
+            this.owner = livingEntity;
+            return true;
+        }
+    }
+
+    @Override
+    public boolean shouldContinue() {
+        if (this.navigation.isIdle()) {
+            return false;
+        } else {
+            return !this.cannotFollow() && !(this.tameable.squaredDistanceTo(this.owner) <= this.maxDistance * this.maxDistance);
+        }
+    }
+
+    private boolean cannotFollow() {
+        return this.tameable.isSitting() || this.tameable.hasVehicle() || this.tameable.isLeashed();
+    }
+
+    @Override
+    public void start() {
+        this.updateCountdownTicks = 0;
+        this.oldWaterPathfindingPenalty = this.tameable.getPathfindingPenalty(PathNodeType.WATER);
+        this.tameable.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+    }
+
+    @Override
+    public void stop() {
+        this.owner = null;
+        this.navigation.stop();
+        this.tameable.setPathfindingPenalty(PathNodeType.WATER, this.oldWaterPathfindingPenalty);
+    }
+
+    @Override
+    public void tick() {
+        this.tameable.getLookControl().lookAt(this.owner, 10.0F, this.tameable.getMaxLookPitchChange());
+        if (--this.updateCountdownTicks <= 0) {
+            this.updateCountdownTicks = this.getTickCount(10);
+            if (this.tameable.squaredDistanceTo(this.owner) < 144.0) {
+                this.navigation.startMovingTo(this.owner, this.speed);
+            }
+        }
+    }
+}

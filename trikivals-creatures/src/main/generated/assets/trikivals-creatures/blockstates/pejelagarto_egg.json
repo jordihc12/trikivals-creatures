@@ -1,0 +1,1024 @@
+{
+  "variants": {
+    "eggs=1,hatch=0,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=0,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=0,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=0,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=0,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/sand_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=1,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=1,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=1,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=1,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=1,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/slightly_cracked_sand_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=2,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/very_cracked_albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=2,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/very_cracked_jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=2,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/very_cracked_pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=2,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/very_cracked_plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=2,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/very_cracked_sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/very_cracked_sand_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=0,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/two_albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=0,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/two_jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=0,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/two_pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=0,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/two_plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=0,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/two_sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_sand_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=1,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=1,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=1,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=1,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=1,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_slightly_cracked_sand_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=2,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=2,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=2,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=2,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=2,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/two_very_cracked_sand_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=0,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/three_albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=0,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/three_jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=0,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/three_pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=0,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/three_plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=0,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/three_sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_sand_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=1,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=1,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=1,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=1,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=1,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_slightly_cracked_sand_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=2,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=2,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=2,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=2,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=2,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/three_very_cracked_sand_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=0,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/four_albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=0,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/four_jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=0,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/four_pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=0,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/four_plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=0,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/four_sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_sand_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=1,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=1,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=1,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=1,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=1,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_slightly_cracked_sand_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=2,variant=albino": [
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_albino_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_albino_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_albino_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_albino_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=2,variant=jungle": [
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_jungle_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_jungle_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_jungle_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_jungle_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=2,variant=pink": [
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_pink_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_pink_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_pink_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_pink_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=2,variant=plains": [
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_plains_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_plains_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_plains_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_plains_pejelagarto_egg",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=2,variant=sand": [
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_sand_pejelagarto_egg"
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_sand_pejelagarto_egg",
+        "y": 90
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_sand_pejelagarto_egg",
+        "y": 180
+      },
+      {
+        "model": "trikivals-creatures:block/four_very_cracked_sand_pejelagarto_egg",
+        "y": 270
+      }
+    ]
+  }
+}
