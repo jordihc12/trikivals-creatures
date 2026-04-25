@@ -3,11 +3,9 @@ package com.jordi.trikivalscreatures.entity.pejelagarto;
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import com.jordi.trikivalscreatures.entity.ai.*;
-import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoAttackGoal;
-import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoMateGoal;
+import com.jordi.trikivalscreatures.entity.goals.IntelligenceManager;
+import com.jordi.trikivalscreatures.entity.pejelagarto.ai.*;
 import com.jordi.trikivalscreatures.entity.ai.TerritorialTargetGoal;
-import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoMoveControl;
-import com.jordi.trikivalscreatures.entity.pejelagarto.ai.PejelagartoWanderInWater;
 import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimation;
 import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.pejelagarto.spit.PejelagartoSpitEntity;
@@ -31,6 +29,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -78,7 +77,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     private static final int MOISTURE_MAX_THRESHOLD = 600; // 30 seconds of "charging"
     private static final int MOISTURE_MIN_THRESHOLD = 200; // 10 seconds of "charging"
 
-//region INITIALIZATION
+    //region INITIALIZATION
     public PejelagartoEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.WATER, 4.0F);
@@ -398,27 +397,6 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 //endregion
 
 //region INTELLIGENCE
-    private int goalPriority = 0;
-
-    private PejelagartoEntity startGoalsSetup() {
-        goalPriority = 0;
-        return this;
-    }
-
-    private PejelagartoEntity addGoal(Goal goal) {
-        this.goalSelector.add(goalPriority, goal);
-        goalPriority++;
-        return this;
-    }
-
-    private PejelagartoEntity addGoal(Goal[] goals) {
-        for (var goal: goals) {
-            this.goalSelector.add(goalPriority, goal);
-        }
-        goalPriority++;
-        return this;
-    }
-
     @Override
     protected EntityNavigation createNavigation(World world) {
         return new AmphibiousSwimNavigation(this, world);
@@ -426,24 +404,8 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 
     @Override
     protected void initGoals() {
-        startGoalsSetup()
-                .addGoal(new CustomEscapeDangerGoal(this, 2.0F, 10, 10))
-                .addGoal(new CustomRangedAttackGoal(this,1, getRangeAggroMaxAttackRange(), getRangeAggroMinAttackRange(), 40, 20.0F))
-                .addGoal(new PejelagartoAttackGoal(this,1, true))
-                .addGoal(new PejelagartoMateGoal(this, 1.15))
-                .addGoal(new SitGoal(this))
-                .addGoal(new FollowOwnerNoTeleportGoal(this, 1.0, 10.0F, 2.0F))
-                .addGoal(new TemptGoal(this, 1.15, stack -> stack.isOf(Items.RABBIT), false))
-                .addGoal(new FollowParentGoal(this, 1.0f))
-                .addGoal(new Goal[]{
-                        new WanderAroundGoal(this, 1.0f),
-                        new PejelagartoWanderInWater(this, 1.0)
-                })
-                .addGoal(new LookAtEntityGoal(this, PlayerEntity.class, 1.0f))
-                .addGoal(new LookAroundGoal(this));
-
-        this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new TerritorialTargetGoal<>(this,  LivingEntity.class, 20, 20));
+        // INTELLIGENCE
+        IntelligenceManager.setGoals(this, PejelagartoIntelligenceManager::new);
     }
 
 //region Attack Logic
