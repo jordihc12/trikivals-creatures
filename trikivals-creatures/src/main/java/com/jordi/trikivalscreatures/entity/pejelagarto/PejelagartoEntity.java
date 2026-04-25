@@ -68,6 +68,8 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
         DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> ATTACKING =
         DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> SITTING =
+            DataTracker.registerData(PejelagartoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     private final int POISON_ATTACK_DURATION = 100; // 100 / 20 = 5 sec
 
@@ -168,6 +170,7 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
         super.initDataTracker(builder);
         builder.add(VARIANT, 0);
         builder.add(ATTACKING, false);
+        builder.add(SITTING, false);
     }
 
     @Override
@@ -181,9 +184,9 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
         this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+        this.dataTracker.set(SITTING, this.isSitting());
         this.moisture = view.getInt("Moisture", 0);
     }
-
 //endregion
 
 //region ANIMATIONS
@@ -527,10 +530,15 @@ public class PejelagartoEntity extends TameableEntity implements CustomRangedAtt
 //endregion
 
 //endregion
+    public boolean getIsSitting() {
+        return this.dataTracker.get(SITTING);
+    }
 
-//region TAMING
-
-//endregion
+    @Override
+    public void setSitting(boolean sitting) {
+        super.setSitting(sitting);
+        this.dataTracker.set(SITTING, sitting);
+    }
 
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {

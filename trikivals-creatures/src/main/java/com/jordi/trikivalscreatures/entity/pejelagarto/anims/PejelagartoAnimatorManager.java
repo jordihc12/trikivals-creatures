@@ -11,7 +11,7 @@ public class PejelagartoAnimatorManager extends AnimationManager<PejelagartoEnti
 
     @Override
     public PejelagartoAnimation getActiveAnimationPriv(PejelagartoEntity entity) {
-        if(entity.isSitting()) {
+        if(entity.getIsSitting()) {
             return PejelagartoAnimation.SIT;
         }
         else if(entity.isAttacking()) {
