@@ -1,8 +1,8 @@
 package com.jordi.trikivalscreatures.blocks.pejelagarto;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoVariant;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;

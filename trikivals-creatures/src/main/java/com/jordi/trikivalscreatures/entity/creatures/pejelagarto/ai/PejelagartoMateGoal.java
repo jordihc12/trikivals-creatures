@@ -1,9 +1,9 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.ai;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.ai;
 
 import com.jordi.trikivalscreatures.blocks.ModBlocks;
 import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlock;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoVariant;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

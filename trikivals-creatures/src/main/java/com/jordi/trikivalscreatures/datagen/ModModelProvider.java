@@ -4,19 +4,16 @@ import com.jordi.trikivalscreatures.blocks.ModBlocks;
 import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlock;
 import com.jordi.trikivalscreatures.client.model.ModModels;
 import com.jordi.trikivalscreatures.datagen.properties.PejelagartoVariantProperty;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoVariant;
 import com.jordi.trikivalscreatures.items.ModItems;
 import com.jordi.trikivalscreatures.utils.ModModelUtils;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.*;
-import net.minecraft.client.item.ItemAsset;
 import net.minecraft.client.render.item.model.ItemModel;
-import net.minecraft.client.render.item.model.SelectItemModel;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 
-import java.util.Optional;
 import java.util.function.BiConsumer;
 
 //Helper class that generates custom mod data

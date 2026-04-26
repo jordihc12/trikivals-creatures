@@ -1,7 +1,7 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.spit;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.spit;
 
 import com.jordi.trikivalscreatures.entity.ModEntities;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoEntity;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

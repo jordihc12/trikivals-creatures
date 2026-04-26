@@ -1,4 +1,4 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.sound.ModSounds;

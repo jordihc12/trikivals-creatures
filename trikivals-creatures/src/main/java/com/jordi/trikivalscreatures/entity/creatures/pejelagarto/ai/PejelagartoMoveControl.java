@@ -1,6 +1,6 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.ai;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.ai;
 
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoEntity;
 import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.util.math.MathHelper;

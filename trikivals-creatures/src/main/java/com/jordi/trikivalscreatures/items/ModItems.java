@@ -4,11 +4,11 @@ import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.blocks.ModBlocks;
 import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlockItem;
 import com.jordi.trikivalscreatures.entity.ModEntities;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.BlockItem;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.EntityBucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
@@ -16,6 +16,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
@@ -27,6 +28,9 @@ public class ModItems {
 
     public static final Item PEJELAGARTO_EGG_ITEM = registerItem("pejelagarto_egg",
             settings -> new PejelagartoEggBlockItem(ModBlocks.PEJELAGARTO_EGG, settings));
+
+    public static final Item DRACOPEZ_BUCKET = registerItem("dracopez_bucket",
+            settings -> new EntityBucketItem(ModEntities.DRACOPEZ, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, settings));
 
     private static void addItemsToSpawnEggsItemGroup(FabricItemGroupEntries entries) {
         entries.add(PEJELAGARTO_SPAWN_EGG);

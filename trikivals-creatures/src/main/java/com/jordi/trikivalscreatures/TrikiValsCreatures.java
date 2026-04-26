@@ -2,14 +2,12 @@ package com.jordi.trikivalscreatures;
 
 import com.jordi.trikivalscreatures.blocks.ModBlocks;
 import com.jordi.trikivalscreatures.entity.ModEntities;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.items.ModItemGroups;
 import com.jordi.trikivalscreatures.items.ModItems;
 import com.jordi.trikivalscreatures.sound.ModSounds;
 import com.jordi.trikivalscreatures.world.gen.ModEntityGeneration;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

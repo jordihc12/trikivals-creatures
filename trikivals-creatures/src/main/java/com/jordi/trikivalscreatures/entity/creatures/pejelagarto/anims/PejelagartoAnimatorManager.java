@@ -1,7 +1,7 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.anims;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.anims;
 
 import com.jordi.trikivalscreatures.entity.anims.AnimationManager;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoEntity;
 
 public class PejelagartoAnimatorManager extends AnimationManager<PejelagartoEntity, PejelagartoAnimation> {
 

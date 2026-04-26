@@ -1,7 +1,7 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.render;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.render;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
-import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimations;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.anims.PejelagartoAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;

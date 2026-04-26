@@ -1,6 +1,6 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.ai;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.ai;
 
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.util.math.BlockPos;

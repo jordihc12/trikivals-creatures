@@ -1,11 +1,11 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.ai;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.ai;
 
 import com.jordi.trikivalscreatures.entity.ai.CustomEscapeDangerGoal;
 import com.jordi.trikivalscreatures.entity.ai.CustomRangedAttackGoal;
 import com.jordi.trikivalscreatures.entity.ai.FollowOwnerNoTeleportGoal;
 import com.jordi.trikivalscreatures.entity.ai.TerritorialTargetGoal;
 import com.jordi.trikivalscreatures.entity.goals.IntelligenceManager;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;

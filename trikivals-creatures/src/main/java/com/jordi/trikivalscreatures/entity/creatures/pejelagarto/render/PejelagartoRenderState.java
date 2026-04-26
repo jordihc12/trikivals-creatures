@@ -1,7 +1,7 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.render;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.render;
 
-import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimation;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.anims.PejelagartoAnimation;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoVariant;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.entity.AnimationState;
 

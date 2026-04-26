@@ -8,4 +8,7 @@ import net.minecraft.util.Identifier;
 public class ModModelLayers {
     public static final EntityModelLayer PEJELAGARTO =
             new EntityModelLayer(Identifier.of(TrikiValsCreatures.MOD_ID, "pejelagarto"), "main");
+
+    public static final EntityModelLayer DRACOPEZ =
+            new EntityModelLayer(Identifier.of(TrikiValsCreatures.MOD_ID, "dracopez"), "main");
 }

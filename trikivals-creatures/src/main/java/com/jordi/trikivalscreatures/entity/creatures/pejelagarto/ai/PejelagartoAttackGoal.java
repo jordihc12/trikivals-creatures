@@ -1,8 +1,8 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.ai;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.ai;
 
-import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimation;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.anims.PejelagartoAnimation;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoVariant;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.PathAwareEntity;

@@ -1,7 +1,7 @@
 package com.jordi.trikivalscreatures.sound;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoSounds;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

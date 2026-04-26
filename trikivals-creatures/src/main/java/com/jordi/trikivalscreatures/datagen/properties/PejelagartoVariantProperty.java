@@ -1,7 +1,7 @@
 package com.jordi.trikivalscreatures.datagen.properties;
 
 import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlock;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoVariant;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;

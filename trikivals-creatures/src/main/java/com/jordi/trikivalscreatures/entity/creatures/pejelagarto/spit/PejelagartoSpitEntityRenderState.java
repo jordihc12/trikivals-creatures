@@ -1,4 +1,4 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.spit;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.spit;
 
 import net.minecraft.client.render.entity.state.EntityRenderState;
 

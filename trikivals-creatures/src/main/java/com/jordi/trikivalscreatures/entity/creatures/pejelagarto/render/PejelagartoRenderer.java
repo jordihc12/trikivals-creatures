@@ -1,11 +1,11 @@
-package com.jordi.trikivalscreatures.entity.pejelagarto.render;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.render;
 
 import com.google.common.collect.Maps;
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
-import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimation;
-import com.jordi.trikivalscreatures.entity.pejelagarto.anims.PejelagartoAnimatorManager;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.anims.PejelagartoAnimation;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.anims.PejelagartoAnimatorManager;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoEntity;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoVariant;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;

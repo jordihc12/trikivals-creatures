@@ -1,5 +1,5 @@
 
-package com.jordi.trikivalscreatures.entity.pejelagarto;
+package com.jordi.trikivalscreatures.entity.creatures.pejelagarto;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.registry.RegistryKey;

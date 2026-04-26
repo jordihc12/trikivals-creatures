@@ -2,11 +2,10 @@ package com.jordi.trikivalscreatures.items;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlock;
-import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
+import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoVariant;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlockStateComponent;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -24,6 +23,7 @@ public class ModItemGroups {
                 //Adding Pejelagarto Eggs
                 ModItemGroups.addPejelagartoEggEntries(entries);
 
+                entries.add(ModItems.DRACOPEZ_BUCKET);
                 //Adding Pejelagarto entity Spawn egg
                 entries.add(ModItems.PEJELAGARTO_SPAWN_EGG);
             }).build());
