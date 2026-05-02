@@ -1,29 +1,29 @@
 {
-  "item.trikivals-creatures.pejelagarto_spawn_egg": "Pejelagarto Spawn Egg",
+  "item.trikivals-creatures.dracopez_bucket": "Bucket of Dracopez",
+  "item.trikivals-creatures.dracopez_spawn_egg": "Dracopez Spawn Egg",
 
   "item.trikivals-creatures.pejelagarto_egg.plains": "Plains Pejelagarto Egg",
   "item.trikivals-creatures.pejelagarto_egg.jungle": "Jungle Pejelagarto Egg",
   "item.trikivals-creatures.pejelagarto_egg.pink": "Pink Pejelagarto Egg",
   "item.trikivals-creatures.pejelagarto_egg.sand": "Sand Pejelagarto Egg",
   "item.trikivals-creatures.pejelagarto_egg.albino": "Albino Pejelagarto Egg",
+  "item.trikivals-creatures.pejelagarto_spawn_egg": "Pejelagarto Spawn Egg",
 
   "itemgroup.trikivals-creatures.creatures": "TrikiVals Creatures",
 
-  "sounds.trikivals-creatures.pejelagarto_idle_albino": "Albino Pejelagarto Ambient Sound",
-  "sounds.trikivals-creatures.pejelagarto_attack_albino": "Albino Pejelagarto Attack Sound",
-  "sounds.trikivals-creatures.pejelagarto_death_albino": "Albino Pejelagarto Death Sound",
-  "sounds.trikivals-creatures.pejelagarto_hurt_albino": "Albino Pejelagarto Hurt Sound",
-
-  "sounds.trikivals-creatures.pejelagarto_idle_pink": "Pink Pejelagarto Ambient Sound",
-  "sounds.trikivals-creatures.pejelagarto_attack_pink": "Pink Pejelagarto Attack Sound",
-  "sounds.trikivals-creatures.pejelagarto_death_pink": "Pink Pejelagarto Death Sound",
-  "sounds.trikivals-creatures.pejelagarto_hurt_pink": "Pink Pejelagarto Hurt Sound",
-
-  "sounds.trikivals-creatures.pejelagarto_idle": "Pejelagarto Ambient Sound",
-  "sounds.trikivals-creatures.pejelagarto_attack": "Pejelagarto Attack Sound",
-  "sounds.trikivals-creatures.pejelagarto_death": "Pejelagarto Death Sound",
-  "sounds.trikivals-creatures.pejelagarto_hurt": "Pejelagarto Hurt Sound",
-
+  "sounds.trikivals-creatures.easter_egg_ambient": "Easter Egg Ambient Sound",
   "sounds.trikivals-creatures.easter_egg_death": "Easter Egg Death Sound",
-  "sounds.trikivals-creatures.easter_egg_ambient": "Easter Egg Ambient Sound"
+
+  "sounds.trikivals-creatures.pejelagarto_attack": "Pejelagarto Attack Sound",
+  "sounds.trikivals-creatures.pejelagarto_attack_albino": "Albino Pejelagarto Attack Sound",
+  "sounds.trikivals-creatures.pejelagarto_attack_pink": "Pink Pejelagarto Attack Sound",
+  "sounds.trikivals-creatures.pejelagarto_idle": "Pejelagarto Ambient Sound",
+  "sounds.trikivals-creatures.pejelagarto_idle_albino": "Albino Pejelagarto Ambient Sound",
+  "sounds.trikivals-creatures.pejelagarto_idle_pink": "Pink Pejelagarto Ambient Sound",
+  "sounds.trikivals-creatures.pejelagarto_death": "Pejelagarto Death Sound",
+  "sounds.trikivals-creatures.pejelagarto_death_albino": "Albino Pejelagarto Death Sound",
+  "sounds.trikivals-creatures.pejelagarto_death_pink": "Pink Pejelagarto Death Sound",
+  "sounds.trikivals-creatures.pejelagarto_hurt": "Pejelagarto Hurt Sound",
+  "sounds.trikivals-creatures.pejelagarto_hurt_albino": "Albino Pejelagarto Hurt Sound",
+  "sounds.trikivals-creatures.pejelagarto_hurt_pink": "Pink Pejelagarto Hurt Sound"
 }

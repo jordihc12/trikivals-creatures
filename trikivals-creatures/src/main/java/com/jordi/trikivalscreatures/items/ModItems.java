@@ -25,6 +25,7 @@ import java.util.function.Function;
 public class ModItems {
 
     public static final Item PEJELAGARTO_SPAWN_EGG = registerSpawnEgg(ModEntities.PEJELAGARTO);
+    public static final Item DRACOPEZ_SPAWN_EGG = registerSpawnEgg(ModEntities.DRACOPEZ);
 
     public static final Item PEJELAGARTO_EGG_ITEM = registerItem("pejelagarto_egg",
             settings -> new PejelagartoEggBlockItem(ModBlocks.PEJELAGARTO_EGG, settings));
@@ -34,6 +35,7 @@ public class ModItems {
 
     private static void addItemsToSpawnEggsItemGroup(FabricItemGroupEntries entries) {
         entries.add(PEJELAGARTO_SPAWN_EGG);
+        entries.add(DRACOPEZ_SPAWN_EGG);
     }
 
     private static Item registerSpawnEgg(EntityType<?> type) {

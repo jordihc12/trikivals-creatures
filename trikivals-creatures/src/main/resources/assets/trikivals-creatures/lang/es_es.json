@@ -1,9 +1,11 @@
 {
-  "item.trikivals-creatures.pejelagarto_spawn_egg": "Generar Pejelagarto",
+  "item.trikivals-creatures.dracopez_bucket": "Cubo con Dracopez",
+  "item.trikivals-creatures.dracopez_spawn_egg": "Generar Dracopez",
 
   "item.trikivals-creatures.pejelagarto_egg.plains": "Huevo de Pejelagarto de las Praderas",
   "item.trikivals-creatures.pejelagarto_egg.jungle": "Huevo de Pejelagarto de la Jungla",
   "item.trikivals-creatures.pejelagarto_egg.pink": "Huevo de Pejelagarto Rosa",
   "item.trikivals-creatures.pejelagarto_egg.sand": "Huevo de Pejelagarto de las Arena",
-  "item.trikivals-creatures.pejelagarto_egg.albino": "Huevo de Pejelagarto Albino"
+  "item.trikivals-creatures.pejelagarto_egg.albino": "Huevo de Pejelagarto Albino",
+  "item.trikivals-creatures.pejelagarto_spawn_egg": "Generar Pejelagarto"
 }

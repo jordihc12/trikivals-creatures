@@ -24,8 +24,10 @@ public class ModItemGroups {
                 ModItemGroups.addPejelagartoEggEntries(entries);
 
                 entries.add(ModItems.DRACOPEZ_BUCKET);
+
                 //Adding Pejelagarto entity Spawn egg
                 entries.add(ModItems.PEJELAGARTO_SPAWN_EGG);
+                entries.add(ModItems.DRACOPEZ_SPAWN_EGG);
             }).build());
 
     //Add Pejelagarto Egg variants to TrikiVals creatures group
