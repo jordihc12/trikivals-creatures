@@ -5,15 +5,10 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.DefaultAttributeRegistry;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.FishEntity;
 import net.minecraft.entity.passive.TropicalFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
@@ -23,15 +18,8 @@ import net.minecraft.world.World;
 import org.jspecify.annotations.Nullable;
 
 public class DracoPezEntity extends TropicalFishEntity {
-    private DyeColor patternColor = DyeColor.WHITE;
-
     public DracoPezEntity(EntityType<? extends TropicalFishEntity> entityType, World world) {
         super(entityType, world);
-    }
-
-    @Override
-    public DyeColor getPatternColor() {
-        return this.patternColor;
     }
 
     @Override
@@ -53,9 +41,8 @@ public class DracoPezEntity extends TropicalFishEntity {
     }
 
     private boolean setPatternColor(DyeColor newColor) {
-        if(this.patternColor == newColor) return false;
-        this.patternColor = newColor;
-        this.setApplicableComponent(DataComponentTypes.TROPICAL_FISH_PATTERN_COLOR, this.patternColor);
+        if(this.getPatternColor() == newColor) return false;
+        this.setApplicableComponent(DataComponentTypes.TROPICAL_FISH_PATTERN_COLOR, newColor);
         return true;
     }
 }
