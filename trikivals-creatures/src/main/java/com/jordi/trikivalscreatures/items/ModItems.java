@@ -6,6 +6,9 @@ import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlockItem;
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.FoodComponents;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.EntityBucketItem;
@@ -31,7 +34,15 @@ public class ModItems {
             settings -> new PejelagartoEggBlockItem(ModBlocks.PEJELAGARTO_EGG, settings));
 
     public static final Item DRACOPEZ_BUCKET = registerItem("dracopez_bucket",
-            settings -> new EntityBucketItem(ModEntities.DRACOPEZ, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, settings));
+            settings -> new EntityBucketItem(
+                    ModEntities.DRACOPEZ,
+                    Fluids.WATER,
+                    SoundEvents.ITEM_BUCKET_EMPTY_FISH,
+                    settings
+                        .maxCount(1)
+                        .component(DataComponentTypes.BUCKET_ENTITY_DATA, NbtComponent.DEFAULT)
+            )
+    );
 
     private static void addItemsToSpawnEggsItemGroup(FabricItemGroupEntries entries) {
         entries.add(PEJELAGARTO_SPAWN_EGG);
