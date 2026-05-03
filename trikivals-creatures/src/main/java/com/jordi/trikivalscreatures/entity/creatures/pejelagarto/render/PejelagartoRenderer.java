@@ -6,6 +6,8 @@ import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.anims.Pejelagar
 import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.anims.PejelagartoAnimatorManager;
 import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoVariant;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
@@ -16,6 +18,7 @@ import net.minecraft.util.Util;
 
 import java.util.Map;
 
+@Environment(EnvType.CLIENT)
 public class PejelagartoRenderer extends MobEntityRenderer<PejelagartoEntity, PejelagartoRenderState, PejelagartoModel> {
     private static final Map<PejelagartoVariant, Identifier> TEXTURES = Util.make(Maps.newEnumMap(PejelagartoVariant.class), map -> {
         map.put(PejelagartoVariant.PLAINS, Identifier.of(TrikiValsCreatures.MOD_ID, "textures/entity/pejelagarto_plains.png"));

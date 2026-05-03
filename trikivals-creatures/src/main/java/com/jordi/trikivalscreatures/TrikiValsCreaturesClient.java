@@ -3,6 +3,8 @@ package com.jordi.trikivalscreatures;
 import com.jordi.trikivalscreatures.datagen.properties.PejelagartoVariantProperty;
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import com.jordi.trikivalscreatures.entity.client.ModModelLayers;
+import com.jordi.trikivalscreatures.entity.creatures.dracopez.render.DracoPezModel;
+import com.jordi.trikivalscreatures.entity.creatures.dracopez.render.DracoPezRenderer;
 import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.render.PejelagartoModel;
 import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.render.PejelagartoRenderer;
 import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.spit.PejelagartoSpitEntityRenderer;
@@ -20,8 +22,8 @@ public class TrikiValsCreaturesClient implements ClientModInitializer {
 	public void onInitializeClient() {
         SelectProperties.ID_MAPPER.put(Identifier.of(TrikiValsCreatures.MOD_ID, "pejelagarto_variant"), PejelagartoVariantProperty.TYPE);
 
-        EntityRendererFactories.register(ModEntities.DRACOPEZ, TropicalFishEntityRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.DRACOPEZ, () -> SmallTropicalFishEntityModel.getTexturedModelData(Dilation.NONE));
+        EntityRendererFactories.register(ModEntities.DRACOPEZ, DracoPezRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.DRACOPEZ, DracoPezModel::getTexturedModelData);
 
         EntityRendererFactories.register(ModEntities.PEJELAGARTO, PejelagartoRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.PEJELAGARTO, PejelagartoModel::getTexturedModelData);

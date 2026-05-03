@@ -3,6 +3,8 @@
   "package": "com.jordi.trikivalscreatures.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ItemStackTooltipExtensor",
+    "TropicalFishEntityAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

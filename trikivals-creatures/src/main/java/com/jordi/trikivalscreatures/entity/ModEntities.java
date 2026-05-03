@@ -5,6 +5,7 @@ import com.jordi.trikivalscreatures.entity.creatures.dracopez.DracoPezEntity;
 import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.PejelagartoEntity;
 import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.spit.PejelagartoSpitEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.passive.FishEntity;

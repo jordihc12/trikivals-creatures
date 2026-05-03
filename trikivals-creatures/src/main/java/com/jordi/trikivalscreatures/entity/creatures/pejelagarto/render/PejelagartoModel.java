@@ -2,6 +2,8 @@ package com.jordi.trikivalscreatures.entity.creatures.pejelagarto.render;
 
 import com.jordi.trikivalscreatures.TrikiValsCreatures;
 import com.jordi.trikivalscreatures.entity.creatures.pejelagarto.anims.PejelagartoAnimations;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
@@ -9,6 +11,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
+@Environment(EnvType.CLIENT)
 public class PejelagartoModel extends EntityModel<PejelagartoRenderState> {
     public static final EntityModelLayer PEJELAGARTO = new EntityModelLayer(Identifier.of(TrikiValsCreatures.MOD_ID, "pejelagarto"), "main");
 
