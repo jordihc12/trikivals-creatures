@@ -12,4 +12,4 @@ Conjunto de mods y herramientas de utilidad para el Survival de TrikiVals_
 
 ## Autores
 - jordihc12
-- TrikiVals_
+- TrikiVals
