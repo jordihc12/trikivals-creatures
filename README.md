@@ -1,12 +1,14 @@
-# TrikiVals Creatures
+# TrikiVals Mods
 ## DESCRIPCIÓN
-*Añadir descripción del mod aquí.*
+Conjunto de mods y herramientas de utilidad para el Survival de TrikiVals_
 
 ## CARACTERÍSTICAS
-- **Version**: 0.3.0
 - Minecraft: 1.21.11
 - Fabric: 0.18.2
 - Java: >=21
+
+## MODS
+- TrikiVals Creatures - v1.1.1
 
 ## Autores
 - Jordi
