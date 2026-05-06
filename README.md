@@ -11,5 +11,5 @@ Conjunto de mods y herramientas de utilidad para el Survival de TrikiVals_
 - TrikiVals Creatures - v1.1.1
 
 ## Autores
-- Jordi
+- jordihc12
 - TrikiVals_
