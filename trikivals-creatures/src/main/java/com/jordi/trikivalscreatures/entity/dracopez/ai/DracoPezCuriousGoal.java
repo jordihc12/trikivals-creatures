@@ -41,7 +41,7 @@ public class DracoPezCuriousGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.dracoPez.isTouchingWater()) {
+        if (!this.dracoPez.isTouchingWater() || this.dracoPez.isInPanic()) {
             return false;
         }
 

@@ -81,6 +81,11 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
 
     private float adultScale = MIN_SCALE;
 
+// PANIC LOGIC (server side only)
+    private int panicTicks = 0;
+    @Nullable
+    private LivingEntity panicSource;
+
 // AIR LOGIC (same as vanilla fish)
     private static final int MAX_AIR = 300;
 
@@ -92,6 +97,9 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
     public static final double SPEED_CURIOUS = 0.8;
     public static final double SPEED_FLEE_SLOW = 2.0;
     public static final double SPEED_FLEE_FAST = 2.5;
+    // After being hit: ~6 blocks/s for PANIC_TICKS
+    public static final double SPEED_PANIC = 3.0;
+    public static final int PANIC_TICKS = 100; // 5 seconds
     // Movement per tick above which the swim animation plays at double speed (fleeing)
     public static final double FAST_SWIM_THRESHOLD = 0.13;
 
@@ -104,7 +112,7 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
 
     public static DefaultAttributeContainer.Builder createDracoPezAttributes() {
         return AnimalEntity.createMobAttributes()
-                .add(EntityAttributes.MAX_HEALTH, 8.0F)
+                .add(EntityAttributes.MAX_HEALTH, 10.0F)
                 .add(EntityAttributes.MOVEMENT_SPEED, 1.0F)
                 .add(EntityAttributes.TEMPT_RANGE, CURIOUS_RANGE);
     }
@@ -254,6 +262,33 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
             animationManager.updateActiveAnimation(this);
             animationManager.updateAnimations(this.age);
         }
+        else if (this.panicTicks > 0) {
+            this.panicTicks--;
+            if (this.panicTicks == 0) {
+                this.panicSource = null;
+            }
+        }
+    }
+
+    // When hit by someone, dart away from them at full speed for a few seconds
+    @Override
+    public boolean damage(ServerWorld world, DamageSource source, float amount) {
+        boolean damaged = super.damage(world, source, amount);
+        if (damaged && this.isAlive()) {
+            this.panicTicks = PANIC_TICKS;
+            if (source.getAttacker() instanceof LivingEntity attacker) {
+                this.panicSource = attacker;
+            }
+        }
+        return damaged;
+    }
+
+    public boolean isInPanic() {
+        return this.panicTicks > 0;
+    }
+
+    public @Nullable LivingEntity getPanicSource() {
+        return this.panicSource;
     }
 
     @Override

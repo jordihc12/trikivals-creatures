@@ -12,6 +12,8 @@ public class DracoPezIntelligenceManager extends IntelligenceManager<DracoPezEnt
 
     @Override
     public void setGoalsPriv() {
+        // When hit: darts away from the attacker at full speed for a few seconds
+        addGoal(new DracoPezPanicGoal(entity));
         // Runs away at full speed from any player that is NOT holding glow berries
         addGoal(new FleeEntityGoal<>(entity, PlayerEntity.class, 8.0F, DracoPezEntity.SPEED_FLEE_SLOW, DracoPezEntity.SPEED_FLEE_FAST,
                 living -> !living.isSpectator() && !DracoPezEntity.isAttractedBy(living)));
