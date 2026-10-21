@@ -1,0 +1,57 @@
+name: Build mod
+
+on:
+  push:
+    branches: [ "feature/**", "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Build
+        working-directory: trikivals-creatures
+        run: |
+          chmod +x gradlew
+          set +e
+          ./gradlew build --no-daemon --stacktrace > ../build.log 2>&1
+          echo $? > ../build.status
+          ./gradlew runDatagen --no-daemon > ../datagen.log 2>&1
+          echo $? > ../datagen.status
+          git diff --stat -- src/main/generated > ../datagen.diff
+          git diff -- src/main/generated >> ../datagen.diff
+          git status --short -- src/main/generated >> ../datagen.diff
+          exit 0
+
+      - name: Upload mod jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: trikivals-creatures-jar
+          path: trikivals-creatures/build/libs/*.jar
+          if-no-files-found: ignore
+
+      - name: Publish results to ci-results branch
+        run: |
+          mkdir ci-out
+          cp build.log build.status datagen.log datagen.status datagen.diff ci-out/
+          cp trikivals-creatures/build/libs/*.jar ci-out/ 2>/dev/null || true
+          cd ci-out
+          echo "${GITHUB_SHA} ${GITHUB_REF_NAME}" > COMMIT
+          git init -q
+          git checkout -q -b ci-results
+          git add .
+          git -c user.name="ci" -c user.email="ci@users.noreply.github.com" commit -q -m "CI results for ${GITHUB_SHA}"
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" ci-results
+
+      - name: Fail if the build failed
+        run: test "$(cat build.status)" = "0"
