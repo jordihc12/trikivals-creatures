@@ -186,15 +186,15 @@ public class DracoPezAnimations {
                         new Keyframe(1.0000F, AnimationHelper.createRotationalVector(5.177F, -2.702F, 0.000F), Transformation.Interpolations.CUBIC)
                 ))
                 .addBoneAnimation("parte_9", new Transformation(Transformation.Targets.ROTATE,
-                        new Keyframe(0.0000F, AnimationHelper.createRotationalVector(27.034F, 6.054F, 10.732F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(0.1250F, AnimationHelper.createRotationalVector(29.253F, 0.584F, 6.732F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(0.2500F, AnimationHelper.createRotationalVector(14.337F, -5.229F, -1.211F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(0.3750F, AnimationHelper.createRotationalVector(-8.978F, -7.979F, -8.445F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(0.5000F, AnimationHelper.createRotationalVector(-27.034F, -6.054F, -10.732F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(0.6250F, AnimationHelper.createRotationalVector(-29.253F, -0.584F, -6.732F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(0.7500F, AnimationHelper.createRotationalVector(-14.337F, 5.229F, 1.211F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(0.8750F, AnimationHelper.createRotationalVector(8.978F, 7.979F, 8.445F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(1.0000F, AnimationHelper.createRotationalVector(27.034F, 6.054F, 10.732F), Transformation.Interpolations.CUBIC)
+                        new Keyframe(0.0000F, AnimationHelper.createRotationalVector(7.169F, -2.702F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.1250F, AnimationHelper.createRotationalVector(-5.203F, -3.996F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.2500F, AnimationHelper.createRotationalVector(-14.527F, -2.950F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.3750F, AnimationHelper.createRotationalVector(-15.342F, -0.175F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.5000F, AnimationHelper.createRotationalVector(-7.169F, 2.702F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.6250F, AnimationHelper.createRotationalVector(5.203F, 3.996F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.7500F, AnimationHelper.createRotationalVector(14.527F, 2.950F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.8750F, AnimationHelper.createRotationalVector(15.342F, 0.175F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(1.0000F, AnimationHelper.createRotationalVector(7.169F, -2.702F, 0.000F), Transformation.Interpolations.CUBIC)
                 ))
                 .build();
 
@@ -376,15 +376,15 @@ public class DracoPezAnimations {
                         new Keyframe(3.0000F, AnimationHelper.createRotationalVector(2.301F, -1.689F, 0.000F), Transformation.Interpolations.CUBIC)
                 ))
                 .addBoneAnimation("parte_9", new Transformation(Transformation.Targets.ROTATE,
-                        new Keyframe(0.0000F, AnimationHelper.createRotationalVector(12.015F, 3.784F, 4.770F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(0.3750F, AnimationHelper.createRotationalVector(13.001F, 0.365F, 2.992F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(0.7500F, AnimationHelper.createRotationalVector(6.372F, -3.268F, -0.538F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(1.1250F, AnimationHelper.createRotationalVector(-3.990F, -4.987F, -3.753F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(1.5000F, AnimationHelper.createRotationalVector(-12.015F, -3.784F, -4.770F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(1.8750F, AnimationHelper.createRotationalVector(-13.001F, -0.365F, -2.992F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(2.2500F, AnimationHelper.createRotationalVector(-6.372F, 3.268F, 0.538F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(2.6250F, AnimationHelper.createRotationalVector(3.990F, 4.987F, 3.753F), Transformation.Interpolations.CUBIC),
-                        new Keyframe(3.0000F, AnimationHelper.createRotationalVector(12.015F, 3.784F, 4.770F), Transformation.Interpolations.CUBIC)
+                        new Keyframe(0.0000F, AnimationHelper.createRotationalVector(3.186F, -1.689F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.3750F, AnimationHelper.createRotationalVector(-2.313F, -2.498F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.7500F, AnimationHelper.createRotationalVector(-6.457F, -1.843F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(1.1250F, AnimationHelper.createRotationalVector(-6.818F, -0.109F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(1.5000F, AnimationHelper.createRotationalVector(-3.186F, 1.689F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(1.8750F, AnimationHelper.createRotationalVector(2.313F, 2.498F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(2.2500F, AnimationHelper.createRotationalVector(6.457F, 1.843F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(2.6250F, AnimationHelper.createRotationalVector(6.818F, 0.109F, 0.000F), Transformation.Interpolations.CUBIC),
+                        new Keyframe(3.0000F, AnimationHelper.createRotationalVector(3.186F, -1.689F, 0.000F), Transformation.Interpolations.CUBIC)
                 ))
                 .build();
 

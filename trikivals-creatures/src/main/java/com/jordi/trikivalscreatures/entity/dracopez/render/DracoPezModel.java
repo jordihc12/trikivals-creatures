@@ -123,8 +123,9 @@ public class DracoPezModel extends EntityModel<DracoPezRenderState> {
         parte_5.addChild("parte_5_c36", ModelPartBuilder.create().uv(10, 59).cuboid(-0.1600F, 0.1000F, -3.2255F, 0.0000F, 1.0000F, 1.0000F, new Dilation(0.0F)), ModelTransform.of(0.7000F, -3.0417F, 6.5717F, 0.8290F, 0.0000F, 0.0000F));
         ModelPartData parte_6 = parte_4.addChild("parte_6", ModelPartBuilder.create(), ModelTransform.origin(0.5000F, 1.9606F, 8.3462F));
         parte_6.addChild("parte_6_c6", ModelPartBuilder.create().uv(0, 37).cuboid(-0.3500F, -0.3421F, 0.0468F, 0.7000F, 0.7000F, 3.0000F, new Dilation(0.0F)), ModelTransform.of(0.0000F, -0.2520F, 0.3451F, 0.3927F, 0.0000F, 0.0000F));
-        ModelPartData parte_9 = parte_6.addChild("parte_9", ModelPartBuilder.create(), ModelTransform.origin(0.0000F, 3.4977F, 1.0000F));
-        parte_9.addChild("parte_9_c37", ModelPartBuilder.create().uv(0, 0).cuboid(-13.7500F, 0.3579F, 0.0468F, 13.3000F, 0.0000F, 10.0000F, new Dilation(0.0F)), ModelTransform.of(7.1000F, -4.1497F, -0.5549F, 0.3927F, 0.0000F, 0.0000F));
+        ModelPartData parte_9 = parte_6.addChild("parte_9", ModelPartBuilder.create(), ModelTransform.origin(0.0000F, -0.3000F, 0.4523F));
+        parte_9.addChild("parte_9_c37", ModelPartBuilder.create().uv(0, 0).cuboid(-13.7500F, 0.3579F, 0.0468F, 13.3000F, 0.0000F, 10.0000F, new Dilation(0.0F)), ModelTransform.of(7.1000F, -0.3520F, -0.0072F, 0.3927F, 0.0000F, 0.0000F));
+
         return TexturedModelData.of(modelData, 64, 64);
     }
 
