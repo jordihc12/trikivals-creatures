@@ -101,7 +101,7 @@ public class DracoPezCuriousGoal extends Goal {
                     this.phase = Phase.CIRCLE;
                 } else if (--this.repathCooldown <= 0) {
                     this.repathCooldown = 10;
-                    this.dracoPez.getNavigation().startMovingTo(this.player.getX(), targetY, this.player.getZ(), 1.2);
+                    this.dracoPez.getNavigation().startMovingTo(this.player.getX(), targetY, this.player.getZ(), DracoPezEntity.SPEED_CURIOUS);
                 }
             }
             case CIRCLE -> {
@@ -112,7 +112,7 @@ public class DracoPezCuriousGoal extends Goal {
                 double z = this.player.getZ() + Math.sin(this.angle) * CIRCLE_RADIUS;
                 // Little up and down wave while circling
                 double y = targetY + Math.sin(this.travelledAngle * 2.0) * 0.35;
-                this.dracoPez.getMoveControl().moveTo(x, y, z, 1.3);
+                this.dracoPez.getMoveControl().moveTo(x, y, z, DracoPezEntity.SPEED_CURIOUS);
 
                 if (this.travelledAngle >= TOTAL_CIRCLE_ANGLE) {
                     this.phase = Phase.STAY;
@@ -123,7 +123,7 @@ public class DracoPezCuriousGoal extends Goal {
                 // Gently stay at the same distance in front of the player
                 double dist = Math.sqrt(this.dracoPez.squaredDistanceTo(this.player));
                 if (dist > APPROACH_DISTANCE + 1.5) {
-                    this.dracoPez.getMoveControl().moveTo(this.player.getX(), targetY, this.player.getZ(), 0.6);
+                    this.dracoPez.getMoveControl().moveTo(this.player.getX(), targetY, this.player.getZ(), DracoPezEntity.SPEED_CALM);
                 } else {
                     this.dracoPez.setVelocity(this.dracoPez.getVelocity().multiply(0.8));
                     this.dracoPez.setMovementSpeed(MathHelper.lerp(0.2F, this.dracoPez.getMovementSpeed(), 0.0F));

@@ -18,7 +18,11 @@ public class DracoPezAnimatorManager extends AnimationManager<DracoPezEntity, Dr
         double dx = entity.getX() - entity.lastX;
         double dy = entity.getY() - entity.lastY;
         double dz = entity.getZ() - entity.lastZ;
-        if (dx * dx + dy * dy + dz * dz > 0.0004) {
+        double moved = dx * dx + dy * dy + dz * dz;
+        if (moved > DracoPezEntity.FAST_SWIM_THRESHOLD * DracoPezEntity.FAST_SWIM_THRESHOLD) {
+            return DracoPezAnimation.SWIM_FAST;
+        }
+        else if (moved > 0.0004) {
             return DracoPezAnimation.SWIM;
         }
         else {

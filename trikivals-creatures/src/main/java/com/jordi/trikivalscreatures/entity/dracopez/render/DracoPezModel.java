@@ -145,6 +145,7 @@ public class DracoPezModel extends EntityModel<DracoPezRenderState> {
 
         switch (state.activeAnimation) {
             case SWIM -> this.swimAnimation.apply(state.activeAnimationState, state.age, 1f);
+            case SWIM_FAST -> this.swimAnimation.apply(state.activeAnimationState, state.age, 2f);
             case IDLE_WATER -> this.idleWaterAnimation.apply(state.activeAnimationState, state.age, 1f);
             case FLOP -> this.flopAnimation.apply(state.activeAnimationState, state.age, 1f);
         }

@@ -86,6 +86,16 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
 
     public static final float CURIOUS_RANGE = 12.0F;
 
+// SWIM SPEEDS ("gears"). Multipliers passed to goals / move control.
+// In water the real speed grows with the square of the multiplier (same physics as the axolotl):
+// CALM ~1.2 blocks/s, CURIOUS ~2 blocks/s, FLEE ~4-5 blocks/s
+    public static final double SPEED_CALM = 0.75;
+    public static final double SPEED_CURIOUS = 1.0;
+    public static final double SPEED_FLEE_SLOW = 1.4;
+    public static final double SPEED_FLEE_FAST = 1.6;
+    // Movement per tick above which the swim animation plays at double speed (fleeing)
+    public static final double FAST_SWIM_THRESHOLD = 0.13;
+
     //region INITIALIZATION
     public DracoPezEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);

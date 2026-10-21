@@ -4,6 +4,8 @@ import com.jordi.trikivalscreatures.entity.anims.IAnimation;
 
 public enum DracoPezAnimation implements IAnimation {
     SWIM(20, "swim"),
+    // Same animation as SWIM played at double speed (fleeing)
+    SWIM_FAST(10, "swim_fast"),
     IDLE_WATER(60, "idle_water"),
     FLOP(12, "flop");
 

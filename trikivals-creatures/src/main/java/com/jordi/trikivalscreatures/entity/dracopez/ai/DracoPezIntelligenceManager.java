@@ -13,14 +13,14 @@ public class DracoPezIntelligenceManager extends IntelligenceManager<DracoPezEnt
     @Override
     public void setGoalsPriv() {
         // Runs away at full speed from any player that is NOT holding glow berries
-        addGoal(new FleeEntityGoal<>(entity, PlayerEntity.class, 8.0F, 1.8, 2.6,
+        addGoal(new FleeEntityGoal<>(entity, PlayerEntity.class, 8.0F, DracoPezEntity.SPEED_FLEE_SLOW, DracoPezEntity.SPEED_FLEE_FAST,
                 living -> !living.isSpectator() && !DracoPezEntity.isAttractedBy(living)));
         // Breeding with glow berries
-        addGoal(new AnimalMateGoal(entity, 1.0));
+        addGoal(new AnimalMateGoal(entity, DracoPezEntity.SPEED_CALM));
         // Holding glow berries: approaches, circles around the player twice and stays still looking at them
         addGoal(new DracoPezCuriousGoal(entity, DracoPezEntity.CURIOUS_RANGE));
-        addGoal(new FollowParentGoal(entity, 1.1));
-        addGoal(new SwimAroundGoal(entity, 1.0, 40));
+        addGoal(new FollowParentGoal(entity, DracoPezEntity.SPEED_CALM * 1.1));
+        addGoal(new SwimAroundGoal(entity, DracoPezEntity.SPEED_CALM, 40));
         addGoal(new LookAroundGoal(entity));
     }
 }
