@@ -25,5 +25,15 @@
   "sounds.trikivals-creatures.pejelagarto_hurt": "Pejelagarto Hurt Sound",
 
   "sounds.trikivals-creatures.easter_egg_death": "Easter Egg Death Sound",
-  "sounds.trikivals-creatures.easter_egg_ambient": "Easter Egg Ambient Sound"
+  "sounds.trikivals-creatures.easter_egg_ambient": "Easter Egg Ambient Sound",
+
+  "entity.trikivals-creatures.dracopez": "DracoPez",
+  "item.trikivals-creatures.dracopez_spawn_egg": "DracoPez Spawn Egg",
+  "item.trikivals-creatures.dracopez_bucket": "Bucket of DracoPez",
+  "tooltip.trikivals-creatures.dracopez.fins": "Fins: %s",
+  "tooltip.trikivals-creatures.dracopez.size": "Size: %s (%s blocks)",
+  "tooltip.trikivals-creatures.dracopez.size.small": "Small",
+  "tooltip.trikivals-creatures.dracopez.size.medium": "Medium",
+  "tooltip.trikivals-creatures.dracopez.size.large": "Large",
+  "tooltip.trikivals-creatures.dracopez.baby": "Baby"
 }

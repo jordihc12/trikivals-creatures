@@ -17,7 +17,8 @@ public class ModEntityTagProvider extends FabricTagProvider.EntityTypeTagProvide
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         valueLookupBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
                 .add(
-                        ModEntities.PEJELAGARTO
+                        ModEntities.PEJELAGARTO,
+                        ModEntities.DRACOPEZ
                 );
     }
 }

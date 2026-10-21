@@ -1,0 +1,16 @@
+-d
+/tmp/claude-0/-home-claude/8ae969c6-1c8c-51ad-aab7-26f2992abd34/scratchpad/jc
+-proc:none
+com/jordi/trikivalscreatures/entity/dracopez/ai/DracoPezCuriousGoal.java
+com/jordi/trikivalscreatures/entity/dracopez/ai/DracoPezIntelligenceManager.java
+com/jordi/trikivalscreatures/entity/dracopez/DracoPezEntity.java
+com/jordi/trikivalscreatures/entity/dracopez/anims/DracoPezAnimations.java
+com/jordi/trikivalscreatures/entity/dracopez/anims/DracoPezAnimation.java
+com/jordi/trikivalscreatures/entity/dracopez/anims/DracoPezAnimatorManager.java
+com/jordi/trikivalscreatures/entity/dracopez/render/DracoPezRenderer.java
+com/jordi/trikivalscreatures/entity/dracopez/render/DracoPezRenderState.java
+com/jordi/trikivalscreatures/entity/dracopez/render/DracoPezModel.java
+com/jordi/trikivalscreatures/entity/dracopez/render/DracoPezFinsFeatureRenderer.java
+com/jordi/trikivalscreatures/entity/dracopez/render/DracoPezGlowFeatureRenderer.java
+com/jordi/trikivalscreatures/client/tint/DracoPezFinsTintSource.java
+com/jordi/trikivalscreatures/items/DracoPezBucketItem.java

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "trikivals-creatures:item/dracopez_bucket",
+    "layer1": "trikivals-creatures:item/dracopez_bucket_fins"
+  }
+}

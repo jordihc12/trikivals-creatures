@@ -1,0 +1,15 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "trikivals-creatures:item/dracopez_bucket",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -1
+      },
+      {
+        "type": "trikivals-creatures:dracopez_fins"
+      }
+    ]
+  }
+}

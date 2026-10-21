@@ -1,6 +1,7 @@
 package com.jordi.trikivalscreatures.world.gen;
 
 import com.jordi.trikivalscreatures.entity.ModEntities;
+import com.jordi.trikivalscreatures.entity.dracopez.DracoPezEntity;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -19,5 +20,14 @@ public class ModEntityGeneration {
 
         SpawnRestriction.register(ModEntities.PEJELAGARTO, SpawnLocationTypes.ON_GROUND,
                 Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PejelagartoEntity::canSpawn);
+
+        // DracoPez: warm waters and the water of lush caves (where glow berries grow)
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.WARM_OCEAN, BiomeKeys.LUKEWARM_OCEAN,
+                        BiomeKeys.DEEP_LUKEWARM_OCEAN, BiomeKeys.LUSH_CAVES),
+                SpawnGroup.WATER_AMBIENT,
+                ModEntities.DRACOPEZ, 6, 1, 3);
+
+        SpawnRestriction.register(ModEntities.DRACOPEZ, SpawnLocationTypes.IN_WATER,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DracoPezEntity::canSpawn);
     }
 }

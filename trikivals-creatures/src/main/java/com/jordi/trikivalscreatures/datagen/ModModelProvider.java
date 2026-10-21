@@ -2,7 +2,9 @@ package com.jordi.trikivalscreatures.datagen;
 
 import com.jordi.trikivalscreatures.blocks.ModBlocks;
 import com.jordi.trikivalscreatures.blocks.pejelagarto.PejelagartoEggBlock;
+import com.jordi.trikivalscreatures.client.model.ModModelIds;
 import com.jordi.trikivalscreatures.client.model.ModModels;
+import com.jordi.trikivalscreatures.client.tint.DracoPezFinsTintSource;
 import com.jordi.trikivalscreatures.datagen.properties.PejelagartoVariantProperty;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoVariant;
 import com.jordi.trikivalscreatures.items.ModItems;
@@ -80,9 +82,21 @@ public class ModModelProvider extends FabricModelProvider {
         );
     }
 
+    // Bucket: layer0 = bucket + water + body, layer1 = fins (tinted with the fin color stored in the bucket)
+    private void generateDracoPezBucketItemModel(ItemModelGenerator itemModelGenerator) {
+        DracoPezFinsTintSource.register();
+        Identifier model = itemModelGenerator.uploadTwoLayers(ModItems.DRACOPEZ_BUCKET,
+                ModModelIds.getItemModelId(ModItems.DRACOPEZ_BUCKET),
+                ModModelIds.getItemSubModelId(ModItems.DRACOPEZ_BUCKET, "_fins"));
+        itemModelGenerator.output.accept(ModItems.DRACOPEZ_BUCKET,
+                ItemModels.tinted(model, ItemModels.constantTintSource(-1), DracoPezFinsTintSource.INSTANCE));
+    }
+
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.PEJELAGARTO_SPAWN_EGG, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DRACOPEZ_SPAWN_EGG, Models.GENERATED);
+        generateDracoPezBucketItemModel(itemModelGenerator);
         generatePejelagartoEggItemModel(itemModelGenerator);
     }
 }

@@ -7,7 +7,11 @@ import com.jordi.trikivalscreatures.entity.ModEntities;
 import com.jordi.trikivalscreatures.entity.pejelagarto.PejelagartoEntity;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EntityType;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -28,8 +32,15 @@ public class ModItems {
     public static final Item PEJELAGARTO_EGG_ITEM = registerItem("pejelagarto_egg",
             settings -> new PejelagartoEggBlockItem(ModBlocks.PEJELAGARTO_EGG, settings));
 
+    public static final Item DRACOPEZ_SPAWN_EGG = registerSpawnEgg(ModEntities.DRACOPEZ);
+
+    public static final Item DRACOPEZ_BUCKET = registerItem("dracopez_bucket",
+            settings -> new DracoPezBucketItem(ModEntities.DRACOPEZ, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH,
+                    settings.maxCount(1).component(DataComponentTypes.BUCKET_ENTITY_DATA, NbtComponent.DEFAULT)));
+
     private static void addItemsToSpawnEggsItemGroup(FabricItemGroupEntries entries) {
         entries.add(PEJELAGARTO_SPAWN_EGG);
+        entries.add(DRACOPEZ_SPAWN_EGG);
     }
 
     private static Item registerSpawnEgg(EntityType<?> type) {
@@ -52,5 +63,6 @@ public class ModItems {
         TrikiValsCreatures.LOGGER.info("Registering Mod items for " + TrikiValsCreatures.MOD_ID);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(ModItems::addItemsToSpawnEggsItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> entries.add(DRACOPEZ_BUCKET));
     }
 }
