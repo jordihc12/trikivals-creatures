@@ -152,7 +152,7 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
         this.setFinColor(DyeColor.byIndex(view.getInt("FinColor", DyeColor.WHITE.getIndex())));
-        this.adultScale = clampScale(view.getFloat("AdultScale", MIN_SCALE));
+        this.adultScale = clampAdultScale(view.getFloat("AdultScale", MIN_SCALE));
         this.setFromBucket(view.getBoolean("FromBucket", false));
         this.applyScaleForAge();
     }
@@ -178,7 +178,7 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
 //endregion
 
 //region SIZE
-    private static float clampScale(float scale) {
+    private static float clampAdultScale(float scale) {
         return MathHelper.clamp(scale, MIN_SCALE, MAX_SCALE);
     }
 
@@ -195,7 +195,7 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
         } else {
             lengthBlocks = MathHelper.nextBetween(random, 1.15F, 1.5F);
         }
-        return clampScale(lengthBlocks / MODEL_LENGTH_BLOCKS);
+        return clampAdultScale(lengthBlocks / MODEL_LENGTH_BLOCKS);
     }
 
     public float getAdultScale() {
@@ -369,7 +369,7 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
             this.setFinColor(DyeColor.byIndex(nbt.getInt("FinColor", DyeColor.WHITE.getIndex())));
         }
         if (nbt.contains("AdultScale")) {
-            this.adultScale = clampScale(nbt.getFloat("AdultScale", this.adultScale));
+            this.adultScale = clampAdultScale(nbt.getFloat("AdultScale", this.adultScale));
         }
         if (nbt.contains("Age")) {
             this.setBreedingAge(nbt.getInt("Age", 0));
@@ -421,7 +421,7 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
             }
 
             baby.setFinColor(babyColor);
-            baby.adultScale = clampScale(babyAdultScale);
+            baby.adultScale = clampAdultScale(babyAdultScale);
             baby.setBodyScale(BABY_SCALE);
             baby.setPersistent();
         }
