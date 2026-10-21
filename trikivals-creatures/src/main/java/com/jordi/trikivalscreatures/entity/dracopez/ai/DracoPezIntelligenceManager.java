@@ -17,10 +17,11 @@ public class DracoPezIntelligenceManager extends IntelligenceManager<DracoPezEnt
                 living -> !living.isSpectator() && !DracoPezEntity.isAttractedBy(living)));
         // Breeding with glow berries
         addGoal(new AnimalMateGoal(entity, DracoPezEntity.SPEED_CALM));
-        // Holding glow berries: approaches, circles around the player twice and stays still looking at them
+        // Holding glow berries: approaches slowly and keeps circling around the player
         addGoal(new DracoPezCuriousGoal(entity, DracoPezEntity.CURIOUS_RANGE));
         addGoal(new FollowParentGoal(entity, DracoPezEntity.SPEED_CALM * 1.1));
-        addGoal(new SwimAroundGoal(entity, DracoPezEntity.SPEED_CALM, 40));
+        // Calm random swimming like fish: picks a random spot, swims there, stops a few seconds, repeats
+        addGoal(new SwimAroundGoal(entity, DracoPezEntity.SPEED_CALM, 80));
         addGoal(new LookAroundGoal(entity));
     }
 }

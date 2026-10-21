@@ -2,6 +2,7 @@ package com.jordi.trikivalscreatures.entity.dracopez;
 
 import com.jordi.trikivalscreatures.entity.ModEntities;
 import com.jordi.trikivalscreatures.entity.dracopez.ai.DracoPezIntelligenceManager;
+import com.jordi.trikivalscreatures.entity.dracopez.ai.DracoPezMoveControl;
 import com.jordi.trikivalscreatures.entity.dracopez.anims.DracoPezAnimatorManager;
 import com.jordi.trikivalscreatures.entity.goals.IntelligenceManager;
 import com.jordi.trikivalscreatures.items.ModItems;
@@ -9,8 +10,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.control.AquaticMoveControl;
-import net.minecraft.entity.ai.control.YawAdjustingLookControl;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.ai.pathing.SwimNavigation;
@@ -87,13 +86,12 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
 
     public static final float CURIOUS_RANGE = 12.0F;
 
-// SWIM SPEEDS ("gears"). Multipliers passed to goals / move control.
-// In water the real speed grows with the square of the multiplier (same physics as the axolotl):
-// CALM ~1.2 blocks/s, CURIOUS ~2 blocks/s, FLEE ~4-5 blocks/s
-    public static final double SPEED_CALM = 0.75;
-    public static final double SPEED_CURIOUS = 1.0;
-    public static final double SPEED_FLEE_SLOW = 1.4;
-    public static final double SPEED_FLEE_FAST = 1.6;
+// SWIM SPEEDS ("gears"). Multipliers passed to goals / move control. Blocks per second ~= 2 x multiplier:
+// CALM ~1.2 blocks/s, CURIOUS (circling the player) ~1.6 blocks/s, FLEE ~4-5 blocks/s
+    public static final double SPEED_CALM = 0.6;
+    public static final double SPEED_CURIOUS = 0.8;
+    public static final double SPEED_FLEE_SLOW = 2.0;
+    public static final double SPEED_FLEE_FAST = 2.5;
     // Movement per tick above which the swim animation plays at double speed (fleeing)
     public static final double FAST_SWIM_THRESHOLD = 0.13;
 
@@ -101,8 +99,7 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
     public DracoPezEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
-        this.moveControl = new AquaticMoveControl(this, 85, 10, 0.1F, 0.5F, false);
-        this.lookControl = new YawAdjustingLookControl(this, 20);
+        this.moveControl = new DracoPezMoveControl(this);
     }
 
     public static DefaultAttributeContainer.Builder createDracoPezAttributes() {
@@ -300,7 +297,12 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
     @Override
     public void travel(Vec3d movementInput) {
         if (this.isLogicalSideForUpdatingMovement() && this.isTouchingWater()) {
-            this.updateVelocity(this.getMovementSpeed(), movementInput);
+            // Push forward (in the direction it is facing) proportionally to the movement speed.
+            // With the 0.9 water drag the top speed is ~0.1 x speed blocks/tick (2 x speed blocks/s)
+            float speed = this.getMovementSpeed();
+            if (speed > 1.0E-3F) {
+                this.updateVelocity(speed * 0.01F, new Vec3d(0.0, 0.0, 1.0));
+            }
             this.move(MovementType.SELF, this.getVelocity());
             this.setVelocity(this.getVelocity().multiply(0.9));
         } else {
