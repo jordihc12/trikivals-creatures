@@ -455,6 +455,13 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
         return SoundEvents.ENTITY_TROPICAL_FISH_DEATH;
     }
 
+    // Splashes while swimming near the surface, like vanilla fish
+    @Override
+    protected SoundEvent getSwimSound() {
+        return SoundEvents.ENTITY_FISH_SWIM;
+    }
+
+    // Sound of each jump when it is out of the water (same as tropical fish)
     protected SoundEvent getFlopSound() {
         return SoundEvents.ENTITY_TROPICAL_FISH_FLOP;
     }
