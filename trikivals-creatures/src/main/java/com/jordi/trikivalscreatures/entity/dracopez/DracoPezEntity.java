@@ -56,7 +56,7 @@ import org.jetbrains.annotations.Nullable;
  * - Se reproduce con bayas luminosas.
  * - Se le pueden teñir las aletas con tinte (como la lana de las ovejas).
  * - Se puede coger con un cubo de agua (guarda tamaño y color de aletas).
- * - Cada ejemplar tiene un tamaño distinto: de 0,5 a 1,5 bloques de largo.
+ * - Cada ejemplar tiene un tamaño distinto: de 1,5 a 2 bloques de largo (las crías, 0,75).
  */
 public class DracoPezEntity extends AnimalEntity implements Bucketable {
 
@@ -72,12 +72,13 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
 // SIZE LOGIC
     // Length of the model at scale 1 (33 model pixels = 2.0625 blocks)
     public static final float MODEL_LENGTH_BLOCKS = 33.0F / 16.0F;
-    public static final float MIN_LENGTH_BLOCKS = 0.5F;
-    public static final float MAX_LENGTH_BLOCKS = 1.5F;
+    public static final float MIN_LENGTH_BLOCKS = 1.5F;
+    public static final float MAX_LENGTH_BLOCKS = 2.0F;
+    public static final float BABY_LENGTH_BLOCKS = 0.75F;
     public static final float MIN_SCALE = MIN_LENGTH_BLOCKS / MODEL_LENGTH_BLOCKS;
     public static final float MAX_SCALE = MAX_LENGTH_BLOCKS / MODEL_LENGTH_BLOCKS;
-    // Babies are always born with the minimum size and grow up to their adult size
-    public static final float BABY_SCALE = MIN_SCALE;
+    // Babies are born at 0.75 blocks and grow up to their adult size
+    public static final float BABY_SCALE = BABY_LENGTH_BLOCKS / MODEL_LENGTH_BLOCKS;
 
     private float adultScale = MIN_SCALE;
 
@@ -193,17 +194,17 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
     }
 
     /**
-     * Small (0.5-0.8 blocks) 40%, medium (0.8-1.15 blocks) 40%, large (1.15-1.5 blocks) 20%.
+     * Small (1.5-1.65 blocks) 40%, medium (1.65-1.85 blocks) 40%, large (1.85-2 blocks) 20%.
      */
     private static float randomAdultScale(Random random) {
         int roll = random.nextInt(10);
         float lengthBlocks;
         if (roll < 4) {
-            lengthBlocks = MathHelper.nextBetween(random, 0.5F, 0.8F);
+            lengthBlocks = MathHelper.nextBetween(random, 1.5F, 1.65F);
         } else if (roll < 8) {
-            lengthBlocks = MathHelper.nextBetween(random, 0.8F, 1.15F);
+            lengthBlocks = MathHelper.nextBetween(random, 1.65F, 1.85F);
         } else {
-            lengthBlocks = MathHelper.nextBetween(random, 1.15F, 1.5F);
+            lengthBlocks = MathHelper.nextBetween(random, 1.85F, 2.0F);
         }
         return clampAdultScale(lengthBlocks / MODEL_LENGTH_BLOCKS);
     }
@@ -228,7 +229,7 @@ public class DracoPezEntity extends AnimalEntity implements Bucketable {
         this.setBodyScale(this.isBaby() ? BABY_SCALE : this.adultScale);
     }
 
-    // Babies don't use the vanilla 0.5 multiplier: they use BABY_SCALE so they are never smaller than half a block
+    // Babies don't use the vanilla 0.5 multiplier: they use BABY_SCALE (0.75 blocks long)
     @Override
     public float getScaleFactor() {
         return 1.0F;

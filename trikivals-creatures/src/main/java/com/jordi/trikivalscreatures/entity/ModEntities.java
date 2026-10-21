@@ -33,7 +33,7 @@ public class ModEntities {
             EntityType.Builder.create((EntityType.EntityFactory<PejelagartoSpitEntity>)PejelagartoSpitEntity::new, SpawnGroup.MISC)
                     .dimensions(0.25F, 0.25F).build(PEJELAGARTO_SPIT_KEY));
 
-    // Hitbox at scale 1. The real size depends on each DracoPez (SCALE attribute): 0.5 to 1.5 blocks long
+    // Hitbox at scale 1. The real size depends on each DracoPez (SCALE attribute): 1.5 to 2 blocks long (babies 0.75)
     public static final EntityType<DracoPezEntity> DRACOPEZ = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(TrikiValsCreatures.MOD_ID, "dracopez"),
             EntityType.Builder.create(DracoPezEntity::new, SpawnGroup.WATER_AMBIENT)

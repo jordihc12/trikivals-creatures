@@ -43,7 +43,7 @@ public class DracoPezBucketItem extends EntityBucketItem {
         textConsumer.accept(Text.translatable("tooltip.trikivals-creatures.dracopez.fins",
                 Text.translatable("color.minecraft." + color.getId())).formatted(Formatting.GRAY));
 
-        String sizeKey = lengthBlocks < 0.8F ? "small" : (lengthBlocks < 1.15F ? "medium" : "large");
+        String sizeKey = lengthBlocks < 1.65F ? "small" : (lengthBlocks < 1.85F ? "medium" : "large");
         textConsumer.accept(Text.translatable("tooltip.trikivals-creatures.dracopez.size",
                 Text.translatable("tooltip.trikivals-creatures.dracopez.size." + sizeKey),
                 String.format("%.2f", lengthBlocks)).formatted(Formatting.GRAY));
