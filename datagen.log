@@ -1,0 +1,99 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.1.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Fabric Loom: 1.13.6
+
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :generateLog4jConfig
+> Task :generateRemapClasspath
+> Task :generateDLIConfig
+> Task :configureLaunch
+> Task :downloadAssets
+> Task :configureClientLaunch
+
+> Task :runDatagen
+[12:55:01] [main/INFO] (FabricLoader/GameProvider) Loading Minecraft 1.21.11 with Fabric Loader 0.18.2
+[12:55:01] [main/INFO] (FabricLoader) Loading 48 mods:
+	- fabric-api 0.139.4+1.21.11
+	- fabric-api-base 1.0.5+4ebb5c0853
+	- fabric-api-lookup-api-v1 1.6.113+1fb1cde953
+	- fabric-biome-api-v1 17.1.1+4fc5413f53
+	- fabric-block-api-v1 1.1.10+4ebb5c0853
+	- fabric-block-view-api-v2 1.0.39+4ebb5c0853
+	- fabric-client-gametest-api-v1 4.3.5+bfe9fcf453
+	- fabric-command-api-v2 2.4.6+4ebb5c0853
+	- fabric-content-registries-v0 10.2.14+4fc5413f53
+	- fabric-convention-tags-v1 2.1.55+7f945d5b53
+	- fabric-convention-tags-v2 2.17.3+8ef948ba53
+	- fabric-crash-report-info-v1 0.3.23+4ebb5c0853
+	- fabric-data-attachment-api-v1 1.8.42+1fb1cde953
+	- fabric-data-generation-api-v1 23.2.38+1d9b5c3553
+	- fabric-dimensions-v1 4.0.28+4fc5413f53
+	- fabric-entity-events-v1 3.0.5+4ebb5c0853
+	- fabric-events-interaction-v0 4.0.43+1fb1cde953
+	- fabric-game-rule-api-v1 2.0.3+4fc5413f53
+	- fabric-gametest-api-v1 3.1.27+4fc5413f53
+	- fabric-item-api-v1 11.5.19+78c8b46653
+	- fabric-item-group-api-v1 4.2.36+4fc5413f53
+	- fabric-key-binding-api-v1 1.1.7+4fc5413f53
+	- fabric-lifecycle-events-v1 2.6.15+4ebb5c0853
+	- fabric-loot-api-v2 3.0.73+3f89f5a553
+	- fabric-loot-api-v3 2.0.20+78c8b46653
+	- fabric-message-api-v1 6.1.12+4ebb5c0853
+	- fabric-networking-api-v1 5.1.4+4ebb5c0853
+	- fabric-object-builder-api-v1 21.1.37+4fc5413f53
+	- fabric-particles-v1 4.2.10+4fc5413f53
+	- fabric-recipe-api-v1 8.2.2+4ebb5c0853
+	- fabric-registry-sync-v0 6.2.3+4ebb5c0853
+	- fabric-rendering-fluids-v1 3.1.43+4ebb5c0853
+	- fabric-rendering-v1 16.2.5+1fb1cde953
+	- fabric-resource-conditions-api-v1 5.0.35+4fc5413f53
+	- fabric-resource-loader-v0 3.3.4+4fc5413f53
+	- fabric-resource-loader-v1 1.0.10+78c8b46653
+	- fabric-screen-api-v1 3.1.7+4ebb5c0853
+	- fabric-screen-handler-api-v1 1.3.159+4fc5413f53
+	- fabric-serialization-api-v1 1.0.5+4ebb5c0853
+	- fabric-sound-api-v1 1.0.51+4fc5413f53
+	- fabric-tag-api-v1 1.2.20+4fc5413f53
+	- fabric-transfer-api-v1 6.0.24+4fc5413f53
+	- fabric-transitive-access-wideners-v1 7.0.7+1fb1cde953
+	- fabricloader 0.18.2
+	- java 21
+	- minecraft 1.21.11
+	- mixinextras 0.5.0
+	- trikivals-creatures 1.1.1-1.21.11
+[12:55:01] [main/INFO] (FabricLoader/Mixin) SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/runner/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.16.5+mixin.0.8.7/80fc3a9f592673cea87f4cd702f87991c6c9fe4d/sponge-mixin-0.16.5+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[12:55:01] [main/INFO] (FabricLoader/Mixin) Loaded Fabric development mappings for mixin remapper!
+[12:55:01] [main/INFO] (FabricLoader/Mixin) Compatibility level set to JAVA_21
+[12:55:03] [main/INFO] (FabricLoader/MixinExtras|Service) Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.0).
+[12:55:04] [Datafixer Bootstrap/INFO] (Minecraft) 287 Datafixer optimizations took 650 milliseconds
+[12:55:09] [Render thread/INFO] (Minecraft) Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[12:55:10] [Render thread/INFO] (Minecraft) Setting user: Player709
+[12:55:10] [Render thread/INFO] (trikivals-creatures) Hello Fabric world!
+[12:55:10] [Render thread/INFO] (trikivals-creatures) Registering entities!
+[12:55:10] [Render thread/INFO] (trikivals-creatures) Registering Mod Item Groups for trikivals-creatures
+[12:55:10] [Render thread/INFO] (trikivals-creatures) Registering Mod Blocks for trikivals-creatures
+[12:55:10] [Render thread/INFO] (trikivals-creatures) Registering Mod items for trikivals-creatures
+[12:55:10] [Render thread/INFO] (trikivals-creatures) Registering Sounds for trikivals-creatures
+[12:55:10] [Render thread/INFO] (trikivals-creatures) Registering Sounds for Pejelagarto entity!
+[12:55:11] [Render thread/INFO] (FabricDataGenHelper) Running data generator for trikivals-creatures
+[12:55:11] [Render thread/INFO] (Minecraft) Starting provider: TrikiVals Creatures/Model Definitions
+[12:55:11] [Render thread/INFO] (Minecraft) TrikiVals Creatures/Model Definitions finished after 92 ms
+[12:55:11] [Render thread/INFO] (Minecraft) Starting provider: TrikiVals Creatures/Tags for minecraft:block
+[12:55:11] [Render thread/INFO] (Minecraft) TrikiVals Creatures/Tags for minecraft:block finished after 10 ms
+[12:55:11] [Render thread/INFO] (Minecraft) Starting provider: TrikiVals Creatures/Tags for minecraft:entity_type
+[12:55:11] [Render thread/INFO] (Minecraft) TrikiVals Creatures/Tags for minecraft:entity_type finished after 0 ms
+[12:55:11] [Render thread/INFO] (Minecraft) Starting provider: TrikiVals Creatures/Block Loot Tables
+[12:55:11] [Render thread/INFO] (Minecraft) TrikiVals Creatures/Block Loot Tables finished after 9 ms
+[12:55:11] [Render thread/INFO] (Minecraft) Starting provider: TrikiVals Creatures/Entity Loot Tables
+[12:55:11] [Render thread/INFO] (Minecraft) TrikiVals Creatures/Entity Loot Tables finished after 0 ms
+[12:55:11] [Render thread/INFO] (Minecraft) Starting provider: TrikiVals Creatures/ModRecipeProvider
+[12:55:11] [Render thread/INFO] (Minecraft) TrikiVals Creatures/ModRecipeProvider finished after 38 ms
+[12:55:11] [Render thread/INFO] (Minecraft) All providers took: 154 ms
+[12:55:11] [Render thread/INFO] (Minecraft) Caching: total files: 117, old count: 0, new count: 118, removed stale: 0, written: 117
+
+BUILD SUCCESSFUL in 31s
+7 actionable tasks: 5 executed, 2 up-to-date
