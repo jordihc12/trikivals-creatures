@@ -5,6 +5,7 @@ import com.jordi.trikivalscreatures.datagen.properties.PejelagartoVariantPropert
 import com.jordi.trikivalscreatures.entity.dracopez.render.DracoPezModel;
 import com.jordi.trikivalscreatures.entity.dracopez.render.DracoPezRenderer;
 import com.jordi.trikivalscreatures.entity.ModEntities;
+import com.jordi.trikivalscreatures.entity.palgaster.render.PalgasterRenderer;
 import com.jordi.trikivalscreatures.entity.client.ModModelLayers;
 import com.jordi.trikivalscreatures.entity.pejelagarto.render.PejelagartoModel;
 import com.jordi.trikivalscreatures.entity.pejelagarto.render.PejelagartoRenderer;
@@ -28,5 +29,7 @@ public class TrikiValsCreaturesClient implements ClientModInitializer {
         DracoPezFinsTintSource.register();
         EntityRendererFactories.register(ModEntities.DRACOPEZ, DracoPezRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(DracoPezModel.DRACOPEZ, DracoPezModel::getTexturedModelData);
+
+        EntityRendererFactories.register(ModEntities.PALGASTER, PalgasterRenderer::new);
     }
 }

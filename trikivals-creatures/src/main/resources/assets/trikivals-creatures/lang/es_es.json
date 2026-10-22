@@ -15,5 +15,7 @@
   "tooltip.trikivals-creatures.dracopez.size.small": "Pequeño",
   "tooltip.trikivals-creatures.dracopez.size.medium": "Mediano",
   "tooltip.trikivals-creatures.dracopez.size.large": "Grande",
-  "tooltip.trikivals-creatures.dracopez.baby": "Cría"
+  "tooltip.trikivals-creatures.dracopez.baby": "Cría",
+  "entity.trikivals-creatures.palgaster": "Palgaster",
+  "item.trikivals-creatures.palgaster_spawn_egg": "Generar Palgaster"
 }

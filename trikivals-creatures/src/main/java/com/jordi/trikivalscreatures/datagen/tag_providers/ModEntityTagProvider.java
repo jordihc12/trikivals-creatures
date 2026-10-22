@@ -20,5 +20,9 @@ public class ModEntityTagProvider extends FabricTagProvider.EntityTypeTagProvide
                         ModEntities.PEJELAGARTO,
                         ModEntities.DRACOPEZ
                 );
+
+        // Palgaster can wear a saddle (vanilla saddle equip logic)
+        valueLookupBuilder(EntityTypeTags.CAN_EQUIP_SADDLE)
+                .add(ModEntities.PALGASTER);
     }
 }

@@ -33,6 +33,7 @@ public class ModItems {
             settings -> new PejelagartoEggBlockItem(ModBlocks.PEJELAGARTO_EGG, settings));
 
     public static final Item DRACOPEZ_SPAWN_EGG = registerSpawnEgg(ModEntities.DRACOPEZ);
+    public static final Item PALGASTER_SPAWN_EGG = registerSpawnEgg(ModEntities.PALGASTER);
 
     public static final Item DRACOPEZ_BUCKET = registerItem("dracopez_bucket",
             settings -> new DracoPezBucketItem(ModEntities.DRACOPEZ, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH,
@@ -41,6 +42,7 @@ public class ModItems {
     private static void addItemsToSpawnEggsItemGroup(FabricItemGroupEntries entries) {
         entries.add(PEJELAGARTO_SPAWN_EGG);
         entries.add(DRACOPEZ_SPAWN_EGG);
+        entries.add(PALGASTER_SPAWN_EGG);
     }
 
     private static Item registerSpawnEgg(EntityType<?> type) {

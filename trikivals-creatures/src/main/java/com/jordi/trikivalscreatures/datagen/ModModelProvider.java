@@ -96,6 +96,7 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.PEJELAGARTO_SPAWN_EGG, Models.GENERATED);
         itemModelGenerator.register(ModItems.DRACOPEZ_SPAWN_EGG, Models.GENERATED);
+        itemModelGenerator.register(ModItems.PALGASTER_SPAWN_EGG, Models.GENERATED);
         generateDracoPezBucketItemModel(itemModelGenerator);
         generatePejelagartoEggItemModel(itemModelGenerator);
     }
